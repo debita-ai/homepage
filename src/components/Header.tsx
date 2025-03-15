@@ -16,6 +16,8 @@ const ScrollDetector = ({ onIntersect }: any) => {
   if (typeof window === 'undefined') return null;
 
   // Criamos um elemento que observa o topo da página
+
+  const ref = React.useRef();
   const observer = new IntersectionObserver(
     ([entry]) => {
       // Chamamos onIntersect quando o estado de interseção muda
