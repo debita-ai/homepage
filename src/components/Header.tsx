@@ -16,7 +16,6 @@ const ScrollDetector = ({ onIntersect }: any) => {
   if (typeof window === 'undefined') return null;
 
   // Criamos um elemento que observa o topo da página
-  const ref = React.useRef();
   const observer = new IntersectionObserver(
     ([entry]) => {
       // Chamamos onIntersect quando o estado de interseção muda
@@ -33,7 +32,7 @@ const ScrollDetector = ({ onIntersect }: any) => {
   }, [observer]);
 
   // Este div é colocado no topo absoluto da página
-  return <div ref={ref} style={{ position: 'absolute', top: 0, height: '1px', width: '100%' }} />;
+  return <div style={{ position: 'absolute', top: 0, height: '1px', width: '100%' }} />;
 };
 
 // Componente principal do Header usando CSS para alternar estilos
