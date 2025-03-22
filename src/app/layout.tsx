@@ -1,27 +1,32 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+"use client";
 
-const inter = Inter({ subsets: ["latin"] });
+import './globals.css'
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 
-export const metadata: Metadata = {
-  title: "debita.ai | A melhor plataforma de pagamentos instantâneos",
-  description: "Nossa plataforma de pagamentos instantâneos simplifica cada transação, garantindo eficiência e tranquilidade para você e seus clientes.",
-  icons: {
-    icon: "/favicon.svg",
-  },
-};
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter'
+})
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jakarta'
+})
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="pt-BR">
-      <body className={inter.className}>
-        {children}
+    <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable} scroll-smooth`}>
+      <body className="min-h-screen font-sans antialiased">
+        <div className="min-h-screen bg-gray-50">
+          {children}
+        </div>
       </body>
     </html>
-  );
+  )
 }

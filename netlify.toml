@@ -1,9 +1,24 @@
 [build]
   command = "bun run build"
-  publish = "build"
+  publish = "out"
 
 [build.environment]
-  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+  NODE_VERSION = "20"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+[dev]
+  command = "bun run dev"
+  port = 3000
+  targetPort = 3000
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[images]
+  remote_images = [
+    "https://ext.same-assets.com/**",
+    "https://media.istockphoto.com/**",
+    "https://thumbs.dreamstime.com/**",
+    "https://freerangestock.com/**"
+  ]
