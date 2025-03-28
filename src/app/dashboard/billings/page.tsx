@@ -89,7 +89,7 @@ export default function CobrancasPage() {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage, searchTerm, statusFilter, tipoFilter, currentSort]);
+  }, [currentPage, searchTerm, statusFilter, tipoFilter, currentSort, fetchData]);
 
   const handleSort = (field: string) => {
     setCurrentSort(prev => ({

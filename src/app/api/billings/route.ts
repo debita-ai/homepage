@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     }))
 
     // Apply filters
-    let filteredBillings = allBillings.filter(b => 
+    const filteredBillings = allBillings.filter(b => 
       (statusFilter === "todos" || b.status === statusFilter) &&
       (tipoFilter === "todos" || b.tipo === tipoFilter) &&
       (searchTerm === "" || 

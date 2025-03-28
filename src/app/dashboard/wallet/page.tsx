@@ -140,7 +140,7 @@ export default function BillingPage() {
     const daysInMonth = lastDay.getDate();
     const startingDayOfWeek = firstDay.getDay();
     
-    const calendar = [];
+    const calendar: any = [];
     let dayCount = 1;
 
     // Mapeamento das transações por dia
@@ -171,7 +171,7 @@ export default function BillingPage() {
     calendar.push(weekdaysRow);
 
     // Gerar as semanas
-    let days = [];
+    let days: any = [];
     
     // Preencher os espaços vazios do início do mês
     for (let i = 0; i < startingDayOfWeek; i++) {
