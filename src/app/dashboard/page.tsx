@@ -248,23 +248,21 @@ const StatsBox = ({ title, items, loading }: {
 );
 
 // Small Stats Card
-const StatsCard = ({ title, value, icon, color, loading }: {
-  title: string;
-  value: string;
-  icon: React.ReactNode;
-  color: string;
-  loading?: boolean;
-}) => (
-  <div className={`bg-white rounded-xl shadow-sm p-6 border border-gray-100 ${title === "Valor Recebido" ? "" : ""}`}>
-    <div className="flex items-center justify-between mb-4">
-      <div className="text-sm font-medium text-gray-500">{title}</div>
-      {icon}
+const StatsCard = ({ title, value, icon, color, loading }: StatsCardProps) => (
+  <div className="bg-white rounded-xl p-6 shadow-sm">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-sm text-gray-500">{title}</p>
+        {loading ? (
+          <Skeleton className="h-8 w-24 mt-1" />
+        ) : (
+          <p className="text-2xl font-semibold mt-1">{value}</p>
+        )}
+      </div>
+      <div className={`w-12 h-12 rounded-full bg-${color}/10 flex items-center justify-center`}>
+        {icon}
+      </div>
     </div>
-    {loading ? (
-      <Skeleton className="h-8 w-24" />
-    ) : (
-      <div className={`text-2xl font-bold text-${color}-500`}>{value}</div>
-    )}
   </div>
 );
 
@@ -792,7 +790,7 @@ export default function Dashboard() {
                 title="Cobranças"
                 items={[
                   { label: "Previstas", value: metrics?.cobrancasPrevistas.toString() || "0", color: "blue-500" },
-                  { label: "Emitidas", value: metrics?.cobrancasEmitidas.toString() || "0", color: "black" },
+                  { label: "Emitidas", value: metrics?.cobrancasEmitidas.toString() || "0", color: "orange-500" },
                   { label: "Recebidas", value: metrics?.cobrancasRecebidas.toString() || "0", color: "green-500" }
                 ]}
                 loading={loading}

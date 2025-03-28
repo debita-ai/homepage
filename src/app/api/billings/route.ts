@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     }))
 
     // Apply filters
-    const filteredBillings = allBillings.filter(b => 
+    let filteredBillings = allBillings.filter(b => 
       (statusFilter === "todos" || b.status === statusFilter) &&
       (tipoFilter === "todos" || b.tipo === tipoFilter) &&
       (searchTerm === "" || 
@@ -40,7 +40,7 @@ export async function GET(request: Request) {
     )
 
     // Apply sorting
-    const sortedBillings = [...filteredBillings].sort((a, b) => {
+    filteredBillings.sort((a, b) => {
       if (sortField === "valor") {
         return sortDirection === "asc" ? a.valor - b.valor : b.valor - a.valor;
       } else {
@@ -50,13 +50,13 @@ export async function GET(request: Request) {
           ? aValue.localeCompare(bValue)
           : bValue.localeCompare(aValue);
       }
-    });
+    })
 
     // Calculate pagination
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
-    const paginatedBillings = sortedBillings.slice(startIndex, endIndex);
-    const totalPages = Math.ceil(sortedBillings.length / limit);
+    const paginatedBillings = filteredBillings.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(filteredBillings.length / limit);
 
     // Calculate metrics
     const metrics = {
@@ -77,7 +77,7 @@ export async function GET(request: Request) {
       pagination: {
         currentPage: page,
         totalPages,
-        totalItems: sortedBillings.length,
+        totalItems: filteredBillings.length,
         itemsPerPage: limit
       },
       metrics

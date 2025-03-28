@@ -67,15 +67,6 @@ export default function BillingPage() {
     totalAtrasados: 0
   });
 
-  // Check for openWithdrawalModal flag in localStorage
-  useEffect(() => {
-    const shouldOpenModal = localStorage.getItem('openWithdrawalModal');
-    if (shouldOpenModal === 'true') {
-      setShowCashoutModal(true);
-      localStorage.removeItem('openWithdrawalModal');
-    }
-  }, []);
-
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -149,7 +140,7 @@ export default function BillingPage() {
     const daysInMonth = lastDay.getDate();
     const startingDayOfWeek = firstDay.getDay();
     
-    const calendar: any = [];
+    const calendar = [];
     let dayCount = 1;
 
     // Mapeamento das transações por dia
@@ -180,7 +171,7 @@ export default function BillingPage() {
     calendar.push(weekdaysRow);
 
     // Gerar as semanas
-    let days: any = [];
+    let days = [];
     
     // Preencher os espaços vazios do início do mês
     for (let i = 0; i < startingDayOfWeek; i++) {

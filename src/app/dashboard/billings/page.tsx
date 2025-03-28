@@ -135,8 +135,8 @@ export default function CobrancasPage() {
           className="bg-[#E85A27] hover:bg-[#d04a20] text-white flex items-center"
           asChild
         >
-          <Link href="/dashboard/billings/create">
-            <Plus className="mr-2 h-5 w-5" /> Emitir Cobrança
+          <Link href="/dashboard/cobrancas/novo">
+            <Plus className="mr-2 h-5 w-5" /> Nova Cobrança
           </Link>
         </Button>
       </div>

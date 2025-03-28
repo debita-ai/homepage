@@ -12,7 +12,7 @@ const testimonials = [
     name: "Luzimary Vieira",
     position: "Empresária",
     company: "A4 Empreendimentos",
-    photo: "/testimonial.jpg",
+    photo: "",
     content: "O Debita.aí transformou a gestão de pagamentos da minha empresa, com taxas menores e suporte prioritário ficou bem melhor. Eu utilizava outra plataforma anteriormente."
   },
 ];

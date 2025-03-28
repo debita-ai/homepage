@@ -46,19 +46,16 @@ export default function ParallaxHero() {
   // Calculate scroll progress for parallax effects
   const scrollProgress = Math.min(scrollY / (sectionHeight * 0.5), 1);
   
-  // Calculate dashboard scaling (start at 1, grow to 1.05)
-  const dashboardScale = 1 + (scrollProgress * 0.05);
+  // Calculate dashboard scaling (start at 1, grow to 1.05 or 1.2 for mobile)
+  const dashboardScale = windowWidth < 768 ? 1.2 : 1 + (scrollProgress * 0.05);
   
   // Calculate when to allow transition to next section
   const canTransitionToNext = scrollProgress >= 0.8;
 
-  // Check if mobile or tablet view
-  const isMobileOrTablet = windowWidth < 1024;
-
   return (
     <section 
       ref={sectionRef}
-      className="relative h-[110vh] lg:h-[110vh] sm:h-[110vh] md:h-[110vh] overflow-hidden bg-[#E85A27]"
+      className="relative min-h-screen h-[110vh] lg:h-[110vh] sm:h-[110vh] md:h-[110vh] overflow-hidden bg-[#E85A27] flex flex-col"
     >
       {/* Background elements with parallax effect */}
       <div
@@ -99,7 +96,7 @@ export default function ParallaxHero() {
       />
 
       {/* Content container */}
-      <div className="container relative mx-auto px-4 mt-12 sm:px-6 z-10 pt-4 sm:pt-8 flex flex-col lg:flex-col items-center justify-between">
+      <div className="mt-20 container relative mx-auto px-4 sm:px-6 z-10 pt-4 sm:pt-8 flex flex-col flex-1">
         {/* Text Section - Fixed position */}
         <div className="text-center lg:text-center w-full lg:w-full mb-8 lg:mb-0">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 mt-6 sm:mt-10 sm:mb-6 leading-tight">
@@ -107,9 +104,8 @@ export default function ParallaxHero() {
             <span className="block">de gestão de cobranças</span>
           </h1>
 
-          <p className="justify-self-center text-lg sm:text-xl md:text-2xl text-white/80 mb-6 sm:mb-10 max-w-xl mx-auto lg:mx-0 ">
-          Um <b>gateway de pagamentos moderno</b>. Simplifique a gestão de cobranças e pagamentos da sua empresa.
-         
+          <p className="justify-self-center text-lg sm:text-xl md:text-2xl text-white/80 mb-6 sm:mb-10 max-w-xl mx-auto lg:mx-0">
+            Um <b>gateway de pagamentos moderno</b>. Simplifique a gestão de cobranças e pagamentos da sua empresa.
           </p>
 
           <div className="justify-self-center flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mb-8">
@@ -137,23 +133,23 @@ export default function ParallaxHero() {
 
         {/* Dashboard container with scaling effect */}
         <div 
-          className="relative w-full sm:w-[90%] md:w-[80%] lg:w-[100%] mx-auto lg:mx-0"
+          className="relative w-full sm:w-[90%] md:w-[80%] lg:w-[100%] mx-auto lg:mx-0 mt-auto"
           style={{
             transform: `translateY(${scrollY * -0.05}px) scale(${dashboardScale})`,
-            transformOrigin: 'center top',
+            transformOrigin: 'center bottom',
             transition: 'transform 0.1s ease-out'
           }}
         >
-          {/* Dashboard image wrapper - properly show half of the image */}
-          <div className="relative w-full rounded-t-lg shadow-2xl border border-white/10">
-            {/* Fixed height container for the visible portion */}
-            <div className="relative w-full h-48 sm:h-64 md:h-72 lg:h-96 rounded-t-lg overflow-hidden">
-              {/* Image container to show only top half */}
-              <div className="absolute top-0 left-0 w-full h-[100%]">
+          {/* Dashboard image wrapper */}
+          <div className="sm:mt-6 mt-20 relative w-full rounded-t-lg shadow-2xl border border-white/10">
+            {/* Fixed height container for the image */}
+            <div className="relative w-full h-96 sm:h-64 md:h-96 lg:h-96 rounded-t-lg overflow-hidden">
+              {/* Image container to show full image */}
+              <div className="absolute top-0 left-0 w-full h-full">
                 <Image
                   src={DashboardImage}
                   alt="Dashboard Debita.aí"
-                  className="object-cover w-full h-full object-top"
+                  className="object-cover object-top w-full h-full"
                   priority
                   unoptimized
                 />
@@ -175,7 +171,7 @@ export default function ParallaxHero() {
           <motion.div
             className="absolute -right-4 sm:-right-8 md:-right-12 top-1/4 bg-white p-3 sm:p-4 rounded-xl shadow-lg max-w-[150px] sm:max-w-[200px]"
             style={{ 
-              opacity: Math.min(scrollProgress * 2, 1),
+              opacity: Math.min(scrollProgress * 2, 1) || 0,
               transform: `translateY(${scrollY * 0.05}px) translateX(${(1-Math.min(scrollProgress * 1.5, 1)) * 30}px)`
             }}
           >
@@ -191,7 +187,7 @@ export default function ParallaxHero() {
           <motion.div
             className="absolute -left-4 sm:-left-8 md:-left-12 top-10 bg-white p-3 sm:p-4 rounded-xl shadow-lg max-w-[150px] sm:max-w-[200px]"
             style={{ 
-              opacity: Math.min(scrollProgress * 2, 1),
+              opacity: Math.min(scrollProgress * 2, 1) || 0,
               transform: `translateY(${scrollY * 0.08}px) translateX(${(1-Math.min(scrollProgress * 1.5, 1)) * -30}px)`
             }}
           >

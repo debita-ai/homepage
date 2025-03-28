@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/card'
-import { QrCode, Receipt, Link as LinkIcon, FileCheck, FileText } from 'lucide-react'
+import { QrCode, Receipt, Link as LinkIcon } from 'lucide-react'
 
 export default function CreateBilling() {
   const router = useRouter()
@@ -19,7 +19,7 @@ export default function CreateBilling() {
     {
       title: 'Boleto',
       description: 'Criar uma cobrança via Boleto',
-      icon: FileText,
+      icon: Receipt,
       href: '/dashboard/billings/create/boleto',
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',

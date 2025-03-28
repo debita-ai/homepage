@@ -19,6 +19,9 @@ export default function Header() {
       setScrolled(offset > 50);
     };
 
+    // Initial check
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -110,8 +113,10 @@ export default function Header() {
                   className="justify-center w-full"
                   asChild
                 >
-                  <LogIn color="black" />
-                  <Link href="/login">Entrar na conta</Link>
+                  <Link href="/login" className="flex items-center justify-center gap-2">
+                    <LogIn className="h-4 w-4" />
+                    Entrar na conta
+                  </Link>
                 </Button>
 
                 <Button

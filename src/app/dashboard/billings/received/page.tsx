@@ -1,63 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CheckCircle, Search, Filter, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-interface Billing {
-  id: number;
-  customerName: string;
-  amount: number;
-  dueDate: string;
-  status: string;
-  invoiceNumber: string;
-  description: string;
-  paymentMethod: string;
-  createdAt: string;
-  receivedAt: string;
-}
-
 export default function ReceivedBillingsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [billings, setBillings] = useState<Billing[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchBillings = async () => {
-      try {
-        const response = await fetch('/api/mock-received-billings');
-        const data = await response.json();
-        setBillings(data);
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBillings();
-  }, []);
-
-  const filteredBillings = billings.filter(billing =>
-    billing.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    billing.invoiceNumber.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(value);
-  };
-
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map(word => word[0])
-      .join('')
-      .toUpperCase();
-  };
 
   return (
     <div className="space-y-6">
@@ -98,69 +47,81 @@ export default function ReceivedBillingsPage() {
               <tr className="border-b border-gray-200">
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Cliente</th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Valor</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Vencimento</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Recebimento</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Data Pagamento</th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Método</th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Status</th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Ações</th>
               </tr>
             </thead>
             <tbody>
-              {loading ? (
-                <tr>
-                  <td colSpan={7} className="px-6 py-4 text-center">
-                    Carregando...
-                  </td>
-                </tr>
-              ) : filteredBillings.length === 0 ? (
-                <tr>
-                  <td colSpan={7} className="px-6 py-4 text-center">
-                    Nenhuma cobrança recebida encontrada
-                  </td>
-                </tr>
-              ) : (
-                filteredBillings.map((billing) => (
-                  <tr key={billing.id} className="border-b border-gray-100">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 rounded-full bg-[#252E54]/10 flex items-center justify-center mr-3">
-                          <span className="text-sm font-medium text-[#252E54]">
-                            {getInitials(billing.customerName)}
-                          </span>
-                        </div>
-                        <div>
-                          <p className="font-medium">{billing.customerName}</p>
-                          <p className="text-sm text-gray-500">{billing.invoiceNumber}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="font-medium">{formatCurrency(billing.amount)}</span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="text-gray-600">{new Date(billing.dueDate).toLocaleDateString('pt-BR')}</span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="text-green-600">{new Date(billing.receivedAt).toLocaleDateString('pt-BR')}</span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
-                        {billing.paymentMethod}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
-                        Recebido
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <Button variant="ghost" size="sm">
-                        Ver detalhes
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              )}
+              <tr className="border-b border-gray-100">
+                <td className="px-6 py-4">
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 rounded-full bg-[#252E54]/10 flex items-center justify-center mr-3">
+                      <span className="text-sm font-medium text-[#252E54]">JS</span>
+                    </div>
+                    <div>
+                      <p className="font-medium">João Silva</p>
+                      <p className="text-sm text-gray-500">joao@email.com</p>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="font-medium">R$ 1.500,00</span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="text-gray-500">20/03/2024</span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                    PIX
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                    Pago
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <Button variant="ghost" size="sm">
+                    Ver detalhes
+                  </Button>
+                </td>
+              </tr>
+              <tr className="border-b border-gray-100">
+                <td className="px-6 py-4">
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 rounded-full bg-[#252E54]/10 flex items-center justify-center mr-3">
+                      <span className="text-sm font-medium text-[#252E54]">MS</span>
+                    </div>
+                    <div>
+                      <p className="font-medium">Maria Santos</p>
+                      <p className="text-sm text-gray-500">maria@email.com</p>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="font-medium">R$ 2.800,00</span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="text-gray-500">19/03/2024</span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">
+                    Boleto
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                    Pago
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <Button variant="ghost" size="sm">
+                    Ver detalhes
+                  </Button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
