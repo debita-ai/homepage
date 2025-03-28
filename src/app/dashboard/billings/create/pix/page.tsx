@@ -95,7 +95,7 @@ export default function CreatePixBilling() {
           >
             Cancelar
           </Button>
-          <Button type="submit" className="bg-[#E85A27] hover:bg-[#D84A1F] text-white">
+          <Button type="submit" onClick={() => router.push('/dashboard/billings/create/pix/confirmation')} className="bg-[#E85A27] hover:bg-[#D84A1F] text-white">
             <QrCode className="w-4 h-4 mr-2" />
             Gerar PIX
           </Button>

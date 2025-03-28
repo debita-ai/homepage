@@ -24,22 +24,28 @@ import { toast } from "sonner";
 
 // Interfaces
 interface ProductMetrics {
-  totalProducts: number;
-  activeProducts: number;
-  inactiveProducts: number;
-  totalValue: number;
-  lowStock: number;
+  totalProdutos: number;
+  totalVendas: number;
+  valorTotal: number;
+  produtosAtivos: number;
+  produtosInativos: number;
+  estoqueTotal: number;
+  mediaPreco: number;
+  produtosBaixoEstoque: number;
+  categoriaMaisVendida: string;
+  totalCategorias: number;
 }
 
 interface Product {
   id: number;
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-  status: "active" | "inactive" | "low_stock";
-  category: string;
-  lastUpdated: string;
+  nome: string;
+  descricao: string;
+  preco: number;
+  categoria: string;
+  status: "ativo" | "inativo" | "baixo_estoque";
+  estoque: number;
+  vendas: number;
+  dataCriacao: string;
 }
 
 // Main Products Component
@@ -83,30 +89,30 @@ export default function ProductsPage() {
   // Handle search
   useEffect(() => {
     const filtered = products.filter(product => 
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase())
+      (product.nome?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+      (product.descricao?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+      (product.categoria?.toLowerCase() || '').includes(searchTerm.toLowerCase())
     );
     setFilteredProducts(filtered);
   }, [searchTerm, products]);
 
   const getStatusBadge = (status: string) => {
     switch(status) {
-      case "active":
+      case "ativo":
         return (
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
             <CheckCircle className="w-3 h-3 mr-1" />
             Ativo
           </span>
         );
-      case "inactive":
+      case "inativo":
         return (
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
             <XCircle className="w-3 h-3 mr-1" />
             Inativo
           </span>
         );
-      case "low_stock":
+      case "baixo_estoque":
         return (
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
             <AlertCircle className="w-3 h-3 mr-1" />
@@ -151,7 +157,7 @@ export default function ProductsPage() {
               <div className="text-sm font-medium text-gray-500 mb-2">Total de Produtos</div>
               <div className="flex items-center">
                 <Package className="h-5 w-5 text-[#252E54] mr-2" />
-                <div className="text-2xl font-bold text-[#252E54]">{metrics?.totalProducts || 0}</div>
+                <div className="text-2xl font-bold text-[#252E54]">{metrics?.totalProdutos || 0}</div>
               </div>
             </>
           )}
@@ -168,7 +174,7 @@ export default function ProductsPage() {
               <div className="text-sm font-medium text-gray-500 mb-2">Produtos Ativos</div>
               <div className="flex items-center">
                 <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <div className="text-2xl font-bold text-green-600">{metrics?.activeProducts || 0}</div>
+                <div className="text-2xl font-bold text-green-600">{metrics?.produtosAtivos || 0}</div>
               </div>
             </>
           )}
@@ -185,7 +191,7 @@ export default function ProductsPage() {
               <div className="text-sm font-medium text-gray-500 mb-2">Produtos Inativos</div>
               <div className="flex items-center">
                 <XCircle className="h-5 w-5 text-red-500 mr-2" />
-                <div className="text-2xl font-bold text-red-500">{metrics?.inactiveProducts || 0}</div>
+                <div className="text-2xl font-bold text-red-500">{metrics?.produtosInativos || 0}</div>
               </div>
             </>
           )}
@@ -203,7 +209,7 @@ export default function ProductsPage() {
               <div className="flex items-center">
                 <Package className="h-5 w-5 text-green-500 mr-2" />
                 <div className="text-2xl font-bold text-green-600">
-                  R$ {metrics?.totalValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) || "0,00"}
+                  R$ {(metrics?.valorTotal || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                 </div>
               </div>
             </>
@@ -221,7 +227,7 @@ export default function ProductsPage() {
               <div className="text-sm font-medium text-gray-500 mb-2">Estoque Baixo</div>
               <div className="flex items-center">
                 <AlertCircle className="h-5 w-5 text-amber-500 mr-2" />
-                <div className="text-2xl font-bold text-amber-500">{metrics?.lowStock || 0}</div>
+                <div className="text-2xl font-bold text-amber-500">{metrics?.produtosBaixoEstoque || 0}</div>
               </div>
             </>
           )}
@@ -293,15 +299,15 @@ export default function ProductsPage() {
                   <tr key={product.id} className="border-b hover:bg-gray-50">
                     <td className="p-4">
                       <div>
-                        <div className="font-medium">{product.name}</div>
-                        <div className="text-sm text-gray-500">{product.description}</div>
+                        <div className="font-medium">{product.nome}</div>
+                        <div className="text-sm text-gray-500">{product.descricao}</div>
                       </div>
                     </td>
-                    <td className="p-4">{product.category}</td>
-                    <td className="p-4">R$ {product.price.toFixed(2).replace('.', ',')}</td>
-                    <td className="p-4">{product.stock}</td>
+                    <td className="p-4">{product.categoria}</td>
+                    <td className="p-4">R$ {(product.preco || 0).toFixed(2).replace('.', ',')}</td>
+                    <td className="p-4">{product.estoque}</td>
                     <td className="p-4">{getStatusBadge(product.status)}</td>
-                    <td className="p-4 text-sm text-gray-500">{product.lastUpdated}</td>
+                    <td className="p-4 text-sm text-gray-500">{product.dataCriacao}</td>
                     <td className="p-4 text-right">
                       <div className="flex justify-end space-x-2">
                         <Button variant="ghost" size="icon">

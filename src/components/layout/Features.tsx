@@ -31,13 +31,14 @@ export default function Features() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="relative w-full h-[500px] ">
+          <div className="relative w-full aspect-[4/3] md:aspect-[3/4] max-w-[500px] mx-auto">
             <Image
               src="https://ext.same-assets.com/2455483663/2768577412.webp"
               alt="Interface do Debita.aí"
               fill
-              className="scroll-reveal "
+              className="object-contain scroll-reveal"
               unoptimized
+              priority
             />
 
             {/* Decorative elements */}

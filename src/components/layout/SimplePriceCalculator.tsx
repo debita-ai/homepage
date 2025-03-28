@@ -7,35 +7,22 @@ import { setupScrollReveal } from "@/lib/utils";
 import { Calculator, Users, PieChart, Check } from "lucide-react";
 
 export default function SimplePriceCalculator() {
-  const [userCount, setUserCount] = useState(1);
-  const [businessType, setBusinessType] = useState<"personal" | "business">("personal");
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
   const sectionRef = useRef<HTMLElement>(null);
 
   // Base prices
   const prices = {
-    personal: 0, // Personal use is free
-    business: 29.90,
-    additionalUserCost: 9.90
+    pro: 29.90,
   };
 
   // Calculate price
   const calculatePrice = () => {
-    // For personal use, return 0
-    if (businessType === "personal") {
-      return 0;
-    }
-
-    const basePrice = prices.business;
-    const additionalUserPrice = Math.max(0, userCount - 1) * prices.additionalUserCost;
-    const totalMonthlyPrice = basePrice + additionalUserPrice;
-
+    const basePrice = prices.pro;
     if (billingCycle === "yearly") {
       // 20% discount for yearly
-      return totalMonthlyPrice * 0.8;
+      return basePrice * 0.8;
     }
-
-    return totalMonthlyPrice;
+    return basePrice;
   };
 
   // Calculate yearly savings
@@ -58,7 +45,7 @@ export default function SimplePriceCalculator() {
         <div className="text-center mb-16 scroll-reveal">
           <h2 className="text-3xl md:text-5xl font-bold mb-6 text-secondary">Calcule o seu plano</h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Simples e acessível para todos. Escolha o plano ideal para você ou sua empresa.
+            Escolha o plano ideal para você ou sua empresa. Todos os planos incluem recursos básicos gratuitamente.
           </p>
         </div>
 
@@ -67,73 +54,6 @@ export default function SimplePriceCalculator() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Left column: Inputs */}
               <div className="space-y-8 scroll-reveal">
-                <div>
-                  <h3 className="text-xl font-bold mb-4 text-secondary">Tipo de plano</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <button
-                      onClick={() => setBusinessType("personal")}
-                      className={`p-6 rounded-lg border-2 transition-colors ${
-                        businessType === "personal"
-                          ? "border-primary bg-primary/5"
-                          : "border-gray-200 hover:border-gray-300"
-                      }`}
-                    >
-                      <div className="flex items-center mb-2">
-                        <div className={`w-5 h-5 rounded-full border-2 mr-2 flex items-center justify-center ${
-                          businessType === "personal" ? "border-primary" : "border-gray-300"
-                        }`}>
-                          {businessType === "personal" && <div className="w-3 h-3 rounded-full bg-primary"></div>}
-                        </div>
-                        <span className="font-bold">Pessoal</span>
-                      </div>
-                      <p className="text-gray-500 text-sm">Para suas finanças pessoais e projetos individuais</p>
-                    </button>
-
-                    <button
-                      onClick={() => setBusinessType("business")}
-                      className={`p-6 rounded-lg border-2 transition-colors ${
-                        businessType === "business"
-                          ? "border-primary bg-primary/5"
-                          : "border-gray-200 hover:border-gray-300"
-                      }`}
-                    >
-                      <div className="flex items-center mb-2">
-                        <div className={`w-5 h-5 rounded-full border-2 mr-2 flex items-center justify-center ${
-                          businessType === "business" ? "border-primary" : "border-gray-300"
-                        }`}>
-                          {businessType === "business" && <div className="w-3 h-3 rounded-full bg-primary"></div>}
-                        </div>
-                        <span className="font-bold">Empresarial</span>
-                      </div>
-                      <p className="text-gray-500 text-sm">Para empresas com múltiplos usuários</p>
-                    </button>
-                  </div>
-                </div>
-               {
-                businessType === 'business' ? (
-                  <>
-                                  <div>
-                  <h3 className="text-xl font-bold mb-4 text-secondary flex items-center">
-                    <Users className="mr-2 h-5 w-5 text-primary" /> Número de usuários
-                  </h3>
-                  <div className="flex items-center">
-                    <button
-                      onClick={() => setUserCount(Math.max(1, userCount - 1))}
-                      className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
-                      disabled={userCount <= 1}
-                    >
-                      -
-                    </button>
-                    <div className="mx-4 w-16 text-center font-bold text-2xl">{userCount}</div>
-                    <button
-                      onClick={() => setUserCount(userCount + 1)}
-                      className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-
                 <div>
                   <h3 className="text-xl font-bold mb-4 text-secondary">Ciclo de cobrança</h3>
                   <div className="grid grid-cols-2 gap-4">
@@ -177,14 +97,6 @@ export default function SimplePriceCalculator() {
                     </button>
                   </div>
                 </div>
-                  </>
-                ) : (
-                  <>
-                  </>
-                )
-
-               }
-
               </div>
 
               {/* Right column: Price Summary */}
@@ -196,15 +108,10 @@ export default function SimplePriceCalculator() {
 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Tipo:</span>
+                    <span className="text-gray-600">Plano:</span>
                     <span className="font-medium">
-                      {businessType === "personal" ? "Pessoal" : "Empresarial"}
+                      <span className="bg-purple-100 text-purple-800 text-xs font-bold px-2 py-1 rounded ml-2">PRO</span>
                     </span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Usuários:</span>
-                    <span className="font-medium">{userCount}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -215,29 +122,20 @@ export default function SimplePriceCalculator() {
                   </div>
 
                   <div className="border-t border-gray-200 my-4 pt-4">
-                    {businessType === "personal" ? (
-                      <div className="flex flex-col items-center">
-                        <span className="bg-emerald-100 text-emerald-800 py-2 px-4 rounded-md font-bold text-lg mb-2">GRATUITO</span>
-                        <span className="text-green-600 text-sm">Sem custos mensais para uso pessoal</span>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="flex items-center justify-between text-xl font-bold">
-                          <span>Total:</span>
-                          <span className="text-primary">
-                            R$ {calculatePrice().toFixed(2).replace('.', ',')}
-                            <span className="text-gray-500 text-sm font-normal ml-1">
-                              /mês
-                            </span>
-                          </span>
-                        </div>
+                    <div className="flex items-center justify-between text-xl font-bold">
+                      <span>Total:</span>
+                      <span className="text-primary">
+                        R$ {calculatePrice().toFixed(2).replace('.', ',')}
+                        <span className="text-gray-500 text-sm font-normal ml-1">
+                          /mês
+                        </span>
+                      </span>
+                    </div>
 
-                        {billingCycle === "yearly" && (
-                          <div className="text-green-600 text-sm font-medium mt-1 text-right">
-                            Economia de R$ {calculateYearlySavings().toFixed(2).replace('.', ',')} por ano
-                          </div>
-                        )}
-                      </>
+                    {billingCycle === "yearly" && (
+                      <div className="text-green-600 text-sm font-medium mt-1 text-right">
+                        Economia de R$ {calculateYearlySavings().toFixed(2).replace('.', ',')} por ano
+                      </div>
                     )}
                   </div>
                 </div>
@@ -245,30 +143,30 @@ export default function SimplePriceCalculator() {
                 <ul className="mt-6 space-y-2">
                   <li className="flex items-start">
                     <Check className="h-5 w-5 text-primary flex-shrink-0 mr-2 mt-0.5" />
-                    <span className="text-gray-600">Acesso a todos os recursos do plano {businessType === "personal" ? "pessoal" : "empresarial"}</span>
+                    <span className="text-gray-600">Acesso ilimitado ao Assistente AI</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="h-5 w-5 text-primary flex-shrink-0 mr-2 mt-0.5" />
-                    <span className="text-gray-600">Suporte técnico prioritário por email e chat</span>
+                    <span className="text-gray-600">Integrações avançadas com sistemas ERP</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="h-5 w-5 text-primary flex-shrink-0 mr-2 mt-0.5" />
-                    <span className="text-gray-600">Atualizações gratuitas</span>
+                    <span className="text-gray-600">Suporte prioritário 24/7</span>
                   </li>
-                  {businessType === "business" && (
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-primary flex-shrink-0 mr-2 mt-0.5" />
-                      <span className="text-gray-600">Relatórios avançados e exportação de dados</span>
-                    </li>
-                  )}
+                  <li className="flex items-start">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0 mr-2 mt-0.5" />
+                    <span className="text-gray-600">Ferramentas avançadas de vendas</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0 mr-2 mt-0.5" />
+                    <span className="text-gray-600">Relatórios personalizados</span>
+                  </li>
                 </ul>
 
                 <div className="mt-6">
-
-
-                  {/* <p className="text-center text-gray-500 text-sm mt-4">
-                    {businessType === "personal" ? "Sem custos, sem cartão de crédito." : "7 dias de teste grátis. Sem compromisso."}
-                  </p> */}
+                  <p className="text-center text-gray-500 text-sm">
+                    Todos os planos incluem recursos básicos gratuitamente. Experimente o PRO por 7 dias sem compromisso.
+                  </p>
                 </div>
               </div>
             </div>

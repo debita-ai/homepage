@@ -67,6 +67,15 @@ export default function BillingPage() {
     totalAtrasados: 0
   });
 
+  // Check for openWithdrawalModal flag in localStorage
+  useEffect(() => {
+    const shouldOpenModal = localStorage.getItem('openWithdrawalModal');
+    if (shouldOpenModal === 'true') {
+      setShowCashoutModal(true);
+      localStorage.removeItem('openWithdrawalModal');
+    }
+  }, []);
+
   const fetchData = async () => {
     try {
       setLoading(true);

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -43,32 +44,32 @@ const ProfileMenu = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void
   if (!isOpen) return null;
 
   return (
-    <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-30">
-      <div className="p-4 border-b border-gray-100">
+    <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-30">
+      <div className="p-4 border-b border-gray-100 dark:border-gray-700">
         <p className="font-medium">João Silva</p>
         <p className="text-sm text-gray-500">joao.silva@email.com</p>
       </div>
       <ul className="py-2">
         <li>
-          <Link href="/dashboard/profile" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          <Link href="/dashboard/profile" className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
             <User className="w-4 h-4 mr-2" />
             Meu Perfil
           </Link>
         </li>
         <li>
-          <Link href="/dashboard/configuracoes" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          <Link href="/dashboard/profile" className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
             <Settings className="w-4 h-4 mr-2" />
             Configurações
           </Link>
         </li>
         <li>
-          <Link href="/dashboard/contas" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          <Link href="/dashboard/bank-accounts" className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
             <Landmark className="w-4 h-4 mr-2" />
             Minhas Contas Bancárias
           </Link>
         </li>
-        <li className="border-t border-gray-100 mt-2">
-          <Link href="/login" className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+        <li className="border-t border-gray-100 dark:border-gray-700 mt-2">
+          <Link href="/login" className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">
             <LogOut className="w-4 h-4 mr-2" />
             Sair
           </Link>
@@ -215,47 +216,124 @@ const CreateChargePopup = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =
 
 // AI assistant popup
 const AIAssistantPopup = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<Array<{ type: 'bot' | 'user', content: string }>>([
+    {
+      type: 'bot',
+      content: 'Olá, João! Como posso ajudar você com suas finanças hoje?'
+    }
+  ]);
+  const router = useRouter();
+
+  const handleCommand = (command: string) => {
+    const lowerCommand = command.toLowerCase();
+    
+    if (lowerCommand.includes('criar') && lowerCommand.includes('cobrança') && lowerCommand.includes('pix')) {
+      router.push('/dashboard/billings/create/pix');
+      onClose();
+    } else if (lowerCommand.includes('criar') && lowerCommand.includes('cobrança') && lowerCommand.includes('boleto')) {
+      router.push('/dashboard/billings/create/boleto');
+      onClose();
+    } else if (lowerCommand.includes('criar') && lowerCommand.includes('cobrança') && lowerCommand.includes('link')) {
+      router.push('/dashboard/billings/create/link');
+      onClose();
+    } else if (lowerCommand.includes('ver') && lowerCommand.includes('cobranças')) {
+      router.push('/dashboard/billings');
+      onClose();
+    } else if (lowerCommand.includes('ver') && lowerCommand.includes('clientes')) {
+      router.push('/dashboard/customers');
+      onClose();
+    } else if (lowerCommand.includes('ver') && lowerCommand.includes('extrato')) {
+      router.push('/dashboard/wallet/statement');
+      onClose();
+    } else if (lowerCommand.includes('ver') && lowerCommand.includes('saldo')) {
+      router.push('/dashboard/wallet');
+      onClose();
+    } else if (lowerCommand.includes('sacar') && lowerCommand.includes('saldo')) {
+      router.push('/dashboard/wallet');
+      // Set a flag in localStorage to trigger the modal when the page loads
+      localStorage.setItem('openWithdrawalModal', 'true');
+      onClose();
+    } else {
+      setMessages(prev => [
+        ...prev,
+        { type: 'user', content: command },
+        { 
+          type: 'bot', 
+          content: 'Desculpe, não entendi seu comando. Você pode tentar:\n- Criar uma cobrança PIX\n- Criar uma cobrança Boleto\n- Criar um link de pagamento\n- Ver cobranças\n- Ver clientes\n- Ver extrato\n- Ver saldo\n- Sacar saldo'
+        }
+      ]);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (input.trim()) {
+      handleCommand(input);
+      setInput("");
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black/30 flex items-end md:items-center justify-center z-50">
-      <div className="bg-white rounded-t-xl md:rounded-xl p-6 w-full max-w-xl h-[80vh] md:h-[70vh] flex flex-col">
+      <div className="bg-white dark:bg-gray-800 rounded-t-xl md:rounded-xl p-6 w-full max-w-xl h-[80vh] md:h-[70vh] flex flex-col">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center">
             <div className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center mr-3">
-              <Bot className="h-4 w-4 text-white" />
+              <Sparkles className="h-4 w-4 text-white" />
             </div>
-            <h2 className="text-xl font-bold">Assistente Financeiro</h2>
+            <h2 className="text-xl font-bold">Debita.AI</h2>
           </div>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
             <X size={20} />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto border rounded-xl p-4 mb-4 bg-gray-50">
-          <div className="flex mb-4">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex-shrink-0 flex items-center justify-center mr-3">
-              <Bot className="h-4 w-4 text-white" />
+        <div className="flex-1 overflow-y-auto border rounded-xl p-4 mb-4 bg-gray-50 dark:bg-gray-900">
+          {messages.map((message, index) => (
+            <div key={index} className="flex mb-4">
+              {message.type === 'bot' && (
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex-shrink-0 flex items-center justify-center mr-3">
+                  <Sparkles className="h-4 w-4 text-white" />
+                </div>
+              )}
+              <div className={`p-3 rounded-lg shadow-sm max-w-[80%] ${
+                message.type === 'bot' 
+                  ? 'bg-white dark:bg-gray-800' 
+                  : 'bg-[#E85A27]/10 dark:bg-[#E85A27]/20'
+              }`}>
+                <p className={`${
+                  message.type === 'bot' 
+                    ? 'text-gray-800 dark:text-gray-200' 
+                    : 'text-[#E85A27] dark:text-[#FF8B5C]'
+                } whitespace-pre-line`}>
+                  {message.content}
+                </p>
+              </div>
             </div>
-            <div className="bg-white p-3 rounded-lg shadow-sm max-w-[80%]">
-              <p className="text-gray-800">Olá, João! Como posso ajudar você com suas finanças hoje?</p>
-            </div>
-          </div>
+          ))}
         </div>
 
-        <div className="relative">
+        <form onSubmit={handleSubmit} className="relative">
           <input
             type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
             placeholder="Digite sua pergunta..."
-            className="w-full border-gray-300 rounded-full py-3 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-[#E85A27] focus:border-transparent"
+            className="w-full border-gray-300 dark:border-gray-600 rounded-full py-3 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-[#E85A27] focus:border-transparent dark:bg-gray-700 dark:text-white"
           />
-          <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E85A27]">
+          <button 
+            type="submit"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E85A27] hover:text-[#D84A1F]"
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22 2L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
@@ -496,13 +574,17 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [createChargeOpen, setCreateChargeOpen] = useState(false);
   const [aiAssistantOpen, setAIAssistantOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [fontSize, setFontSize] = useState(16);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const notificationsMenuRef = useRef<HTMLDivElement>(null);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
   const [notifications, setNotifications] = useState<Notification[]>([
     {
       id: 1,
@@ -530,9 +612,6 @@ export default function DashboardLayout({
     }
   ]);
   
-  const profileMenuRef = useRef<HTMLDivElement>(null);
-  const notificationsMenuRef = useRef<HTMLDivElement>(null);
-
   // Count unread notifications
   const unreadCount = notifications.filter(notification => !notification.read).length;
 
@@ -585,6 +664,28 @@ export default function DashboardLayout({
     }
   };
 
+  const handleFontSizeChange = (increase: boolean) => {
+    setFontSize(prev => {
+      const newSize = increase ? prev + 2 : prev - 2;
+      return Math.min(Math.max(newSize, 12), 24); // Limit between 12px and 24px
+    });
+  };
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark');
+  };
+
+  // Apply font size to the entire document
+  useEffect(() => {
+    document.documentElement.style.fontSize = `${fontSize}px`;
+  }, [fontSize]);
+
+  // Apply theme to the entire document
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
+
   const toggleItem = (itemName: string) => {
     setExpandedItems((prev) =>
       prev.includes(itemName)
@@ -594,47 +695,71 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
       <style jsx global>{scrollbarStyles}</style>
       
       {/* Top Bar */}
-      <div className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 md:px-6 z-20">
+      <div className="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 md:px-6 z-20">
         <div className="flex items-center">
           <Button
             variant="ghost"
             size="icon"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
+            onClick={() => setSidebarOpen(!sidebarOpen)}
             className="mr-2 md:hidden"
           >
             <Menu className="h-5 w-5" />
           </Button>
-                <Image
-                  src={DebitaLogo}
-                  alt="Debita.aí"
-                  width={100}
-                  height={35}
-                  unoptimized
-                />
+          <Image
+            src={DebitaLogo}
+            alt="Debita.aí"
+            width={100}
+            height={35}
+            unoptimized
+          />
         </div>
         
         <div className="flex items-center space-x-4">
           {/* Font Size Controls */}
-          <div className="flex items-center border rounded-lg">
-            <Button variant="ghost" size="icon" className="h-8 w-8">
+          <div className="flex items-center border rounded-lg dark:border-gray-700">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-8 w-8"
+              onClick={() => handleFontSizeChange(false)}
+            >
               <Minimize2 className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-8 w-8"
+              onClick={() => handleFontSizeChange(true)}
+            >
               <Maximize2 className="h-4 w-4" />
             </Button>
           </div>
 
           {/* Theme Toggle */}
-          <Button variant="ghost" size="icon" className="h-8 w-8">
-            <Sun className="h-4 w-4" />
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-8 w-8"
+            onClick={toggleTheme}
+          >
+            {theme === 'light' ? (
+              <Moon className="h-4 w-4" />
+            ) : (
+              <Sun className="h-4 w-4" />
+            )}
           </Button>
 
           {/* Settings Button */}
-          <Button variant="ghost" size="icon" className="h-8 w-8">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-8 w-8"
+            onClick={() => router.push('/dashboard/settings')}
+          >
             <Settings className="h-4 w-4" />
           </Button>
 
@@ -683,7 +808,7 @@ export default function DashboardLayout({
 
       {/* Sidebar */}
       <div
-        className={`fixed top-16 left-0 z-10 h-[calc(100vh-4rem)] transition-all duration-300 bg-white border-r border-gray-200 ${
+        className={`fixed top-16 left-0 z-10 h-[calc(100vh-4rem)] transition-all duration-300 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0`}
         style={{ width: sidebarCollapsed ? 70 : 312 }}

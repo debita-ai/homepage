@@ -1,0 +1,203 @@
+import { NextResponse } from 'next/server'
+
+export async function GET() {
+  const mockData = [
+    {
+      id: 1,
+      date: "2024-03-27",
+      description: "Recebimento PIX",
+      amount: 1500.00,
+      type: "credit",
+      status: "completed",
+      transactionNumber: "TRX-001",
+      paymentMethod: "PIX",
+      customerName: "João Silva",
+      category: "Recebimento",
+      balance: 1500.00
+    },
+    {
+      id: 2,
+      date: "2024-03-27",
+      description: "Transferência TED",
+      amount: 2750.50,
+      type: "debit",
+      status: "completed",
+      transactionNumber: "TRX-002",
+      paymentMethod: "TED",
+      customerName: "Maria Santos",
+      category: "Transferência",
+      balance: -1250.50
+    },
+    {
+      id: 3,
+      date: "2024-03-26",
+      description: "Recebimento Boleto",
+      amount: 980.00,
+      type: "credit",
+      status: "completed",
+      transactionNumber: "TRX-003",
+      paymentMethod: "Boleto",
+      customerName: "Pedro Oliveira",
+      category: "Recebimento",
+      balance: -270.50
+    },
+    {
+      id: 4,
+      date: "2024-03-26",
+      description: "Taxa de Serviço",
+      amount: 50.00,
+      type: "debit",
+      status: "completed",
+      transactionNumber: "TRX-004",
+      paymentMethod: "Taxa",
+      customerName: "Sistema",
+      category: "Taxa",
+      balance: -320.50
+    },
+    {
+      id: 5,
+      date: "2024-03-25",
+      description: "Recebimento PIX",
+      amount: 850.00,
+      type: "credit",
+      status: "completed",
+      transactionNumber: "TRX-005",
+      paymentMethod: "PIX",
+      customerName: "Carlos Mendes",
+      category: "Recebimento",
+      balance: 529.50
+    },
+    {
+      id: 6,
+      date: "2024-03-25",
+      description: "Transferência PIX",
+      amount: 2100.00,
+      type: "debit",
+      status: "pending",
+      transactionNumber: "TRX-006",
+      paymentMethod: "PIX",
+      customerName: "Beatriz Ferreira",
+      category: "Transferência",
+      balance: -1570.50
+    },
+    {
+      id: 7,
+      date: "2024-03-24",
+      description: "Recebimento Cartão",
+      amount: 1750.00,
+      type: "credit",
+      status: "completed",
+      transactionNumber: "TRX-007",
+      paymentMethod: "Cartão",
+      customerName: "Rafael Lima",
+      category: "Recebimento",
+      balance: 179.50
+    },
+    {
+      id: 8,
+      date: "2024-03-24",
+      description: "Taxa de Antecipação",
+      amount: 75.00,
+      type: "debit",
+      status: "completed",
+      transactionNumber: "TRX-008",
+      paymentMethod: "Taxa",
+      customerName: "Sistema",
+      category: "Taxa",
+      balance: 104.50
+    },
+    {
+      id: 9,
+      date: "2024-03-23",
+      description: "Recebimento Boleto",
+      amount: 1200.00,
+      type: "credit",
+      status: "failed",
+      transactionNumber: "TRX-009",
+      paymentMethod: "Boleto",
+      customerName: "Marcos Santos",
+      category: "Recebimento",
+      balance: 104.50
+    },
+    {
+      id: 10,
+      date: "2024-03-23",
+      description: "Transferência TED",
+      amount: 2500.00,
+      type: "debit",
+      status: "completed",
+      transactionNumber: "TRX-010",
+      paymentMethod: "TED",
+      customerName: "Patricia Silva",
+      category: "Transferência",
+      balance: -2395.50
+    },
+    {
+      id: 11,
+      date: "2024-03-22",
+      description: "Recebimento PIX",
+      amount: 1800.00,
+      type: "credit",
+      status: "completed",
+      transactionNumber: "TRX-011",
+      paymentMethod: "PIX",
+      customerName: "Lucas Costa",
+      category: "Recebimento",
+      balance: -595.50
+    },
+    {
+      id: 12,
+      date: "2024-03-22",
+      description: "Taxa de Manutenção",
+      amount: 25.00,
+      type: "debit",
+      status: "pending",
+      transactionNumber: "TRX-012",
+      paymentMethod: "Taxa",
+      customerName: "Sistema",
+      category: "Taxa",
+      balance: -620.50
+    },
+    {
+      id: 13,
+      date: "2024-03-21",
+      description: "Recebimento Cartão",
+      amount: 950.00,
+      type: "credit",
+      status: "completed",
+      transactionNumber: "TRX-013",
+      paymentMethod: "Cartão",
+      customerName: "Gustavo Oliveira",
+      category: "Recebimento",
+      balance: 329.50
+    },
+    {
+      id: 14,
+      date: "2024-03-21",
+      description: "Transferência PIX",
+      amount: 2800.00,
+      type: "debit",
+      status: "completed",
+      transactionNumber: "TRX-014",
+      paymentMethod: "PIX",
+      customerName: "Mariana Costa",
+      category: "Transferência",
+      balance: -2470.50
+    },
+    {
+      id: 15,
+      date: "2024-03-20",
+      description: "Recebimento Boleto",
+      amount: 1500.00,
+      type: "credit",
+      status: "failed",
+      transactionNumber: "TRX-015",
+      paymentMethod: "Boleto",
+      customerName: "Roberto Alves",
+      category: "Recebimento",
+      balance: -2470.50
+    }
+  ]
+
+  return NextResponse.json(mockData)
+} 

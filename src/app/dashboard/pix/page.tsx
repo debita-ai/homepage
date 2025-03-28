@@ -1,339 +1,219 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Zap, Plus, Edit, Trash2, Search, MoreHorizontal, Download, Filter, CheckCircle, XCircle, Clock, ArrowUpDown, Calendar, Copy, ExternalLink } from "lucide-react";
+import { QrCode, Search, Filter, Download, Copy, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
 
 interface Pix {
   id: number;
-  transacao: string;
-  cliente: string;
-  valor: number;
-  data: string;
+  customerName: string;
+  amount: number;
+  pixDate: string;
   status: string;
-  email: string;
-  telefone: string;
-}
-
-interface Metrics {
-  totalConcluido: number;
-  totalPendente: number;
-  totalCancelado: number;
-  valorTotal: number;
-  transacoesHoje: number;
+  pixNumber: string;
+  description: string;
+  paymentMethod: string;
+  createdAt: string;
+  pixKey: string;
+  pixKeyType: string;
+  qrCode: string;
+  barcode: string;
 }
 
 export default function PixPage() {
-  const [pix, setPix] = useState<Pix[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [pixList, setPixList] = useState<Pix[]>([]);
   const [loading, setLoading] = useState(true);
-  const [loadingMetrics, setLoadingMetrics] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentSort, setCurrentSort] = useState({ field: "data", direction: "desc" });
-  const [statusFilter, setStatusFilter] = useState("todos");
-  const [metrics, setMetrics] = useState<Metrics>({
-    totalConcluido: 0,
-    totalPendente: 0,
-    totalCancelado: 0,
-    valorTotal: 0,
-    transacoesHoje: 0
-  });
-  
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      setLoadingMetrics(true);
-
-      // Fetch PIX transactions
-      const pixResponse = await fetch('/api/pix/transactions');
-      if (!pixResponse.ok) throw new Error('Failed to fetch PIX transactions');
-      const pixData = await pixResponse.json();
-      setPix(pixData);
-
-      // Fetch metrics
-      const metricsResponse = await fetch('/api/pix/metrics');
-      if (!metricsResponse.ok) throw new Error('Failed to fetch metrics');
-      const metricsData = await metricsResponse.json();
-      setMetrics(metricsData);
-
-    } catch (error) {
-      toast.error('Erro ao carregar dados');
-      console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
-      setLoadingMetrics(false);
-    }
-  };
 
   useEffect(() => {
-    fetchData();
+    const fetchPix = async () => {
+      try {
+        const response = await fetch('/api/mock-pix');
+        const data = await response.json();
+        setPixList(data);
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPix();
   }, []);
 
-  const handleSort = (field: string) => {
-    setCurrentSort(prev => ({
-      field,
-      direction: prev.field === field && prev.direction === "asc" ? "desc" : "asc"
-    }));
-  };
-
-  const sortedPix = [...pix].sort((a, b) => {
-    if (currentSort.field === "valor") {
-      return currentSort.direction === "asc" ? a.valor - b.valor : b.valor - a.valor;
-    } else {
-      // Sort by string fields
-      const aValue = a[currentSort.field].toString();
-      const bValue = b[currentSort.field].toString();
-      return currentSort.direction === "asc" 
-        ? aValue.localeCompare(bValue)
-        : bValue.localeCompare(aValue);
-    }
-  });
-
-  const filteredPix = sortedPix.filter(p => 
-    (statusFilter === "todos" || p.status === statusFilter) &&
-    (p.transacao.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     p.cliente.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     p.email.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredPix = pixList.filter(pix =>
+    pix.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    pix.pixNumber.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase();
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'bg-green-100 text-green-800';
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'failed':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'Concluído';
+      case 'pending':
+        return 'Pendente';
+      case 'failed':
+        return 'Falhou';
+      default:
+        return status;
+    }
+  };
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('Copiado para a área de transferência!');
+    } catch (err) {
+      console.error('Erro ao copiar:', err);
+    }
+  };
+
   return (
-    <div className="p-6">
-      {/* Cabeçalho */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center">
-          <Zap className="mr-2 h-6 w-6 text-orange-500" /> Transações Pix
-        </h1>
-
-      </div>
-
-      {/* Cards de métricas */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
-        <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-          <div className="text-sm font-medium text-gray-500 mb-2">Transações Concluídas</div>
-          <div className="flex items-center">
-            <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-            {loadingMetrics ? (
-              <Skeleton className="h-8 w-16" />
-            ) : (
-              <div className="text-2xl font-bold">{metrics.totalConcluido}</div>
-            )}
-          </div>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <QrCode className="h-6 w-6 text-[#252E54]" />
+          <h1 className="text-2xl font-bold text-[#252E54]">PIX</h1>
         </div>
-        
-        <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-          <div className="text-sm font-medium text-gray-500 mb-2">Transações Pendentes</div>
-          <div className="flex items-center">
-            <Clock className="h-5 w-5 text-amber-500 mr-2" />
-            {loadingMetrics ? (
-              <Skeleton className="h-8 w-16" />
-            ) : (
-              <div className="text-2xl font-bold">{metrics.totalPendente}</div>
-            )}
-          </div>
-        </div>
-        
-        <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-          <div className="text-sm font-medium text-gray-500 mb-2">Transações Canceladas</div>
-          <div className="flex items-center">
-            <XCircle className="h-5 w-5 text-red-500 mr-2" />
-            {loadingMetrics ? (
-              <Skeleton className="h-8 w-16" />
-            ) : (
-              <div className="text-2xl font-bold">{metrics.totalCancelado}</div>
-            )}
-          </div>
-        </div>
-        
-        <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-          <div className="text-sm font-medium text-gray-500 mb-2">Valor Recebido</div>
-          <div className="flex items-center">
-            {loadingMetrics ? (
-              <Skeleton className="h-8 w-32" />
-            ) : (
-              <div className="text-2xl font-bold text-green-600">R$ {metrics.valorTotal.toFixed(2)}</div>
-            )}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-          <div className="text-sm font-medium text-gray-500 mb-2">Transações Hoje</div>
-          <div className="flex items-center">
-            <Calendar className="h-5 w-5 text-blue-500 mr-2" />
-            {loadingMetrics ? (
-              <Skeleton className="h-8 w-16" />
-            ) : (
-              <div className="text-2xl font-bold">{metrics.transacoesHoje}</div>
-            )}
-          </div>
+        <div className="flex items-center space-x-2">
+          <Button variant="outline" className="flex items-center">
+            <Filter className="h-4 w-4 mr-2" />
+            Filtros
+          </Button>
+          <Button className="bg-[#E85A27] hover:bg-[#D84A1F] text-white flex items-center">
+            <Download className="h-4 w-4 mr-2" />
+            Exportar
+          </Button>
         </div>
       </div>
-      
-      {/* Tabela de transações */}
-      <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-        <div className="p-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between gap-4">
-          <div className="relative w-full sm:max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-            <input
-              type="text"
-              placeholder="Pesquisar por transação, cliente ou email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 w-full border rounded p-2 text-sm"
-            />
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            <select 
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="border rounded p-2 text-sm"
-            >
-              <option value="todos">Todos os status</option>
-              <option value="concluido">Concluídos</option>
-              <option value="pendente">Pendentes</option>
-              <option value="cancelado">Cancelados</option>
-            </select>
-            <Button variant="outline" className="text-gray-500" size="sm">
-              <Filter className="mr-2 h-4 w-4" /> Mais Filtros
-            </Button>
-            <Button variant="outline" className="text-gray-500" size="sm">
-              <Download className="mr-2 h-4 w-4" /> Exportar
-            </Button>
-          </div>
-        </div>
 
+      {/* Search Bar */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <Input
+          placeholder="Buscar PIX..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="pl-10"
+        />
+      </div>
+
+      {/* PIX Table */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort("transacao")}>
-                    Transação
-                    <ArrowUpDown className="ml-1 h-4 w-4" />
-                  </div>
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort("cliente")}>
-                    Cliente
-                    <ArrowUpDown className="ml-1 h-4 w-4" />
-                  </div>
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort("valor")}>
-                    Valor
-                    <ArrowUpDown className="ml-1 h-4 w-4" />
-                  </div>
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort("data")}>
-                    Data
-                    <ArrowUpDown className="ml-1 h-4 w-4" />
-                  </div>
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort("status")}>
-                    Status
-                    <ArrowUpDown className="ml-1 h-4 w-4" />
-                  </div>
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contato</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Ações</th>
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Cliente</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Chave PIX</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Tipo</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Valor</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Data</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Status</th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Ações</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {loading
-                ? Array(5).fill(0).map((_, i) => (
-                    <tr key={i} className="bg-white">
-                      {Array(7).fill(0).map((_, j) => (
-                        <td key={j} className="px-6 py-4">
-                          <Skeleton className="h-4 w-full" />
-                        </td>
-                      ))}
-                    </tr>
-                  ))
-                : filteredPix.map((item) => (
-                    <tr key={item.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {item.transacao}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {item.cliente}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        R$ {item.valor.toFixed(2)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {item.data}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span
-                          className={`px-2 py-1 inline-flex text-xs font-semibold rounded-full ${
-                            item.status === "concluido"
-                              ? "bg-green-100 text-green-800"
-                              : item.status === "pendente"
-                              ? "bg-amber-100 text-amber-800"
-                              : "bg-red-100 text-red-800"
-                          }`}
-                        >
-                          {item.status === "concluido" ? "Concluído" : item.status === "pendente" ? "Pendente" : "Cancelado"}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={7} className="px-6 py-4 text-center">
+                    Carregando...
+                  </td>
+                </tr>
+              ) : filteredPix.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="px-6 py-4 text-center">
+                    Nenhum PIX encontrado
+                  </td>
+                </tr>
+              ) : (
+                filteredPix.map((pix) => (
+                  <tr key={pix.id} className="border-b border-gray-100">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center">
+                        <div className="w-8 h-8 rounded-full bg-[#252E54]/10 flex items-center justify-center mr-3">
+                          <span className="text-sm font-medium text-[#252E54]">
+                            {getInitials(pix.customerName)}
+                          </span>
+                        </div>
                         <div>
-                          <div>{item.email}</div>
-                          <div>{item.telefone}</div>
+                          <p className="font-medium">{pix.customerName}</p>
+                          <p className="text-sm text-gray-500">{pix.pixNumber}</p>
                         </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 text-right">
-                        <div className="flex justify-end gap-1">
-                          <Button variant="ghost" size="sm" title="Comprovante">
-                            <ExternalLink className="h-4 w-4 text-gray-500" />
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="text-gray-600">{pix.pixKey}</span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="text-gray-600 capitalize">{pix.pixKeyType}</span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="font-medium">{formatCurrency(pix.amount)}</span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="text-gray-600">{new Date(pix.pixDate).toLocaleDateString('pt-BR')}</span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(pix.status)}`}>
+                        {getStatusText(pix.status)}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center space-x-2">
+                        <Button variant="ghost" size="sm">
+                          <QrCode className="h-4 w-4 mr-2" />
+                          QR Code
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => copyToClipboard(pix.barcode)}>
+                          <Copy className="h-4 w-4 mr-2" />
+                          Copiar
+                        </Button>
+                        {pix.status === 'failed' && (
+                          <Button variant="ghost" size="sm" className="text-green-600">
+                            <RefreshCw className="h-4 w-4 mr-2" />
+                            Tentar Novamente
                           </Button>
-                          <Button variant="ghost" size="sm" title="Editar">
-                            <Edit className="h-4 w-4 text-orange-500" />
-                          </Button>
-                          <Button variant="ghost" size="sm" title="Excluir">
-                            <Trash2 className="h-4 w-4 text-red-500" />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
-          
-          {!loading && filteredPix.length === 0 && (
-            <div className="py-12 text-center">
-              <div className="flex flex-col items-center justify-center text-gray-500">
-                <Zap className="h-12 w-12 mb-4 text-gray-400" />
-                <p className="text-lg font-medium">Nenhuma transação PIX encontrada</p>
-                <p className="text-sm mt-1">Não há transações para exibir no momento</p>
-              </div>
-            </div>
-          )}
         </div>
       </div>
-
-      {/* Footer com paginação */}
-      {!loading && filteredPix.length > 0 && (
-        <div className="mt-4 flex justify-between items-center">
-          <div className="text-sm text-gray-500">
-            Mostrando {filteredPix.length} de {pix.length} transações
-          </div>
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm" disabled>
-              Anterior
-            </Button>
-            <Button variant="default" size="sm" className="bg-orange-500 text-white">
-              1
-            </Button>
-            <Button variant="outline" size="sm" disabled>
-              Próximo
-            </Button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

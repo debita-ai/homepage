@@ -179,7 +179,7 @@ export default function LinksPage() {
           <LucideLink className="mr-2 h-6 w-6 text-blue-500" /> Links de Pagamento
         </h1>
         <Button 
-          className="bg-blue-500 hover:bg-blue-600 text-white flex items-center"
+          className="bg-[#E85A27] hover:bg-[#d04a20] text-white flex items-center"
           onClick={() => setShowModal(true)}  
         >
           <Plus className="mr-2 h-5 w-5" /> Criar Novo Link
