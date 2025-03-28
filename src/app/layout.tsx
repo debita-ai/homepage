@@ -15,6 +15,7 @@ const jakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta'
 })
 
+
 export default function RootLayout({
   children,
 }: {
