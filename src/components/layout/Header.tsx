@@ -60,7 +60,7 @@ export default function Header() {
               className={`justify-center w-full ${scrolled ? "text-gray-700" : "text-white"}`}
               asChild
             >
-              <Link href="https://login.debita.ai" passHref legacyBehavior>
+              <Link href="https://app.debita.ai" passHref legacyBehavior>
                 <a className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
                   <LogIn className="h-4 w-4" />
                   Entrar na conta
@@ -118,7 +118,7 @@ export default function Header() {
                   className={`justify-center w-full ${scrolled ? "text-gray-700" : "text-white"}`}
                   asChild
                 >
-                  <Link href="https://login.debita.ai" passHref legacyBehavior>
+                  <Link href="https://app.debita.ai" passHref legacyBehavior>
                     <a className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
                       <LogIn className="h-4 w-4" />
                       Entrar na conta
