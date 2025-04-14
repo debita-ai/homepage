@@ -194,7 +194,7 @@ export default function LoginPage() {
                 <p className="text-sm text-center text-gray-600 dark:text-gray-400">
                   Não tem uma conta?{" "}
                   <Link href="/cadastro" className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
-                    Entrar na lista de espera
+                    Cadastrar-se
                   </Link>
                 </p>
               </div>
