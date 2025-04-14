@@ -54,13 +54,18 @@ export default function Header() {
           </nav>
 
           {/* Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-6">
             <Button
-              variant="ghost"
-              className={`${scrolled ? "text-gray-700 hover:text-primary" : "text-white hover:text-white/80"} hover:bg-transparent px-4`}
+              variant="outline"
+              className={`justify-center w-full ${scrolled ? "text-gray-700" : "text-white"}`}
               asChild
             >
-              <Link href="/login">Entrar na conta</Link>
+              <Link href="https://login.debita.ai" passHref legacyBehavior>
+                <a className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
+                  <LogIn className="h-4 w-4" />
+                  Entrar na conta
+                </a>
+              </Link>
             </Button>
 
             <Button
@@ -110,12 +115,14 @@ export default function Header() {
               <div className="mt-6 flex flex-col space-y-3">
                 <Button
                   variant="outline"
-                  className="justify-center w-full"
+                  className={`justify-center w-full ${scrolled ? "text-gray-700" : "text-white"}`}
                   asChild
                 >
-                  <Link href="/login" className="flex items-center justify-center gap-2">
-                    <LogIn className="h-4 w-4" />
-                    Entrar na conta
+                  <Link href="https://login.debita.ai" passHref legacyBehavior>
+                    <a className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
+                      <LogIn className="h-4 w-4" />
+                      Entrar na conta
+                    </a>
                   </Link>
                 </Button>
 

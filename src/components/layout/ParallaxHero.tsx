@@ -123,7 +123,7 @@ export default function ParallaxHero() {
             <Button
               variant="outline"
               size="lg"
-              className="border-white bg-[#252E54] hover:bg-[#1b2239] text-white text-base sm:text-lg px-5 sm:px-7 py-5 sm:py-6 rounded-xl"
+              className="border-white bg-gradient-to-r from-[#252E54] to-[#1b2239] hover:from-[#1b2239] hover:to-[#252E54] text-white hover:text-white text-base sm:text-lg px-5 sm:px-7 py-5 sm:py-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
               asChild
             >
               <Link href="#recursos" className="flex items-center justify-center">Conhecer recursos</Link>
