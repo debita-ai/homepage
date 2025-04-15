@@ -12,7 +12,7 @@ import { LaptopFrame } from "@/components/ui/LaptopFrame";
 export default function ParallaxHero() {
   const [scrollY, setScrollY] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const sectionRef = useRef(null as any);
+  const sectionRef = useRef<HTMLElement>(null);
   const [sectionHeight, setSectionHeight] = useState(0);
   const [windowWidth, setWindowWidth] = useState(1024); // Default desktop width
 

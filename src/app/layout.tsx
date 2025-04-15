@@ -55,9 +55,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable}`}>
-      <body className="min-h-screen font-sans antialiased">
-        {children}
+    <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable} scroll-smooth`} suppressHydrationWarning>
+      <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
+        <div className="min-h-screen bg-gray-50">
+          {children}
+        </div>
       </body>
     </html>
   )
