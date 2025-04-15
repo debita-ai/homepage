@@ -1,7 +1,6 @@
-"use client";
-
 import './globals.css'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
+import { Metadata } from 'next'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -15,6 +14,17 @@ const jakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta'
 })
 
+export const metadata: Metadata = {
+  title: 'Debita.aí',
+  description: 'Sua nova plataforma de gestão de cobranças',
+  metadataBase: new URL('https://debita.ai'),
+  openGraph: {
+    title: 'Debita.aí',
+    description: 'Sua nova plataforma de gestão de cobranças',
+    url: 'https://debita.ai',
+    siteName: 'Debita.aí',
+  },
+}
 
 export default function RootLayout({
   children,

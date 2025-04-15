@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import DashboardImage from '../../../public/dashboard.png';
+import { LaptopFrame } from "@/components/ui/LaptopFrame";
 
 export default function ParallaxHero() {
   const [scrollY, setScrollY] = useState(0);
@@ -142,20 +143,24 @@ export default function ParallaxHero() {
         >
           {/* Dashboard image wrapper */}
           <div className="sm:mt-6 mt-20 relative w-full rounded-t-lg shadow-2xl border border-white/10">
-            {/* Fixed height container for the image */}
-            <div className="relative w-full h-96 sm:h-64 md:h-96 lg:h-96 rounded-t-lg overflow-hidden">
-              {/* Image container to show full image */}
-              <div className="absolute top-0 left-0 w-full h-full">
-                <Image
-                  src={DashboardImage}
-                  alt="Dashboard Debita.aí"
-                  className="object-cover object-top w-full h-full"
-                  priority
-                  unoptimized
-                />
-              </div>
-              
-              {/* Reflection effect */}
+            {/* Mobile view with laptop frame */}
+            <div className="block md:hidden">
+              <LaptopFrame 
+                imageSrc={DashboardImage}
+                alt="Dashboard Debita.aí"
+                className="transform -translate-y-24"
+              />
+            </div>
+
+            {/* Desktop view */}
+            <div className="hidden md:block relative w-full h-96 sm:h-64 md:h-96 lg:h-96 rounded-t-lg overflow-hidden">
+              <Image
+                src={DashboardImage}
+                alt="Dashboard Debita.aí"
+                className="object-cover object-top w-full h-full"
+                priority
+                unoptimized
+              />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/20"></div>
             </div>
             
