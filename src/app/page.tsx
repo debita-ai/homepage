@@ -13,6 +13,7 @@ import Blog from "@/components/layout/Blog";
 import Footer from "@/components/layout/Footer";
 import SimpleChatWidget from "@/components/ui/SimpleChatWidget";
 import Integrations from "@/components/layout/Integrations";
+import Tarifas from "@/components/layout/Tarifas";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -37,9 +38,13 @@ export default function Home() {
         <ForWho key="for-who" />
         <Integrations key="integrations" />
         <SimplePriceCalculator key="pricing" />
+        <Tarifas key="tarifas" />
+        {/* <SimpleFaq key="faq" /> */}
+        {/* <AppPromo key="app-promo" /> */}
+        {/* <Blog key="blog" /> */}
       </main>
       <Footer key="footer" />
-
+      {/* <SimpleChatWidget key="chat" /> */}
     </div>
   );
 }

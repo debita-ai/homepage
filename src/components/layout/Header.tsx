@@ -7,15 +7,13 @@ import DebitaLogo from "../../../public/logo.svg"
 import DebitaLogoAlt from "../../../public/logoAlt.svg"
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { LogIn, Menu, X } from "lucide-react";
+import { LogIn, Menu, X, ChevronDown } from "lucide-react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const handleScroll = () => {
       const offset = window.scrollY;
       setScrolled(offset > 50);
@@ -30,124 +28,181 @@ export default function Header() {
     };
   }, []);
 
-  // Avoid hydration mismatch
-  if (!mounted) {
-    return (
-      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-[#E85A27]">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center">
-              <Image src={DebitaLogoAlt} width={100} alt="Logo escrito Debita ponto aí" />
-            </Link>
-          </div>
-        </div>
-      </header>
-    );
-  }
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-2 bg-white shadow-sm" : "py-5 bg-[#E85A27]"
+        scrolled ? "py-4 bg-white shadow-sm" : "py-6 bg-[#E85A27]"
       }`}
     >
-      <div className="container mx-auto px-6 lg:px-12">
+      <div className="container mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             {scrolled ? (
-              <Image src={DebitaLogo} width={100} alt="Logo escrito Debita ponto aí" />
+              <Image src={DebitaLogo} width={140} alt="Logo escrito Debita ponto aí" />
             ) : (
-              <Image src={DebitaLogoAlt} width={100} alt="Logo escrito Debita ponto aí" />
+              <Image src={DebitaLogoAlt} width={140} alt="Logo escrito Debita ponto aí" />
             )}
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
-            <NavLink href="/para-voce" light={!scrolled}>Para Você</NavLink>
+          <nav className="hidden md:flex items-center space-x-8">
+            <SolutionsDropdown light={!scrolled} />
             <NavLink href="#recursos" light={!scrolled}>Recursos</NavLink>
-            <NavLink href="#planos" light={!scrolled}>Planos</NavLink>
-            {/* <NavLink href="/blog" light={!scrolled}>Blog</NavLink> */}
+            <NavLink href="#calculadora" light={!scrolled}>Planos</NavLink>
+            <NavLink href="#tarifas" light={!scrolled}>Tarifas</NavLink>
           </nav>
 
           {/* Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-4">
             <Button
-              variant="outline"
-              className={`justify-center w-full ${scrolled ? "text-gray-700" : "text-white"}`}
+              className={`justify-center w-full ${
+                scrolled 
+                  ? "text-[#E85A27] border-[#E85A27] hover:bg-transparent hover:text-[#D84A1F] hover:border-[#D84A1F]" 
+                  : "text-white border-white/50 hover:bg-white/10 hover:border-white"
+              } transition-all duration-200 px-6 py-2.5 font-medium rounded-lg border bg-transparent`}
               asChild
             >
-              <Link href="https://app.debita.ai" className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
+              <Link href="https://app.debita.ai" className="flex items-center justify-center gap-2 w-full">
                 <LogIn className="h-4 w-4" />
-                Entrar na conta
+                <span>Entrar na conta</span>
               </Link>
             </Button>
 
             <Button
-              className={`${scrolled ? "bg-[#E85A27] hover:bg-[#D84A1F]" : "bg-white text-[#E85A27] hover:bg-white/90"} rounded-full px-5 py-2`}
+              className={`${
+                scrolled 
+                  ? "bg-gradient-to-r from-[#E85A27] to-[#D84A1F] hover:from-[#D84A1F] hover:to-[#C84A1F] text-white shadow-sm hover:shadow-md" 
+                  : "bg-white text-[#E85A27] hover:bg-white/95"
+              } rounded-lg px-8 py-2.5 font-medium transition-all duration-200`}
               asChild
             >
-              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform">Entrar na lista de espera</Link>
+              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform">
+                <span>Entrar na lista de espera</span>
+              </Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className={`md:hidden ${scrolled ? "text-gray-700" : "text-white"}`}
+            className={`md:hidden ${scrolled ? "text-gray-700" : "text-white"} p-2 rounded-lg hover:bg-white/10 transition-colors`}
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            <AnimatePresence mode="wait">
+              {isOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="h-6 w-6" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="h-6 w-6" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
-          >
-            <div className="container mx-auto px-6 py-4">
-              <nav className="flex flex-col space-y-3">
-                <MobileNavLink href="/para-voce" onClick={() => setIsOpen(false)}>
-                  Para Você
-                </MobileNavLink>
-                <MobileNavLink href="#recursos" onClick={() => setIsOpen(false)}>
-                  Recursos
-                </MobileNavLink>
-                <MobileNavLink href="#planos" onClick={() => setIsOpen(false)}>
-                  Planos
-                </MobileNavLink>
-                <MobileNavLink href="/blog" onClick={() => setIsOpen(false)}>
-                  Blog
-                </MobileNavLink>
-              </nav>
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black z-40 md:hidden"
+              onClick={() => setIsOpen(false)}
+            />
 
-              <div className="mt-6 flex flex-col space-y-3">
-                <Button
-                  variant="outline"
-                  className={`justify-center w-full ${scrolled ? "text-gray-700" : "text-white"}`}
-                  asChild
-                >
-                  <Link href="https://app.debita.ai" className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
-                    <LogIn className="h-4 w-4" />
-                    Entrar na conta
-                  </Link>
-                </Button>
+            {/* Menu Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ 
+                type: "spring",
+                damping: 25,
+                stiffness: 200
+              }}
+              className="fixed top-0 right-0 h-full w-[280px] bg-white shadow-xl z-50 md:hidden"
+            >
+              <div className="flex flex-col h-full">
+                {/* Close Button */}
+                <div className="flex justify-end p-3">
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <X className="h-5 w-5 text-black" />
+                  </button>
+                </div>
 
-                <Button
-                  className="bg-[#E85A27] hover:bg-[#D84A1F] text-white justify-center w-full"
-                  asChild
-                >
-                  <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform">Entrar na lista de espera</Link>
-                </Button>
+                {/* Menu Content */}
+                <div className="flex-1 overflow-y-auto">
+                  <nav className="flex flex-col">
+                    <MobileNavLink href="#recursos" onClick={() => setIsOpen(false)}>
+                      <div className="px-5 py-3 hover:bg-gray-50 active:bg-gray-100 transition-colors">
+                        Recursos
+                      </div>
+                    </MobileNavLink>
+                    <div className="h-px bg-gray-100" />
+                    <MobileNavLink href="#calculadora" onClick={() => setIsOpen(false)}>
+                      <div className="px-5 py-3 hover:bg-gray-50 active:bg-gray-100 transition-colors">
+                        Planos
+                      </div>
+                    </MobileNavLink>
+                    <div className="h-px bg-gray-100" />
+                    <MobileNavLink href="#tarifas" onClick={() => setIsOpen(false)}>
+                      <div className="px-5 py-3 hover:bg-gray-50 active:bg-gray-100 transition-colors">
+                        Tarifas
+                      </div>
+                    </MobileNavLink>
+                  </nav>
+
+                  <div className="h-px bg-gray-100" />
+
+                  <div className="flex flex-col space-y-4 px-5 py-4">
+                    <Button
+                      variant="outline"
+                      className="justify-center w-full text-[#E85A27] border-[#E85A27] hover:bg-transparent hover:text-[#D84A1F] hover:border-[#D84A1F] active:bg-transparent rounded-lg h-12 text-base font-medium bg-transparent"
+                      asChild
+                    >
+                      <Link href="https://app.debita.ai" className="flex items-center justify-center gap-2 w-full">
+                        <LogIn className="h-5 w-5" />
+                        <span>Entrar na conta</span>
+                      </Link>
+                    </Button>
+
+                    <Button
+                      className="justify-center w-full bg-[#E85A27] hover:bg-[#D84A1F] text-white active:bg-[#C84A1F] rounded-lg h-12 text-base font-medium shadow-sm hover:shadow-md transition-all"
+                      asChild
+                    >
+                      <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform">
+                        <span>Entrar na lista de espera</span>
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>
@@ -167,16 +222,72 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`relative px-4 py-2 ${light ? "text-white" : "text-gray-700"} hover:${light ? "text-white/80" : "text-primary"} transition-colors group`}
+      className={`relative px-1 py-2 ${light ? "text-white/90 hover:text-white" : "text-gray-600 hover:text-gray-900"} transition-colors group text-base font-medium`}
     >
       {children}
       <motion.span
-        className={`absolute bottom-0 left-0 w-0 h-0.5 ${light ? "bg-white" : "bg-primary"} rounded-full`}
+        className={`absolute bottom-0 left-0 w-0 h-0.5 ${light ? "bg-white" : "bg-[#E85A27]"} rounded-full`}
         initial={{ width: 0 }}
         whileHover={{ width: "100%" }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.2 }}
       />
     </Link>
+  );
+}
+
+// Solutions dropdown component
+function SolutionsDropdown({ light = false }: { light?: boolean }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex items-center gap-1 px-1 py-2 ${
+          light ? "text-white/90 hover:text-white" : "text-gray-600 hover:text-gray-900"
+        } transition-colors group text-base font-medium`}
+      >
+        Soluções
+        <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+        <motion.span
+          className={`absolute bottom-0 left-0 w-0 h-0.5 ${light ? "bg-white" : "bg-[#E85A27]"} rounded-full`}
+          initial={{ width: 0 }}
+          whileHover={{ width: "100%" }}
+          transition={{ duration: 0.2 }}
+        />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50"
+          >
+            <Link
+              href="/solutions/pessoal"
+              className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#E85A27] transition-colors"
+            >
+              Pessoal
+            </Link>
+            <Link
+              href="/solutions/empresarial"
+              className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#E85A27] transition-colors"
+            >
+              Empresarial
+            </Link>
+            <Link
+              href="/solutions/startup"
+              className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#E85A27] transition-colors"
+            >
+              Startup
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -194,7 +305,7 @@ function MobileNavLink({
     <Link
       href={href}
       onClick={onClick}
-      className="block py-2 text-gray-700 hover:text-primary transition-colors"
+      className="block py-3 text-gray-700 hover:text-primary transition-colors text-lg font-medium"
     >
       {children}
     </Link>
