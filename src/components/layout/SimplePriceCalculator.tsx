@@ -195,7 +195,7 @@ export default function SimplePriceCalculator() {
                   </tr>
                   <tr className="border-t border-gray-200">
                     <td className="p-3 font-medium">Boleto</td>
-                    <td className="p-3 text-center font-bold text-green-600 bg-green-50">R$ 1,89</td>
+                    <td className="p-3 text-center font-bold text-green-600 bg-green-50">R$ 1,99</td>
                     <td className="p-3 text-center">R$ 2,59</td>
                     <td className="p-3 text-center">R$ 1,99 </td>
                   </tr>
