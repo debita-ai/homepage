@@ -12,8 +12,10 @@ import { LogIn, Menu, X } from "lucide-react";
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       const offset = window.scrollY;
       setScrolled(offset > 50);
@@ -27,6 +29,21 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // Avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-[#E85A27]">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center">
+              <Image src={DebitaLogoAlt} width={100} alt="Logo escrito Debita ponto aí" />
+            </Link>
+          </div>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header
@@ -60,11 +77,9 @@ export default function Header() {
               className={`justify-center w-full ${scrolled ? "text-gray-700" : "text-white"}`}
               asChild
             >
-              <Link href="https://app.debita.ai" passHref legacyBehavior>
-                <a className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
-                  <LogIn className="h-4 w-4" />
-                  Entrar na conta
-                </a>
+              <Link href="https://app.debita.ai" className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
+                <LogIn className="h-4 w-4" />
+                Entrar na conta
               </Link>
             </Button>
 
@@ -118,11 +133,9 @@ export default function Header() {
                   className={`justify-center w-full ${scrolled ? "text-gray-700" : "text-white"}`}
                   asChild
                 >
-                  <Link href="https://app.debita.ai" passHref legacyBehavior>
-                    <a className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
-                      <LogIn className="h-4 w-4" />
-                      Entrar na conta
-                    </a>
+                  <Link href="https://app.debita.ai" className={`flex items-center justify-center gap-2 w-full ${scrolled ? "text-gray-700" : "text-white"}`}>
+                    <LogIn className="h-4 w-4" />
+                    Entrar na conta
                   </Link>
                 </Button>
 

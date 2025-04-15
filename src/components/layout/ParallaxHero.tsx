@@ -14,7 +14,7 @@ export default function ParallaxHero() {
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef(null as any);
   const [sectionHeight, setSectionHeight] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(1024); // Default desktop width
 
   useEffect(() => {
     setMounted(true);
@@ -41,17 +41,14 @@ export default function ParallaxHero() {
     };
   }, []);
 
-  // Avoid hydration mismatch
-  if (!mounted) return <div className="h-screen" />;
-
   // Calculate scroll progress for parallax effects
-  const scrollProgress = Math.min(scrollY / (sectionHeight * 0.5), 1);
+  const scrollProgress = mounted ? Math.min(scrollY / (sectionHeight * 0.5), 1) : 0;
   
   // Calculate dashboard scaling (start at 1, grow to 1.05 or 1.2 for mobile)
-  const dashboardScale = windowWidth < 768 ? 1.2 : 1 + (scrollProgress * 0.05);
+  const dashboardScale = mounted ? (windowWidth < 768 ? 1.2 : 1 + (scrollProgress * 0.05)) : 1;
   
   // Calculate when to allow transition to next section
-  const canTransitionToNext = scrollProgress >= 0.8;
+  const canTransitionToNext = mounted && scrollProgress >= 0.8;
 
   return (
     <section 
@@ -61,7 +58,7 @@ export default function ParallaxHero() {
       {/* Background elements with parallax effect */}
       <div
         className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-10 z-0"
-        style={{ transform: `translateY(${scrollY * 0.05}px)` }}
+        style={{ transform: mounted ? `translateY(${scrollY * 0.05}px)` : 'none' }}
       />
 
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#D84A1F] to-transparent z-0" />
@@ -69,11 +66,11 @@ export default function ParallaxHero() {
       {/* Floating elements with different parallax speeds */}
       <motion.div
         className="absolute -right-24 top-32 w-80 h-80 rounded-full bg-white/5 z-0 hidden md:block"
-        style={{ transform: `translateY(${scrollY * 0.02}px)` }}
-        animate={{
+        style={{ transform: mounted ? `translateY(${scrollY * 0.02}px)` : 'none' }}
+        animate={mounted ? {
           y: [0, 15, 0],
           rotate: [0, 5, 0],
-        }}
+        } : {}}
         transition={{
           duration: 8,
           repeat: Infinity,
@@ -83,11 +80,11 @@ export default function ParallaxHero() {
 
       <motion.div
         className="absolute -left-24 top-64 w-64 h-64 rounded-full bg-white/5 z-0 hidden md:block"
-        style={{ transform: `translateY(${scrollY * 0.04}px)` }}
-        animate={{
+        style={{ transform: mounted ? `translateY(${scrollY * 0.04}px)` : 'none' }}
+        animate={mounted ? {
           y: [0, 20, 0],
           rotate: [0, -5, 0],
-        }}
+        } : {}}
         transition={{
           duration: 9,
           repeat: Infinity,
@@ -136,7 +133,7 @@ export default function ParallaxHero() {
         <div 
           className="relative w-full sm:w-[90%] md:w-[80%] lg:w-[100%] mx-auto lg:mx-0 mt-auto"
           style={{
-            transform: `translateY(${scrollY * -0.05}px) scale(${dashboardScale})`,
+            transform: mounted ? `translateY(${scrollY * -0.05}px) scale(${dashboardScale})` : 'none',
             transformOrigin: 'center bottom',
             transition: 'transform 0.1s ease-out'
           }}
@@ -176,8 +173,8 @@ export default function ParallaxHero() {
           <motion.div
             className="absolute -right-4 sm:-right-8 md:-right-12 top-1/4 bg-white p-3 sm:p-4 rounded-xl shadow-lg max-w-[150px] sm:max-w-[200px]"
             style={{ 
-              opacity: Math.min(scrollProgress * 2, 1) || 0,
-              transform: `translateY(${scrollY * 0.05}px) translateX(${(1-Math.min(scrollProgress * 1.5, 1)) * 30}px)`
+              opacity: mounted ? Math.min(scrollProgress * 2, 1) : 0,
+              transform: mounted ? `translateY(${scrollY * 0.05}px) translateX(${(1-Math.min(scrollProgress * 1.5, 1)) * 30}px)` : 'none'
             }}
           >
             <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-full bg-green-100 flex items-center justify-center mb-2">
@@ -192,8 +189,8 @@ export default function ParallaxHero() {
           <motion.div
             className="absolute -left-4 sm:-left-8 md:-left-12 top-10 bg-white p-3 sm:p-4 rounded-xl shadow-lg max-w-[150px] sm:max-w-[200px]"
             style={{ 
-              opacity: Math.min(scrollProgress * 2, 1) || 0,
-              transform: `translateY(${scrollY * 0.08}px) translateX(${(1-Math.min(scrollProgress * 1.5, 1)) * -30}px)`
+              opacity: mounted ? Math.min(scrollProgress * 2, 1) : 0,
+              transform: mounted ? `translateY(${scrollY * 0.08}px) translateX(${(1-Math.min(scrollProgress * 1.5, 1)) * -30}px)` : 'none'
             }}
           >
             <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-full bg-blue-100 flex items-center justify-center mb-2">
@@ -210,13 +207,13 @@ export default function ParallaxHero() {
       <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer z-20"
         style={{ 
-          opacity: canTransitionToNext ? 1 : 0,
-          pointerEvents: canTransitionToNext ? 'auto' : 'none'
+          opacity: mounted && canTransitionToNext ? 1 : 0,
+          pointerEvents: mounted && canTransitionToNext ? 'auto' : 'none'
         }}
-        animate={{
-          y: canTransitionToNext ? [0, 10, 0] : 0,
-          opacity: canTransitionToNext ? [0.6, 1, 0.6] : 0
-        }}
+        animate={mounted && canTransitionToNext ? {
+          y: [0, 10, 0],
+          opacity: [0.6, 1, 0.6]
+        } : {}}
         transition={{
           duration: 2,
           repeat: Infinity,
