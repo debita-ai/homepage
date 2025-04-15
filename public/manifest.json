@@ -1,0 +1,17 @@
+{
+  "name": "Debita.aí",
+  "short_name": "Debita.aí",
+  "description": "Sua nova plataforma de gestão de cobranças",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#E85A27",
+  "icons": [
+    {
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+} 

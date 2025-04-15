@@ -19,11 +19,12 @@ export const metadata: Metadata = {
   description: 'Sua nova plataforma de gestão de cobranças',
   metadataBase: new URL('https://debita.ai'),
   icons: {
-    icon: '/icon/favicon-96x96.png',
-    shortcut: '/icon/favicon-96x96.png',
-    apple: '/icon/apple-icon-180x180.png',
+    icon: [
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+    ],
+    shortcut: '/favicon-96x96.png',
   },
-  manifest: '/icon/manifest.json',
+  manifest: '/manifest.json',
   openGraph: {
     title: 'Debita.aí',
     description: 'Sua nova plataforma de gestão de cobranças',
