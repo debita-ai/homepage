@@ -1,7 +1,6 @@
-"use client";
-
 import './globals.css'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
+import { Metadata } from 'next'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -15,6 +14,24 @@ const jakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta'
 })
 
+export const metadata: Metadata = {
+  title: 'Debita.aí',
+  description: 'Sua nova plataforma de gestão de cobranças',
+  metadataBase: new URL('https://debita.ai'),
+  icons: {
+    icon: [
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+    ],
+    shortcut: '/favicon-96x96.png',
+  },
+  manifest: '/manifest.json',
+  openGraph: {
+    title: 'Debita.aí',
+    description: 'Sua nova plataforma de gestão de cobranças',
+    url: 'https://debita.ai',
+    siteName: 'Debita.aí',
+  },
+}
 
 export default function RootLayout({
   children,
@@ -22,8 +39,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable} scroll-smooth`}>
-      <body className="min-h-screen font-sans antialiased">
+    <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable} scroll-smooth`} suppressHydrationWarning>
+      <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
         <div className="min-h-screen bg-gray-50">
           {children}
         </div>
