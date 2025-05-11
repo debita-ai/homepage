@@ -7,7 +7,7 @@ import DebitaLogo from "../../../public/logo.svg"
 import DebitaLogoAlt from "../../../public/logoAlt.svg"
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { LogIn, Menu, X, ChevronDown } from "lucide-react";
+import { LogIn, Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,8 +30,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-4 bg-white shadow-sm" : "py-6 bg-[#E85A27]"
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        scrolled 
+          ? "py-4 bg-white shadow-sm" 
+          : "py-6 bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 lg:px-8">
@@ -53,32 +55,32 @@ export default function Header() {
             <NavLink href="#tarifas" light={!scrolled}>Tarifas</NavLink>
           </nav>
 
+          {/* Vertical Divider */}
+          <div className={`hidden md:block h-6 w-px ${scrolled ? 'bg-gray-200' : 'bg-white/20'} mx-4`} />
+
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <Button
-              className={`justify-center w-full ${
-                scrolled 
-                  ? "text-[#E85A27] border-[#E85A27] hover:bg-transparent hover:text-[#D84A1F] hover:border-[#D84A1F]" 
-                  : "text-white border-white/50 hover:bg-white/10 hover:border-white"
-              } transition-all duration-200 px-6 py-2.5 font-medium rounded-lg border bg-transparent`}
+              className={`flex items-center transition-colors group justify-center cursor-pointer rounded-lg w-fit py-3 px-4 text-sm focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E85A27] hover:bg-[#D84A1F] text-white border border-gray-200/20 hover:border-gray-200/30`}
               asChild
             >
               <Link href="https://app.debita.ai" className="flex items-center justify-center gap-2 w-full">
                 <LogIn className="h-4 w-4" />
-                <span>Entrar na conta</span>
+                <span>Login</span>
               </Link>
             </Button>
 
             <Button
-              className={`${
+              className={`mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-3 px-4 text-sm shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 ${
                 scrolled 
-                  ? "bg-gradient-to-r from-[#E85A27] to-[#D84A1F] hover:from-[#D84A1F] hover:to-[#C84A1F] text-white shadow-sm hover:shadow-md" 
-                  : "bg-white text-[#E85A27] hover:bg-white/95"
-              } rounded-lg px-8 py-2.5 font-medium transition-all duration-200`}
+                  ? "bg-[#00809d] hover:bg-[#006d85] text-white hover:text-white" 
+                  : "bg-[#00809d] hover:bg-[#006d85] text-white hover:text-white"
+              }`}
               asChild
             >
-              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform">
+              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-2">
                 <span>Entrar na lista de espera</span>
+                <ChevronRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -180,22 +182,22 @@ export default function Header() {
 
                   <div className="flex flex-col space-y-4 px-5 py-4">
                     <Button
-                      variant="outline"
-                      className="justify-center w-full text-[#E85A27] border-[#E85A27] hover:bg-transparent hover:text-[#D84A1F] hover:border-[#D84A1F] active:bg-transparent rounded-lg h-12 text-base font-medium bg-transparent"
+                      className={`flex items-center transition-colors group justify-center cursor-pointer rounded-lg w-fit py-3 px-4 text-sm focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E85A27] hover:bg-[#D84A1F] text-white border border-gray-200/20 hover:border-gray-200/30`}
                       asChild
                     >
                       <Link href="https://app.debita.ai" className="flex items-center justify-center gap-2 w-full">
-                        <LogIn className="h-5 w-5" />
-                        <span>Entrar na conta</span>
+                        <LogIn className="h-4 w-4" />
+                        <span>Login</span>
                       </Link>
                     </Button>
 
                     <Button
-                      className="justify-center w-full bg-[#E85A27] hover:bg-[#D84A1F] text-white active:bg-[#C84A1F] rounded-lg h-12 text-base font-medium shadow-sm hover:shadow-md transition-all"
+                      className="justify-center w-full bg-[#00B4D8] hover:bg-[#0096B7] text-[#023E8A] active:bg-[#0096B7] rounded-full h-14 text-base font-semibold transition-all shadow-none"
                       asChild
                     >
-                      <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform">
+                      <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-2">
                         <span>Entrar na lista de espera</span>
+                        <ChevronRight className="h-4 w-4" />
                       </Link>
                     </Button>
                   </div>

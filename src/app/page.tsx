@@ -14,6 +14,7 @@ import Footer from "@/components/layout/Footer";
 import SimpleChatWidget from "@/components/ui/SimpleChatWidget";
 import Integrations from "@/components/layout/Integrations";
 import Tarifas from "@/components/layout/Tarifas";
+import LogosSection from "@/components/LogosSection";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -31,8 +32,9 @@ export default function Home() {
     <div className="min-h-screen">
       <Header key="header" />
       <main>
-        <ParallaxHero key="hero" />
-        <Features key="features" />
+        <ParallaxHero />
+        <LogosSection />
+        <Features />
         <MainFeatures key="main-features" />
         <EnhancedTestimonials key="testimonials" />
         <ForWho key="for-who" />

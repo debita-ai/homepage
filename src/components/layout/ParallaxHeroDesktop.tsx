@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -11,140 +11,170 @@ import DashboardImage from '../../../public/dashboard.png';
 export default function ParallaxHeroDesktop() {
   const [scrollY, setScrollY] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
   const [sectionHeight, setSectionHeight] = useState(0);
 
+  const handleScroll = useCallback(() => {
+    setScrollY(window.scrollY);
+  }, []);
+
+  const handleResize = useCallback(() => {
+    if (sectionRef.current) {
+      setSectionHeight(sectionRef.current.offsetHeight);
+    }
+  }, []);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    setCursorPosition({ x: e.clientX, y: e.clientY });
+  }, []);
+
   useEffect(() => {
     setMounted(true);
-
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    const handleResize = () => {
-      if (sectionRef.current) {
-        setSectionHeight(sectionRef.current.offsetHeight);
-      }
-    };
-
     handleResize();
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [handleScroll, handleResize, handleMouseMove]);
 
-  // Calculate scroll progress for parallax effects
-  const scrollProgress = mounted ? Math.min(scrollY / (sectionHeight * 0.5), 1) : 0;
+  // Memoize calculations
+  const scrollProgress = useMemo(() => 
+    mounted ? Math.min(scrollY / (sectionHeight * 0.5), 1) : 0,
+    [mounted, scrollY, sectionHeight]
+  );
   
-  // Calculate dashboard scaling
-  const dashboardScale = mounted ? 1 + (scrollProgress * 0.05) : 1;
+  const dashboardScale = useMemo(() => 
+    mounted ? 1 + (scrollProgress * 0.05) : 1,
+    [mounted, scrollProgress]
+  );
+
+  // Memoize transform styles
+  const backgroundTransform = useMemo(() => 
+    mounted ? `translateY(${scrollY * 0.05}px)` : 'none',
+    [mounted, scrollY]
+  );
+
+  const dashboardTransform = useMemo(() => 
+    mounted ? `translateY(${scrollY * -0.05}px) scale(${dashboardScale})` : 'none',
+    [mounted, scrollY, dashboardScale]
+  );
 
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen h-[110vh] overflow-hidden bg-[#E85A27] flex flex-col"
+      className="relative h-[865px] overflow-hidden bg-[#E85A27] flex flex-col mx-auto hero-box cursor-custom"
+ 
     >
       {/* Background elements with parallax effect */}
       <div
-        className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-10 z-0"
-        style={{ transform: mounted ? `translateY(${scrollY * 0.05}px)` : 'none' }}
+        className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 z-0"
+        style={{ transform: backgroundTransform }}
       />
 
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#D84A1F] to-transparent z-0" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#D84A1F] to-transparent z-0" />
 
-      {/* Floating elements with different parallax speeds */}
-      <motion.div
-        className="absolute -right-24 top-32 w-80 h-80 rounded-full bg-white/5 z-0"
-        style={{ transform: mounted ? `translateY(${scrollY * 0.02}px)` : 'none' }}
-        animate={mounted ? {
-          y: [0, 15, 0],
-          rotate: [0, 5, 0],
-        } : {}}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      <motion.div
-        className="absolute -left-24 top-64 w-64 h-64 rounded-full bg-white/5 z-0"
-        style={{ transform: mounted ? `translateY(${scrollY * 0.04}px)` : 'none' }}
-        animate={mounted ? {
-          y: [0, 20, 0],
-          rotate: [0, -5, 0],
-        } : {}}
-        transition={{
-          duration: 9,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
-      />
 
       {/* Content container */}
-      <div className="mt-20 container relative mx-auto px-4 sm:px-6 z-10 pt-4 sm:pt-8 flex flex-col flex-1">
-        {/* Text Section */}
-        <div className="text-center w-full mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 mt-6 sm:mt-10 sm:mb-6 leading-tight">
-            Sua nova plataforma
-            <span className="block">de gestão de cobranças</span>
-          </h1>
-
-          <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-8 sm:mb-12 max-w-2xl mx-auto">
-            Um <b>gateway de pagamentos moderno</b>. Simplifique a gestão de cobranças e pagamentos da sua empresa.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <Button
-              size="lg"
-              className="bg-white hover:bg-white/90 text-[#E85A27] text-base sm:text-lg px-5 sm:px-7 py-5 sm:py-6 rounded-xl"
-              asChild
+      <div className="container relative mx-auto px-4 sm:px-6 z-10 h-full flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center w-full">
+          {/* Text Section */}
+          <div className="text-left">
+            <motion.h1 
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-[1.8] [&.lg\:text-6xl]:leading-[1.2]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center">
-                Entrar na lista de espera
-                <ChevronRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5" />
-              </Link>
-            </Button>
+              Sua plataforma de
+              <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+                gestão financeira completa
+              </span>
+            </motion.h1>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white bg-gradient-to-r from-[#252E54] to-[#1b2239] hover:from-[#1b2239] hover:to-[#252E54] text-white hover:text-white text-base sm:text-lg px-5 sm:px-7 py-5 sm:py-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              asChild
+            <motion.p 
+              className="text-sm sm:text-base md:text-lg text-white/90 mb-8 max-w-2xl leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
-              <Link href="#recursos" className="flex items-center justify-center">Conhecer recursos</Link>
-            </Button>
-          </div>
-        </div>
+              Crie cobranças com facilidade, gerencie suas finanças com total controle e 
+              ofereça um checkout seguro e eficiente para seus clientes, 
+              garantindo segurança, rapidez, facilidade e atendimento de excelência.
+            </motion.p>
 
-        {/* Dashboard container with scaling effect */}
-        <div 
-          className="relative w-full sm:w-[90%] md:w-[80%] lg:w-[100%] mx-auto lg:mx-0 mt-auto"
-          style={{
-            transform: mounted ? `translateY(${scrollY * -0.05}px) scale(${dashboardScale})` : 'none',
-            transformOrigin: 'center bottom',
-            transition: 'transform 0.1s ease-out'
-          }}
-        >
-          {/* Dashboard image */}
-          <div className="relative w-full h-96 sm:h-64 md:h-96 lg:h-[600px] rounded-t-lg overflow-hidden shadow-2xl border border-white/10">
-            <Image
-              src={DashboardImage}
-              alt="Dashboard Debita.aí"
-              className="object-cover object-top w-full h-full"
-              priority
-              unoptimized
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/20"></div>
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            >
+              <Button
+                className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-6 px-8 text-lg shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#00809d] hover:bg-[#006d85] text-white hover:text-white"
+                asChild
+              >
+                <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-2">
+                  <span>Entrar na lista de espera</span>
+                  <ChevronRight className="h-5 w-5" />
+                </Link>
+              </Button>
+
+              <Button
+                variant="outline"
+                className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-6 px-8 text-lg shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 border-2 border-white/50 hover:border-white bg-transparent hover:bg-white/10 text-white hover:text-white"
+                asChild
+              >
+                <Link href="#recursos" className="flex items-center justify-center gap-2">
+                  Conhecer recursos
+                </Link>
+              </Button>
+            </motion.div>
           </div>
-          
-          {/* Bottom gradient mask */}
-          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#E85A27] to-transparent"></div>
+
+          {/* Dashboard container with enhanced scaling effect */}
+          <motion.div 
+            className="relative w-full overflow-visible"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+            style={{
+              transform: dashboardTransform,
+              transformOrigin: 'center',
+              transition: 'transform 0.1s ease-out',
+              willChange: 'transform'
+            }}
+          >
+            {/* Dashboard image with enhanced effects */}
+            <div 
+              className="relative w-[140%] h-[500px] rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.2)] border-4 border-white/30 backdrop-blur-sm"
+              style={{ 
+                position: 'relative', 
+                left: '20%',
+                boxShadow: '0 0 50px rgba(0,0,0,0.2), inset 0 0 20px rgba(255,255,255,0.1)',
+                willChange: 'transform'
+              }}
+            >
+              <Image
+                src={DashboardImage}
+                alt="Dashboard Debita.aí"
+                className="object-cover object-top w-full h-full"
+                priority
+                quality={85}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                loading="eager"
+                placeholder="blur"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/20"></div>
+              <div className="absolute inset-0 border-4 border-white/20 rounded-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#E85A27]/5 to-transparent"></div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

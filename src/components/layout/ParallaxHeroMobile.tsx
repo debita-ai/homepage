@@ -47,7 +47,8 @@ export default function ParallaxHeroMobile() {
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen h-[110vh] overflow-hidden bg-[#E85A27] flex flex-col"
+      className="relative h-[900px] overflow-hidden bg-[#E85A27] flex flex-col mx-auto"
+      style={{ maxWidth: '1920px', borderRadius: '0px 0px 1.6rem 1.6rem' }}
     >
       {/* Background elements with parallax effect */}
       <div
