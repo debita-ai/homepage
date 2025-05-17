@@ -15,8 +15,8 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Debita.aí',
-  description: 'Sua nova plataforma de gestão de cobranças',
+  title: 'Debita.aí - Plataforma de Cobranças e Gestão Financeira',
+  description: 'A Debita.aí é uma plataforma completa de gestão de cobranças e pagamentos para micro e pequenos empresários, oferecendo emissão de boletos, Pix e cartões de crédito com taxas competitivas. Com automação de follow-ups via IA, dashboard em tempo real, relatórios detalhados e integração simples por API e webhooks, a Debita.aí potencializa seu fluxo de caixa e simplifica a experiência de pagamento dos seus clientes.',
   metadataBase: new URL('https://debita.ai'),
   icons: {
     icon: [
@@ -26,10 +26,10 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   openGraph: {
-    title: 'Debita.aí',
-    description: 'Sua nova plataforma de gestão de cobranças',
+    title: 'Debita.aí - Plataforma de Cobranças e Gestão Financeira',
+    description: 'A Debita.aí é uma plataforma completa de gestão de cobranças e pagamentos para micro e pequenos empresários, oferecendo emissão de boletos, Pix e cartões de crédito com taxas competitivas. Com automação de follow-ups via IA, dashboard em tempo real, relatórios detalhados e integração simples por API e webhooks, a Debita.aí potencializa seu fluxo de caixa e simplifica a experiência de pagamento dos seus clientes.',
     url: 'https://debita.ai',
-    siteName: 'Debita.aí',
+    siteName: 'Debita.aí - Plataforma de Cobranças e Gestão Financeira',
   },
 }
 
