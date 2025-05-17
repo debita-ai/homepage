@@ -160,32 +160,31 @@ export default function SignUpPage() {
 
     setIsSubmitting(true);
     try {
-      // Here you would typically make an API call to your backend
-      // const response = await fetch('/api/auth/register', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     accountType: formData.accountType,
-      //     document: formData.document.replace(/[^\d]/g, ''),
-      //     name: formData.name,
-      //     email: formData.email,
-      //     phone: formData.phone.replace(/[^\d]/g, ''),
-      //     privacyConsent: formData.privacyConsent,
-      //   }),
-      // });
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: formData.name,
+          email: formData.email,
+          document: formData.document.replace(/[^\d]/g, ''),
+          phone: formData.phone.replace(/[^\d]/g, ''),
+          sellerType: formData.accountType === 'cpf' ? 'INDIVIDUAL' : 'COMPANY',
+        }),
+      });
 
-      // if (!response.ok) {
-      //   throw new Error('Erro ao criar conta');
-      // }
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Erro ao criar conta');
+      }
 
       // Redirect to verification page
       router.push('/signup/verification');
     } catch (error) {
       setErrors(prev => ({
         ...prev,
-        submit: 'Erro ao criar conta. Por favor, tente novamente.'
+        submit: error instanceof Error ? error.message : 'Erro ao criar conta. Por favor, tente novamente.'
       }));
     } finally {
       setIsSubmitting(false);
