@@ -1,7 +1,7 @@
 {
-  "name": "Debita.aí",
+  "name": "Debita.aí - Plataforma de Cobranças e Gestão Financeira",
   "short_name": "Debita.aí",
-  "description": "Sua nova plataforma de gestão de cobranças",
+  "description": "A Debita.aí é uma plataforma completa de gestão de cobranças e pagamentos para micro e pequenos empresários, oferecendo emissão de boletos, Pix e cartões de crédito com taxas competitivas. Com automação de follow-ups via IA, dashboard em tempo real, relatórios detalhados e integração simples por API e webhooks, a Debita.aí potencializa seu fluxo de caixa e simplifica a experiência de pagamento dos seus clientes.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
