@@ -26,8 +26,8 @@ jobs:
           file: Dockerfile
           push: true
           tags: |
-            ghcr.io/debita-ai/${{ github.repository }}:staging
-            ghcr.io/debita-ai/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/debita-ai/${{ github.event.repository.name }}:staging
+            ghcr.io/debita-ai/${{ github.event.repository.name }}:${{ github.sha }}
 
   deploy:
     name: Deploy to Hostinger VPS
@@ -41,8 +41,12 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /var/www/debita
-            # Força a TAG staging nos serviços
-            export TAG=staging
-            docker-compose pull ${GITHUB_REPOSITORY##*/}
-            docker-compose up -d ${GITHUB_REPOSITORY##*/}
+            cd /var/www/debita_ai/staging
+
+            # Expande o nome do repositório aqui no runner
+            SERVICE=${{ github.event.repository.name }}
+            echo ">>> Atualizando serviço: $SERVICE"
+
+            # Só puxa e sobe o container alterado
+            docker compose pull "$SERVICE"
+            docker compose up -d "$SERVICE"
