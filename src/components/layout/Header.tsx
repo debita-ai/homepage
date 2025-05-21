@@ -195,8 +195,8 @@ export default function Header() {
                       className="justify-center w-full bg-[#00B4D8] hover:bg-[#0096B7] text-[#023E8A] active:bg-[#0096B7] rounded-full h-14 text-base font-semibold transition-all shadow-none"
                       asChild
                     >
-                      <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-2">
-                        <span>Entrar na lista de espera</span>
+                      <Link href="/signup" className="flex items-center justify-center gap-2">
+                        <span>Registrar-se</span>
                         <ChevronRight className="h-4 w-4" />
                       </Link>
                     </Button>
