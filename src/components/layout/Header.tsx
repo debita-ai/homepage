@@ -64,7 +64,7 @@ export default function Header() {
               className={`flex items-center transition-colors group justify-center cursor-pointer rounded-lg w-fit py-3 px-4 text-sm focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E85A27] hover:bg-[#D84A1F] text-white border border-gray-200/20 hover:border-gray-200/30`}
               asChild
             >
-              <Link href="https://app.debita.ai" className="flex items-center justify-center gap-2 w-full">
+              <Link href={process.env.LOGIN_APP_URL || ''} className="flex items-center justify-center gap-2 w-full">
                 <LogIn className="h-4 w-4" />
                 <span>Login</span>
               </Link>
@@ -78,8 +78,8 @@ export default function Header() {
               }`}
               asChild
             >
-              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-2">
-                <span>Entrar na lista de espera</span>
+              <Link href="/signup" className="flex items-center justify-center gap-2">
+                <span>Registrar-se</span>
                 <ChevronRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -185,7 +185,7 @@ export default function Header() {
                       className={`flex items-center transition-colors group justify-center cursor-pointer rounded-lg w-fit py-3 px-4 text-sm focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E85A27] hover:bg-[#D84A1F] text-white border border-gray-200/20 hover:border-gray-200/30`}
                       asChild
                     >
-                      <Link href="https://app.debita.ai" className="flex items-center justify-center gap-2 w-full">
+                      <Link href={process.env.LOGIN_APP_URL || ''}  className="flex items-center justify-center gap-2 w-full">
                         <LogIn className="h-4 w-4" />
                         <span>Login</span>
                       </Link>
