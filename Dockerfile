@@ -6,8 +6,13 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# 2) Copia o restante do código e builda o Next.js
+# 2) Build com build-arg para as vars públicas
+ARG NEXT_PUBLIC_LOGIN_APP_URL
+ENV NEXT_PUBLIC_LOGIN_APP_URL=${NEXT_PUBLIC_LOGIN_APP_URL}
+
+# 3) Copia o restante do código e builda o Next.js
 COPY . .
+
 RUN npm run build
 
 # ─── Production stage ────────────────────────────────────────

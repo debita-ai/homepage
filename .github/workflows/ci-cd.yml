@@ -26,6 +26,8 @@ jobs:
           context: .
           file: Dockerfile
           push: true
+          build-args: |
+            NEXT_PUBLIC_LOGIN_APP_URL=${{ secrets.LOGIN_APP_URL }}
           tags: |
             ghcr.io/debita-ai/${{ github.event.repository.name }}:staging
             ghcr.io/debita-ai/${{ github.event.repository.name }}:${{ github.sha }}
