@@ -35,6 +35,7 @@ export default function Home() {
         <ParallaxHero />
         <LogosSection />
         <Features />
+        Teste1
         <MainFeatures key="main-features" />
         <EnhancedTestimonials key="testimonials" />
         <ForWho key="for-who" />
