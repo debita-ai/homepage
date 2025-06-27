@@ -71,9 +71,9 @@ export default function ParallaxHeroDesktop() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            Sua plataforma de
+            Sua nova plataforma
             <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-              gestão financeira completa
+              de gestão de cobranças
             </span>
           </motion.h1>
 
@@ -83,9 +83,7 @@ export default function ParallaxHeroDesktop() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            Crie cobranças com facilidade, gerencie suas finanças com total controle e 
-            ofereça um checkout seguro e eficiente para seus clientes, 
-            garantindo segurança, rapidez, facilidade e atendimento de excelência.
+            Um gateway de pagamentos moderno. Simplifique a gestão de cobranças e pagamentos da sua empresa.
           </motion.p>
 
           <motion.div 
@@ -99,7 +97,7 @@ export default function ParallaxHeroDesktop() {
               asChild
             >
               <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-2">
-                <span>Comece agora</span>
+                <span>Entrar na lista de espera</span>
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>

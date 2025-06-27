@@ -78,80 +78,88 @@ export default function EnhancedTestimonials() {
         <div className="max-w-5xl mx-auto">
           {/* Testimonial Slider */}
           <div className="relative">
-            <div className="overflow-hidden rounded-xl scroll-reveal">
-              <div className="relative min-h-[400px] bg-white shadow-lg rounded-xl p-10">
+            {/* Main testimonial container */}
+            <div className="overflow-hidden rounded-xl scroll-reveal mb-8">
+              <div className="relative bg-white shadow-lg rounded-xl">
                 {testimonials.map((testimonial, index) => (
                   <motion.div
                     key={testimonial.id}
-                    className="absolute inset-0 p-10 flex flex-col md:flex-row items-center"
+                    className={`${
+                      activeIndex === index ? 'block' : 'hidden'
+                    } p-6 sm:p-8 md:p-10`}
                     initial={{ opacity: 0, x: 100 }}
                     animate={{
                       opacity: activeIndex === index ? 1 : 0,
-                      x: activeIndex === index ? 0 : 100,
-                      zIndex: activeIndex === index ? 10 : 0
+                      x: activeIndex === index ? 0 : 100
                     }}
                     transition={{ duration: 0.5 }}
                   >
-                    <div className="md:w-1/3 mb-8 md:mb-0 flex flex-col items-center justify-center">
-                      <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-primary-100 shadow-lg mb-4">
-                        <Image
-                          src={testimonial.photo}
-                          alt={testimonial.name}
-                          width={112}
-                          height={112}
-                          className="object-cover w-full h-full"
-                          unoptimized // Skip Image optimization for external URLs
-                        />
+                    <div className="flex flex-col md:flex-row items-center min-h-[300px] sm:min-h-[350px] md:min-h-[400px]">
+                      <div className="w-full md:w-1/3 mb-6 md:mb-0 flex flex-col items-center justify-center">
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-[#E85A27]/20 shadow-lg mb-4">
+                          <Image
+                            src={testimonial.photo}
+                            alt={testimonial.name}
+                            width={112}
+                            height={112}
+                            className="object-cover w-full h-full"
+                            unoptimized
+                          />
+                        </div>
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1 text-center">{testimonial.name}</h3>
+                        <p className="text-gray-600 text-sm mb-1 text-center">{testimonial.position}</p>
+                        <p className="text-[#E85A27] font-medium text-sm text-center">{testimonial.company}</p>
                       </div>
-                      <h3 className="text-xl font-bold text-secondary mb-1">{testimonial.name}</h3>
-                      <p className="text-gray-600 text-sm mb-1">{testimonial.position}</p>
-                      <p className="text-primary font-medium text-sm">{testimonial.company}</p>
-                    </div>
 
-                    <div className="md:w-2/3 md:pl-10 relative">
-                      <Quote className="text-primary/10 w-16 h-16 absolute -top-2 -left-2" />
-                      <p className="text-gray-700 text-lg relative z-10 leading-relaxed">
-                        "{testimonial.content}"
-                      </p>
+                      <div className="w-full md:w-2/3 md:pl-8 lg:pl-10 relative">
+                        <Quote className="text-[#E85A27]/10 w-12 h-12 sm:w-16 sm:h-16 absolute -top-2 -left-2" />
+                        <p className="text-gray-700 text-base sm:text-lg relative z-10 leading-relaxed text-center md:text-left">
+                          "{testimonial.content}"
+                        </p>
+                      </div>
                     </div>
                   </motion.div>
                 ))}
               </div>
+            </div>
 
-              {/* Navigation buttons */}
+            {/* Navigation Controls - Now at the bottom */}
+            <div className="flex items-center justify-center gap-4">
+              {/* Previous Button */}
               <button
                 onClick={handlePrev}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors z-20"
-                aria-label="Anterior"
+                className="group flex items-center justify-center w-8 h-8 bg-white hover:bg-[#E85A27] border-2 border-[#E85A27]/20 hover:border-[#E85A27] rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                aria-label="Depoimento anterior"
               >
-                <ChevronLeft size={20} />
+                <ChevronLeft className="w-4 h-4 text-[#E85A27] group-hover:text-white transition-colors" />
               </button>
 
+              {/* Dots Navigation */}
+              <div className="flex items-center gap-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleDotClick(index)}
+                    className={`transition-all duration-300 rounded-full ${
+                      activeIndex === index 
+                        ? "bg-[#E85A27] w-6 h-3 shadow-md" 
+                        : "bg-gray-300 hover:bg-gray-400 w-3 h-3 hover:scale-110"
+                    }`}
+                    aria-label={`Ver depoimento ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Next Button */}
               <button
                 onClick={handleNext}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors z-20"
-                aria-label="Próximo"
+                className="group flex items-center justify-center w-8 h-8 bg-white hover:bg-[#E85A27] border-2 border-[#E85A27]/20 hover:border-[#E85A27] rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                aria-label="Próximo depoimento"
               >
-                <ChevronRight size={20} />
+                <ChevronRight className="w-4 h-4 text-[#E85A27] group-hover:text-white transition-colors" />
               </button>
             </div>
-
-            {/* Dots */}
-            <div className="flex justify-center mt-6">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleDotClick(index)}
-                  className={`w-3 h-3 mx-1 rounded-full transition-all ${
-                    activeIndex === index ? "bg-primary w-8" : "bg-gray-300 hover:bg-gray-400"
-                  }`}
-                  aria-label={`Ver depoimento ${index + 1}`}
-                />
-              ))}
-            </div>
           </div>
-
-
         </div>
       </div>
     </section>

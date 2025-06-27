@@ -78,7 +78,7 @@ export default function ParallaxHeroMobile() {
               asChild
             >
               <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center">
-                Comece agora
+                Entrar na lista de espera
                 <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
               </Link>
             </Button>
