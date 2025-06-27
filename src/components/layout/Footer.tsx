@@ -37,8 +37,8 @@ export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-[#1a1f3a] to-[#0f1323] text-white relative overflow-hidden">
       {/* Giant Background Text */}
-      <div className="absolute bottom-28 left-0 right-28 flex justify-center pointer-events-none">
-        <div className="text-[20rem] md:text-[25rem] lg:text-[30rem] font-bold text-white/[0.02] select-none whitespace-nowrap transform translate-y-1/2">
+      <div className="absolute bottom-28 left-0 right-4 sm:right-16 md:right-28 flex justify-center pointer-events-none">
+        <div className="text-[8rem] xs:text-[10rem] sm:text-[12rem] md:text-[16rem] lg:text-[20rem] xl:text-[25rem] 2xl:text-[30rem] font-bold text-white/[0.02] select-none whitespace-nowrap transform translate-y-1/2">
           Debita.aí
         </div>
       </div>
@@ -94,7 +94,7 @@ export default function Footer() {
               </motion.div>
             </div>
 
-            {/* Company */}
+            {/* Navigation */}
             <div>
               <motion.h4
                 className="font-semibold mb-6 text-lg text-white"
@@ -103,7 +103,7 @@ export default function Footer() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                Empresa
+                Navegação
               </motion.h4>
               <motion.ul
                 className="space-y-3"
@@ -113,33 +113,18 @@ export default function Footer() {
                 viewport={{ once: true }}
               >
                 <motion.li variants={itemMotion}>
-                  <Link href="/sobre" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
-                    Sobre nós
+                  <Link href="#recursos" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
+                    Recursos
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/planos" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
-                    Planos e Preços
+                  <Link href="#calculadora" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
+                    Planos
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/seguranca" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
-                    Segurança
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemMotion}>
-                  <Link href="/compliance" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
-                    Compliance
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemMotion}>
-                  <Link href="/carreiras" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
-                    Carreiras
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemMotion}>
-                  <Link href="/imprensa" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
-                    Imprensa
+                  <Link href="#tarifas" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
+                    Tarifas
                   </Link>
                 </motion.li>
               </motion.ul>

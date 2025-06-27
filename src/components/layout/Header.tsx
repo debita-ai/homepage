@@ -30,10 +30,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 py-6 transition-all duration-500 ease-out ${
         scrolled 
-          ? "py-4 bg-white shadow-sm" 
-          : "py-6 bg-transparent"
+          ? "bg-white/90 backdrop-blur-md shadow-lg border-b border-white/20" 
+          : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 lg:px-8">
@@ -69,7 +69,7 @@ export default function Header() {
               } active:scale-95`}
               asChild
             >
-              <Link href={process.env.NEXT_PUBLIC_LOGIN_APP_URL || ''} className="flex items-center justify-center gap-2 w-full">
+              <Link href="/em-breve" className="flex items-center justify-center gap-2 w-full">
                 <LogIn className="h-4 w-4 transition-transform group-hover:scale-110" />
                 <span>Entrar na conta</span>
               </Link>
@@ -83,8 +83,8 @@ export default function Header() {
               } active:scale-95 hover:shadow-md`}
               asChild
             >
-              <Link href="/cadastro" className="flex items-center justify-center gap-2">
-                <span>Registrar-se</span>
+              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-2">
+                <span>Entrar na lista de espera</span>
                 <NavArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </Button>
@@ -127,85 +127,96 @@ export default function Header() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop with blur */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black z-40 md:hidden"
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
               onClick={() => setIsOpen(false)}
             />
 
             {/* Menu Panel */}
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: "100%", opacity: 0 }}
               transition={{ 
                 type: "spring",
-                damping: 25,
-                stiffness: 200
+                damping: 30,
+                stiffness: 300,
+                duration: 0.4
               }}
-              className="fixed top-0 right-0 h-full w-[280px] bg-white shadow-xl z-50 md:hidden"
+              className="fixed top-0 right-0 h-full w-[320px] bg-white/95 backdrop-blur-xl shadow-2xl border-l border-white/20 z-50 md:hidden"
             >
-              <div className="flex flex-col h-full">
-                {/* Close Button */}
-                <div className="flex justify-end p-3">
+              <div className="flex flex-col h-full relative">
+                {/* Decorative gradient */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#E85A27] to-[#00809d]" />
+                
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b border-gray-100/50">
+                  <div className="text-lg font-semibold text-gray-800">Menu</div>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                    aria-label="Close menu"
+                    className="p-2 rounded-xl hover:bg-gray-100/80 transition-all duration-200 hover:scale-105"
+                    aria-label="Fechar menu"
                   >
-                    <X className="h-5 w-5 text-black" />
+                    <X className="h-5 w-5 text-gray-600" />
                   </button>
                 </div>
 
                 {/* Menu Content */}
-                <div className="flex-1 overflow-y-auto">
-                  <nav className="flex flex-col">
+                <div className="flex-1 overflow-y-auto p-4">
+                  <nav className="space-y-2 mb-8">
                     <MobileNavLink href="#recursos" onClick={() => setIsOpen(false)}>
-                      <div className="px-5 py-3 hover:bg-gray-50 active:bg-gray-100 transition-colors">
-                        Recursos
+                      <div className="flex items-center px-4 py-4 rounded-xl hover:bg-[#E85A27]/5 active:bg-[#E85A27]/10 transition-all duration-200 group">
+                        <span className="text-gray-700 group-hover:text-[#E85A27] font-medium transition-colors">Recursos</span>
                       </div>
                     </MobileNavLink>
-                    <div className="h-px bg-gray-100" />
+                    
                     <MobileNavLink href="#calculadora" onClick={() => setIsOpen(false)}>
-                      <div className="px-5 py-3 hover:bg-gray-50 active:bg-gray-100 transition-colors">
-                        Planos
+                      <div className="flex items-center px-4 py-4 rounded-xl hover:bg-[#E85A27]/5 active:bg-[#E85A27]/10 transition-all duration-200 group">
+                        <span className="text-gray-700 group-hover:text-[#E85A27] font-medium transition-colors">Planos</span>
                       </div>
                     </MobileNavLink>
-                    <div className="h-px bg-gray-100" />
+                    
                     <MobileNavLink href="#tarifas" onClick={() => setIsOpen(false)}>
-                      <div className="px-5 py-3 hover:bg-gray-50 active:bg-gray-100 transition-colors">
-                        Tarifas
+                      <div className="flex items-center px-4 py-4 rounded-xl hover:bg-[#E85A27]/5 active:bg-[#E85A27]/10 transition-all duration-200 group">
+                        <span className="text-gray-700 group-hover:text-[#E85A27] font-medium transition-colors">Tarifas</span>
                       </div>
                     </MobileNavLink>
                   </nav>
 
-                  <div className="h-px bg-gray-100" />
-
-                  <div className="flex flex-col space-y-4 px-5 py-4">
+                  {/* Action Buttons */}
+                  <div className="space-y-3">
                     <Button
-                      className={`flex items-center transition-all duration-200 group justify-center cursor-pointer rounded-lg w-fit py-3 px-4 text-sm focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E85A27] hover:bg-[#D84A1F] text-white border border-gray-200/20 hover:border-gray-200/30 active:scale-95 hover:shadow-lg`}
+                      className="w-full bg-gradient-to-r from-[#E85A27] to-[#d24a1e] hover:from-[#d24a1e] hover:to-[#c13f1a] text-white py-4 px-6 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
                       asChild
                     >
-                      <Link href={process.env.NEXT_PUBLIC_LOGIN_APP_URL || ''}  className="flex items-center justify-center gap-2 w-full">
-                        <LogIn className="h-4 w-4 transition-transform group-hover:scale-110" />
+                      <Link href="/em-breve" className="flex items-center justify-center gap-3">
+                        <LogIn className="h-5 w-5" />
                         <span>Entrar na conta</span>
                       </Link>
                     </Button>
 
                     <Button
-                      className="justify-center w-full bg-[#00B4D8] hover:bg-[#0096B7] text-[#023E8A] active:bg-[#0096B7] rounded-full h-14 text-base font-semibold transition-all shadow-none"
+                      className="w-full bg-gradient-to-r from-[#00809d] to-[#006d85] hover:from-[#006d85] hover:to-[#005a6b] text-white py-4 px-6 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
                       asChild
                     >
-                      <Link href="/cadastro" className="flex items-center justify-center gap-2">
-                        <span>Registrar-se</span>
-                        <NavArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                      <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-3">
+                        <span>Entrar na lista de espera</span>
+                        <NavArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                       </Link>
                     </Button>
                   </div>
+                </div>
+
+                {/* Footer */}
+                <div className="p-6 border-t border-gray-100/50 bg-gray-50/50">
+                  <p className="text-center text-sm text-gray-500">
+                    © 2025 Debita.aí
+                  </p>
                 </div>
               </div>
             </motion.div>
