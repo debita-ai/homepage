@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { NavArrowRight } from "iconoir-react";
 import DOIS from '../../../public/DOIS.png'
 import CLIENTE from '../../../public/CLIENTES.png'
 import LINK from '../../../public/link.png'
@@ -50,202 +50,134 @@ const features = [
 ];
 
 export default function MainFeatures() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [mounted, setMounted] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-
-  useEffect(() => {
-    setMounted(true);
-
-    // Auto rotate slides
-    const interval = setInterval(() => {
-      handleNext();
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleNext = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % features.length);
-  };
-
-  const handlePrev = () => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + features.length) % features.length);
-  };
-
-  // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") {
-        handleNext();
-      } else if (e.key === "ArrowLeft") {
-        handlePrev();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  // Handle touch gestures
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 50) {
-      // swipe left
-      handleNext();
-    }
-
-    if (touchEnd - touchStart > 50) {
-      // swipe right
-      handlePrev();
-    }
-  };
-
-  // Avoid hydration issues
-  if (!mounted) return null;
-
-  const currentFeature = features[currentIndex];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
   return (
     <section
-      className="py-16 md:py-24 bg-gradient-to-b from-[#E85A27]/10 to-transparent overflow-hidden"
-      id="recursos"
+      ref={containerRef}
+      className="py-32 md:py-40 bg-gradient-to-b from-[#E85A27]/5 via-[#E85A27]/8 to-white relative overflow-hidden"
     >
-      <div className="container mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#E85A27]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#00809d]/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#E85A27]/3 to-[#00809d]/3 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Header Section */}
+        <motion.div
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-800">
             Solução completa para gestão de pagamentos
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
             Recursos desenvolvidos para simplificar suas cobranças e recebimentos
           </p>
-        </div>
+        </motion.div>
 
-        <div
-          className="relative mx-auto max-w-6xl"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <AnimatePresence mode="wait" initial={false} custom={direction}>
-            <motion.div
-              key={currentIndex}
-              custom={direction}
-              initial={{ opacity: 0, x: direction > 0 ? 300 : -300 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: direction < 0 ? 300 : -300 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8 p-4"
-            >
-              {/* Feature content */}
-              <div className="flex flex-col justify-center space-y-6 order-2 md:order-1">
-                <div>
-                  <h3 className="font-display text-2xl font-bold mb-3 text-[#E85A27]">
-                    {currentFeature.title}
-                  </h3>
-                  <p className="text-lg text-gray-600 mb-6">
-                    {currentFeature.description}
-                  </p>
-                </div>
+        {/* Features Grid */}
+        <div className="space-y-32">
+          {features.map((feature, index) => {
+            const isEven = index % 2 === 0;
 
-                <ul className="space-y-3">
-                  {currentFeature.items.map((item, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.1 + 0.2 }}
-                      className="flex items-start"
-                    >
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#E85A27]/10 flex items-center justify-center mr-3 mt-0.5">
-                        <ChevronRight className="h-3 w-3 text-[#E85A27]" />
-                      </div>
-                      <span className="text-gray-700">{item.text}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-
-                <div className="pt-4">
-                  <Button
-                    asChild
-                    className="bg-[#E85A27] hover:bg-[#d24a1e] text-white"
-                  >
-                    <Link href="/recursos#detalhes">
-                      Saiba mais
-                      <ChevronRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-
-              {/* Feature image */}
-              <div className="order-1 md:order-2 flex items-center justify-center relative">
-                <div className="relative w-full h-[300px] md:h-[400px]">
-                  <div className="absolute inset-0 bg-[#E85A27]/5 rounded-3xl transform rotate-3"></div>
+            return (
+              <motion.div
+                key={feature.id}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
+                  isEven ? '' : 'lg:grid-flow-col-dense'
+                }`}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+              >
+                {/* Image Section */}
+                <motion.div
+                  className={`relative h-[350px] md:h-[450px] ${
+                    isEven ? 'lg:order-1' : 'lg:order-2'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#E85A27]/10 to-[#00809d]/10 rounded-3xl transform rotate-3 scale-105"></div>
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#E85A27]/5 to-transparent rounded-3xl transform -rotate-3 scale-110"></div>
                   <Image
-                    src={currentFeature.image}
-                    alt={currentFeature.title}
+                    src={feature.image}
+                    alt={feature.title}
                     fill
-                    className="object-contain drop-shadow-xl z-10"
+                    className="object-contain drop-shadow-2xl z-10 relative"
                     unoptimized
                   />
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                </motion.div>
 
-          {/* Navigation controls */}
-          <div className="flex justify-between absolute top-1/2 -translate-y-1/2 left-0 right-0 px-4 z-10">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handlePrev}
-              className="w-10 h-10 rounded-full border border-gray-300 bg-white/80 backdrop-blur-sm shadow-sm"
-              aria-label="Slide anterior"
-            >
-              <ChevronLeft className="h-5 w-5 text-gray-700" />
-            </Button>
+                {/* Content Section */}
+                <motion.div
+                  className={`flex flex-col justify-center space-y-6 ${
+                    isEven ? 'lg:order-2' : 'lg:order-1'
+                  }`}
+                  initial={{ opacity: 0, x: isEven ? 50 : -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  <div>
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#E85A27]">
+                      {feature.title}
+                    </h3>
+                    <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
 
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handleNext}
-              className="w-10 h-10 rounded-full border border-gray-300 bg-white/80 backdrop-blur-sm shadow-sm"
-              aria-label="Próximo slide"
-            >
-              <ChevronRight className="h-5 w-5 text-gray-700" />
-            </Button>
-          </div>
-        </div>
+                  <ul className="space-y-3">
+                    {feature.items.map((item, idx) => (
+                      <motion.li
+                        key={idx}
+                        initial={{ opacity: 0, x: isEven ? 20 : -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: idx * 0.1 + 0.4 }}
+                        className="flex items-start gap-3 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+                      >
+                        <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#E85A27]/10 flex items-center justify-center">
+                          <NavArrowRight className="h-4 w-4 text-[#E85A27]" />
+                        </div>
+                        <span className="text-gray-700 text-base leading-relaxed">{item.text}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
 
-        {/* Dot indicators */}
-        <div className="flex justify-center mt-10 space-x-2">
-          {features.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                setDirection(idx > currentIndex ? 1 : -1);
-                setCurrentIndex(idx);
-              }}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                idx === currentIndex
-                  ? "bg-[#E85A27] w-8"
-                  : "bg-gray-300 hover:bg-gray-400"
-              }`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
+                  <motion.div 
+                    className="pt-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    <Button
+                      asChild
+                      className="bg-[#E85A27] hover:bg-[#d24a1e] text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 group"
+                    >
+                      <Link href="/recursos#detalhes" className="flex items-center gap-2">
+                        Saiba mais
+                        <NavArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

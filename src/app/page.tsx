@@ -33,9 +33,8 @@ export default function Home() {
       <Header key="header" />
       <main>
         <ParallaxHero />
-        <LogosSection />
+        {/* <LogosSection />  */}
         <Features />
-        Teste1
         <MainFeatures key="main-features" />
         <EnhancedTestimonials key="testimonials" />
         <ForWho key="for-who" />

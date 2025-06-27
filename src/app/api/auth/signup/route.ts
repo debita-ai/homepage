@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
+import { GoogleAuth } from 'google-auth-library';
+import jwt from 'jsonwebtoken';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
+
     // Validate required fields
     const requiredFields = ['fullName', 'email', 'document', 'phone', 'sellerType'];
     for (const field of requiredFields) {
@@ -15,11 +17,41 @@ export async function POST(request: Request) {
       }
     }
 
+    // Geração do ID Token (IAM)
+    const apiAudience = process.env.INTERNAL_API_AUDIENCE || 'https://api.debita.ai';
+    const auth = new GoogleAuth();
+    const client = await auth.getIdTokenClient(apiAudience);
+    const headers = await client.getRequestHeaders();
+    const idToken = headers.get('Authorization'); // Vai retornar: Bearer <ID_TOKEN>
+
+    if (!idToken) {
+      return NextResponse.json(
+        { message: 'Erro ao obter token de autenticação' },
+        { status: 500 }
+      );
+    }
+
+    // Geração do token interno (JWT)
+    const internalJwt = jwt.sign(
+      {
+        sub: body.email,
+        email: body.email,
+        type: 'signup',
+      },
+      process.env.INTERNAL_JWT_SECRET!,
+      {
+        expiresIn: '15m',
+        issuer: 'bff.debita.ai',
+      }
+    );
+
     // Make request to actual API
-    const response = await fetch('http://localhost:3007/api/v1/auth/register', {
+    const response = await fetch(apiAudience + '/api/v1/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': idToken, // Esse é o ID token IAM
+        'X-Internal-Token': `Bearer ${internalJwt}`, // Esse é o token que VOCÊ valida na API
       },
       body: JSON.stringify(body),
     });
@@ -41,4 +73,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-} 
+}

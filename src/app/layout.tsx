@@ -23,7 +23,8 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
-        <ScrollProgressBar />
+        {/* <ScrollProgressBar /> */}
+        {/* Remover o scroll progress bar */}
         <HeaderWrapper />
         <div className="min-h-screen bg-gray-50">
           {children}
