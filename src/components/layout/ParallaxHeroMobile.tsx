@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight } from "iconoir-react";
 import DashboardImage from '../../../public/dashboard.png';
 import { LaptopFrame } from "@/components/ui/LaptopFrame";
 
@@ -47,7 +47,8 @@ export default function ParallaxHeroMobile() {
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen h-[110vh] overflow-hidden bg-[#E85A27] flex flex-col"
+      className="relative h-[900px] overflow-hidden bg-[#E85A27] flex flex-col mx-auto"
+      style={{ maxWidth: '1920px', borderRadius: '0px 0px 1.6rem 1.6rem' }}
     >
       {/* Background elements with parallax effect */}
       <div
@@ -77,8 +78,8 @@ export default function ParallaxHeroMobile() {
               asChild
             >
               <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center">
-                Entrar na lista de espera
-                <ChevronRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
+                Comece agora
+                <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
               </Link>
             </Button>
 

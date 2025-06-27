@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
-import { Metadata } from 'next'
+import HeaderWrapper from "@/components/layout/HeaderWrapper";
+import ScrollProgressBar from "@/components/layout/ScrollProgressBar";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -75,6 +76,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
+        {/* <ScrollProgressBar /> */}
+        {/* Remover o scroll progress bar */}
+        <HeaderWrapper />
         <div className="min-h-screen bg-gray-50">
           {children}
         </div>
