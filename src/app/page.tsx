@@ -16,11 +16,14 @@ import Integrations from "@/components/layout/Integrations";
 import Tarifas from "@/components/layout/Tarifas";
 import LogosSection from "@/components/LogosSection";
 import { useEffect, useState } from "react";
+import { Crisp } from "crisp-sdk-web";
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    Crisp.configure("e420b242-8cad-462c-bcb4-088409303ca6");
+
     setIsMounted(true);
   }, []);
 
