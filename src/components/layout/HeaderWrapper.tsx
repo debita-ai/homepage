@@ -5,7 +5,7 @@ import Header from './Header';
 
 export default function HeaderWrapper() {
   const pathname = usePathname();
-  const hideHeader = pathname === '/signup' || pathname === '/registro' || pathname === '/signup/verification';
+  const hideHeader = pathname !== '/';
 
   if (hideHeader) {
     return null;
