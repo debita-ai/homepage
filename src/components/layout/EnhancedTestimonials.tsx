@@ -97,31 +97,31 @@ export default function EnhancedTestimonials() {
                     <div className="flex flex-col md:flex-row items-center min-h-[300px] sm:min-h-[350px] md:min-h-[400px]">
                       <div className="w-full md:w-1/3 mb-6 md:mb-0 flex flex-col items-center justify-center">
                         <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-[#E85A27]/20 shadow-lg mb-4">
-                          <Image
-                            src={testimonial.photo}
-                            alt={testimonial.name}
-                            width={112}
-                            height={112}
-                            className="object-cover w-full h-full"
+                        <Image
+                          src={testimonial.photo}
+                          alt={testimonial.name}
+                          width={112}
+                          height={112}
+                          className="object-cover w-full h-full"
                             unoptimized
-                          />
-                        </div>
+                        />
+                      </div>
                         <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1 text-center">{testimonial.name}</h3>
                         <p className="text-gray-600 text-sm mb-1 text-center">{testimonial.position}</p>
                         <p className="text-[#E85A27] font-medium text-sm text-center">{testimonial.company}</p>
-                      </div>
+                    </div>
 
                       <div className="w-full md:w-2/3 md:pl-8 lg:pl-10 relative">
                         <Quote className="text-[#E85A27]/10 w-12 h-12 sm:w-16 sm:h-16 absolute -top-2 -left-2" />
                         <p className="text-gray-700 text-base sm:text-lg relative z-10 leading-relaxed text-center md:text-left">
-                          "{testimonial.content}"
-                        </p>
+                        "{testimonial.content}"
+                      </p>
                       </div>
                     </div>
                   </motion.div>
                 ))}
               </div>
-            </div>
+              </div>
 
             {/* Navigation Controls - Now at the bottom */}
             <div className="flex items-center justify-center gap-4">
@@ -136,18 +136,18 @@ export default function EnhancedTestimonials() {
 
               {/* Dots Navigation */}
               <div className="flex items-center gap-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleDotClick(index)}
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleDotClick(index)}
                     className={`transition-all duration-300 rounded-full ${
                       activeIndex === index 
                         ? "bg-[#E85A27] w-6 h-3 shadow-md" 
                         : "bg-gray-300 hover:bg-gray-400 w-3 h-3 hover:scale-110"
-                    }`}
-                    aria-label={`Ver depoimento ${index + 1}`}
-                  />
-                ))}
+                  }`}
+                  aria-label={`Ver depoimento ${index + 1}`}
+                />
+              ))}
               </div>
 
               {/* Next Button */}

@@ -1,19 +1,16 @@
+import "@debita-ai/ragekit/styles";
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
+import { Libre_Baskerville } from 'next/font/google'
 import HeaderWrapper from "@/components/layout/HeaderWrapper";
 import ScrollProgressBar from "@/components/layout/ScrollProgressBar";
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter'
-})
 
-const jakarta = Plus_Jakarta_Sans({
+const baskerville = Libre_Baskerville({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-jakarta'
+  variable: '--font-baskerville',
+  weight: ['400', '700']
 })
 
 export default function RootLayout({
@@ -22,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
+    <html lang="pt-BR" className={`${baskerville.variable}`} suppressHydrationWarning>
       <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
         {/* <ScrollProgressBar /> */}
         {/* Remover o scroll progress bar */}

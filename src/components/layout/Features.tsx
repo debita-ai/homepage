@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { setupScrollReveal } from "@/lib/utils";
 import { NavArrowRight } from "iconoir-react";
+import { Button } from "@debita-ai/ragekit";
 import womanHoldingPhone from "../../../public/woman-holding-phone.png";
 
 export default function Features() {
@@ -16,13 +17,16 @@ export default function Features() {
 
   return (
     <section 
-      className="py-24 md:py-32 bg-gradient-to-b from-white to-[#E85A27]/5 relative overflow-hidden" 
+      className="py-24 md:py-32 bg-[#F0E0D1] relative overflow-hidden" 
       ref={sectionRef} 
       id="recursos"
     >
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 z-0" />
+      
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -right-20 w-[400px] h-[400px] bg-[#E85A27]/3 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -right-20 w-[400px] h-[400px] bg-[#E27936]/3 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-[#00809d]/3 rounded-full blur-3xl" />
       </div>
 
@@ -55,8 +59,8 @@ export default function Features() {
             transition={{ duration: 0.8 }}
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#E85A27]/20 to-[#00809d]/20 rounded-3xl transform rotate-2 blur-xl scale-110"></div>
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#E85A27]/10 to-transparent rounded-3xl transform -rotate-2 blur-xl scale-105"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#E27936]/20 to-[#00809d]/20 rounded-3xl transform rotate-2 blur-xl scale-110"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#E27936]/10 to-transparent rounded-3xl transform -rotate-2 blur-xl scale-105"></div>
               <Image
                 src={womanHoldingPhone}
                 alt="Interface do Debita.aí"
@@ -78,7 +82,7 @@ export default function Features() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[#E85A27]">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[#E27936]">
                 Gestão Inteligente de Pagamentos
               </h3>
               <p className="text-lg text-gray-600 leading-relaxed">
@@ -92,10 +96,10 @@ export default function Features() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="flex items-start gap-3 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+                className="flex items-start gap-3 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-[#E27936]/20"
               >
-                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#E85A27]/10 flex items-center justify-center">
-                  <NavArrowRight className="h-4 w-4 text-[#E85A27]" />
+                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#E27936]/10 flex items-center justify-center">
+                  <NavArrowRight className="h-4 w-4 text-[#E27936]" />
                 </div>
                 <span className="text-gray-700 text-base leading-relaxed">
                   Cobranças via PIX, boleto e cartão em uma única plataforma
@@ -107,10 +111,10 @@ export default function Features() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="flex items-start gap-3 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+                className="flex items-start gap-3 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-[#E27936]/20"
               >
-                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#E85A27]/10 flex items-center justify-center">
-                  <NavArrowRight className="h-4 w-4 text-[#E85A27]" />
+                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#E27936]/10 flex items-center justify-center">
+                  <NavArrowRight className="h-4 w-4 text-[#E27936]" />
                 </div>
                 <span className="text-gray-700 text-base leading-relaxed">
                   Notificações automáticas por WhatsApp e e-mail
@@ -122,10 +126,10 @@ export default function Features() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
-                className="flex items-start gap-3 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+                className="flex items-start gap-3 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-[#E27936]/20"
               >
-                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#E85A27]/10 flex items-center justify-center">
-                  <NavArrowRight className="h-4 w-4 text-[#E85A27]" />
+                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#E27936]/10 flex items-center justify-center">
+                  <NavArrowRight className="h-4 w-4 text-[#E27936]" />
                 </div>
                 <span className="text-gray-700 text-base leading-relaxed">
                   Dashboard completo com métricas e relatórios em tempo real
@@ -137,16 +141,29 @@ export default function Features() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 }}
-                className="flex items-start gap-3 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+                className="flex items-start gap-3 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-[#E27936]/20"
               >
-                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#E85A27]/10 flex items-center justify-center">
-                  <NavArrowRight className="h-4 w-4 text-[#E85A27]" />
+                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#E27936]/10 flex items-center justify-center">
+                  <NavArrowRight className="h-4 w-4 text-[#E27936]" />
                 </div>
                 <span className="text-gray-700 text-base leading-relaxed">
                   Automação de processos para economizar tempo e recursos
                 </span>
               </motion.li>
             </ul>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8 }}
+            >
+              <Button
+                variant="primary"
+                size="normal"
+                label="Conhecer recursos"
+              />
+            </motion.div>
           </motion.div>
         </div>
       </div>

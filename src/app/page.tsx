@@ -38,18 +38,17 @@ export default function Home() {
         <ParallaxHero />
         {/* <LogosSection />  */}
         <Features />
-        <MainFeatures key="main-features" />
-        <EnhancedTestimonials key="testimonials" />
-        <ForWho key="for-who" />
-        <Integrations key="integrations" />
-        <SimplePriceCalculator key="pricing" />
-        <Tarifas key="tarifas" />
+        {/* <MainFeatures key="main-features" /> */}
+        {/* <EnhancedTestimonials key="testimonials" /> */}
+        {/* <ForWho key="for-who" /> */}
+        {/* <Integrations key="integrations" /> */}
+        {/* <SimplePriceCalculator key="pricing" /> */}
+        {/* <Tarifas key="tarifas" /> */}
         {/* <SimpleFaq key="faq" /> */}
         {/* <AppPromo key="app-promo" /> */}
         {/* <Blog key="blog" /> */}
       </main>
       <Footer key="footer" />
-      {/* <SimpleChatWidget key="chat" /> */}
     </div>
   );
 }

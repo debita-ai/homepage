@@ -1,19 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { Button } from '@debita-ai/ragekit';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircle, CheckCircle2, MessageCircle, Shield } from 'lucide-react';
+import { AlertCircle, CheckCircle2, MessageCircle, Shield, ArrowLeft, Building2, User } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { z } from 'zod';
 import Footer from '@/components/layout/Footer';
 import { useRouter } from 'next/navigation';
 import SimpleFooter from '@/components/layout/SimpleFooter';
+import Link from 'next/link';
+import Image from 'next/image';
+import DebitaLogo from '../../../public/logo.svg';
 
 type AccountType = 'cpf' | 'cnpj';
 
@@ -31,6 +34,7 @@ interface FormErrors {
   [key: string]: string | undefined;
 }
 
+// Schemas movidos para fora do componente para evitar recriação
 const passwordSchema = z.string()
   .min(8, 'A senha deve ter pelo menos 8 caracteres')
   .regex(/[A-Z]/, 'A senha deve conter pelo menos uma letra maiúscula')
@@ -46,6 +50,7 @@ const phoneSchema = z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, 'Formato de tele
 export default function SignUpPage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState<FormData>({
     accountType: 'cpf',
     document: '',
@@ -58,7 +63,8 @@ export default function SignUpPage() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleAccountTypeChange = (value: AccountType) => {
+  // Memoize handlers para evitar recriação
+  const handleAccountTypeChange = useMemo(() => (value: AccountType) => {
     setFormData({
       accountType: value,
       document: '',
@@ -69,9 +75,9 @@ export default function SignUpPage() {
       privacyConsent: false,
     });
     setErrors({});
-  };
+  }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useMemo(() => (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -85,7 +91,21 @@ export default function SignUpPage() {
         return newErrors;
       });
     }
-  };
+  }, [errors]);
+
+  // Simular carregamento inicial rápido
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 50);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F0E0D1]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#E27936]"></div>
+      </div>
+    );
+  }
 
   const validateStep = () => {
     const newErrors: FormErrors = {};
@@ -196,58 +216,107 @@ export default function SignUpPage() {
       case 1:
         return (
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="space-y-8 max-w-[400px] mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center"
           >
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl font-bold text-gray-900">Olá! 👋</h2>
-              <p className="text-gray-600 text-lg">Vamos começar criando sua conta</p>
-              <p className="text-gray-500">Você é uma pessoa física ou jurídica?</p>
-            </div>
-            <div className="space-y-6 p-3">
-              <div className="relative">
+            <motion.h1 
+              className="text-4xl sm:text-5xl font-bold text-[#E27936] mb-6 leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+            >
+              Vamos começar! 🚀
+            </motion.h1>
+
+            <motion.p 
+              className="text-xl text-[#E27936]/90 mb-12 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            >
+              Você é uma pessoa física ou jurídica?
+            </motion.p>
+
+            <motion.div 
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            >
                 <button
                   type="button"
                   onClick={() => handleAccountTypeChange('cpf')}
-                  className={`w-full flex flex-col items-center justify-between rounded-xl border-2 p-6 text-gray-900 hover:bg-gray-50 cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] relative z-10 ${
+                  className={`relative p-10 rounded-3xl transition-all duration-500 hover:scale-105 active:scale-95 group ${
                     formData.accountType === 'cpf'
-                      ? 'border-[#E85A27] ring-2 ring-[#E85A27]'
-                      : 'border-gray-200 bg-white'
+                      ? 'bg-gradient-to-br from-white to-white/95 shadow-2xl border-2 border-[#E27936]'
+                      : 'bg-white/90 backdrop-blur-sm border-2 border-white/50 hover:border-[#E27936]/30 hover:bg-white hover:shadow-xl'
                   }`}
                 >
-                  <span className="text-xl font-semibold mb-2">Pessoa Física</span>
-                  <span className="text-sm text-gray-500">CPF</span>
+                  <div className="text-center relative z-10">
+                    <div className="flex justify-center mb-4">
+                      <div className={`p-4 rounded-2xl ${formData.accountType === 'cpf' ? 'bg-[#E27936]/10' : 'bg-gray-100'}`}>
+                        <User className={`h-8 w-8 ${formData.accountType === 'cpf' ? 'text-[#E27936]' : 'text-gray-500'}`} />
+                      </div>
+                    </div>
+                    <div className="text-2xl sm:text-3xl font-bold text-[#E27936] mb-3 group-hover:scale-105 transition-transform">
+                      Pessoa Física
+                    </div>
+                    <div className="text-base text-[#E27936]/70 font-medium mb-4">CPF</div>
+                    <div className="text-sm text-[#E27936]/60 leading-relaxed">
+                      Ideal para freelancers e profissionais autônomos
+                    </div>
+                  </div>
+                  {formData.accountType === 'cpf' && (
+                    <div className="absolute top-6 right-6 bg-[#E27936] text-white p-3 rounded-full shadow-lg">
+                      <CheckCircle2 className="h-6 w-6" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#E27936]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </button>
-                {formData.accountType === 'cpf' && (
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#E85A27]/5 via-[#E85A27]/10 to-[#E85A27]/5 transition-all duration-300" />
-                )}
-              </div>
 
-              <div className="relative">
                 <button
                   type="button"
                   onClick={() => handleAccountTypeChange('cnpj')}
-                  className={`w-full flex flex-col items-center justify-between rounded-xl border-2 p-6 text-gray-900 hover:bg-gray-50 cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] relative z-10 ${
+                  className={`relative p-10 rounded-3xl transition-all duration-500 hover:scale-105 active:scale-95 group ${
                     formData.accountType === 'cnpj'
-                      ? 'border-[#E85A27] ring-2 ring-[#E85A27]'
-                      : 'border-gray-200 bg-white'
+                      ? 'bg-gradient-to-br from-white to-white/95 shadow-2xl border-2 border-[#4A8C7A]'
+                      : 'bg-white/90 backdrop-blur-sm border-2 border-white/50 hover:border-[#4A8C7A]/30 hover:bg-white hover:shadow-xl'
                   }`}
                 >
-                  <span className="text-xl font-semibold mb-2">Pessoa Jurídica</span>
-                  <span className="text-sm text-gray-500">CNPJ</span>
+                  <div className="text-center relative z-10">
+                    <div className="flex justify-center mb-4">
+                      <div className={`p-4 rounded-2xl ${formData.accountType === 'cnpj' ? 'bg-[#4A8C7A]/10' : 'bg-gray-100'}`}>
+                        <Building2 className={`h-8 w-8 ${formData.accountType === 'cnpj' ? 'text-[#4A8C7A]' : 'text-gray-500'}`} />
+                      </div>
+                    </div>
+                    <div className="text-2xl sm:text-3xl font-bold text-[#4A8C7A] mb-3 group-hover:scale-105 transition-transform">
+                      Pessoa Jurídica
+                    </div>
+                    <div className="text-base text-[#4A8C7A]/70 font-medium mb-4">CNPJ</div>
+                    <div className="text-sm text-[#4A8C7A]/60 leading-relaxed">
+                      Perfeito para empresas e organizações
+                    </div>
+                  </div>
+                  {formData.accountType === 'cnpj' && (
+                    <div className="absolute top-6 right-6 bg-[#4A8C7A] text-white p-3 rounded-full shadow-lg">
+                      <CheckCircle2 className="h-6 w-6" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4A8C7A]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </button>
-                {formData.accountType === 'cnpj' && (
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#E85A27]/5 via-[#E85A27]/10 to-[#E85A27]/5 transition-all duration-300" />
-                )}
-              </div>
-            </div>
+            </motion.div>
+
             {errors.accountType && (
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{errors.accountType}</AlertDescription>
-              </Alert>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-base"
+              >
+                {errors.accountType}
+              </motion.div>
             )}
           </motion.div>
         );
@@ -255,164 +324,157 @@ export default function SignUpPage() {
       case 2:
         return (
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="space-y-8 max-w-[800px] mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full"
           >
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl font-bold text-gray-900">Quase lá! 🎯</h2>
-              <p className="text-gray-600 text-lg">Precisamos de algumas informações {formData.accountType === 'cpf' ? 'pessoais' : 'da empresa'}</p>
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-500 mt-2">
-                <Shield className="h-4 w-4 text-[#E85A27]" />
-                <span>Seus dados estão seguros e protegidos</span>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="document" className="text-lg font-medium">
-                    {formData.accountType === 'cpf' ? 'Seu CPF' : 'CNPJ da empresa'}
-                  </Label>
-                  <Input
-                    id="document"
-                    name="document"
-                    value={formData.document}
-                    onChange={(e) => {
-                      const formatted = formatDocument(e.target.value, formData.accountType);
-                      handleInputChange({ target: { name: 'document', value: formatted } } as any);
-                    }}
-                    placeholder={formData.accountType === 'cpf' ? '000.000.000-00' : '00.000.000/0000-00'}
-                    className="mt-2 text-lg py-6"
-                  />
-                  {errors.document && (
-                    <Alert variant="destructive" className="mt-2">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>{errors.document}</AlertDescription>
-                    </Alert>
-                  )}
-                </div>
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+            >
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#E27936] mb-4">
+                Quase lá! 🎯
+              </h2>
+              <p className="text-xl text-[#E27936]/90 max-w-2xl mx-auto leading-relaxed">
+                Precisamos de algumas informações {formData.accountType === 'cpf' ? 'pessoais' : 'da empresa'}
+              </p>
+            </motion.div>
 
-                {formData.accountType === 'cnpj' && (
-                  <div>
-                    <Label htmlFor="companyName" className="text-lg font-medium">
-                      Nome da empresa
-                    </Label>
-                    <Input
-                      id="companyName"
-                      name="companyName"
-                      value={formData.companyName}
-                      onChange={handleInputChange}
-                      placeholder="Digite o nome da sua empresa"
-                      className="mt-2 text-lg py-6"
-                    />
-                    {errors.companyName && (
-                      <Alert variant="destructive" className="mt-2">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertDescription>{errors.companyName}</AlertDescription>
-                      </Alert>
-                    )}
+            <motion.div 
+              className="space-y-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            >
+              <div>
+                <Label htmlFor="document" className="text-lg font-semibold text-[#E27936] mb-3 block">
+                  {formData.accountType === 'cpf' ? 'Seu CPF' : 'CNPJ da empresa'}
+                </Label>
+                <Input
+                  id="document"
+                  name="document"
+                  value={formData.document}
+                  onChange={(e) => {
+                    const formatted = formatDocument(e.target.value, formData.accountType);
+                    handleInputChange({ target: { name: 'document', value: formatted } } as any);
+                  }}
+                  placeholder={formData.accountType === 'cpf' ? '000.000.000-00' : '00.000.000/0000-00'}
+                  className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
+                />
+                {errors.document && (
+                  <div className="mt-3 text-red-600 text-base flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5" />
+                    {errors.document}
                   </div>
                 )}
+              </div>
 
+              {formData.accountType === 'cnpj' && (
                 <div>
-                  <Label htmlFor="name" className="text-lg font-medium">
-                    {formData.accountType === 'cpf' ? 'Seu nome completo' : 'Nome do responsável'}
+                  <Label htmlFor="companyName" className="text-lg font-semibold text-[#E27936] mb-3 block">
+                    Nome da empresa
                   </Label>
                   <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
+                    id="companyName"
+                    name="companyName"
+                    value={formData.companyName}
                     onChange={handleInputChange}
-                    placeholder={formData.accountType === 'cpf' ? 'Digite seu nome completo' : 'Digite o nome do responsável'}
-                    className="mt-2 text-lg py-6"
+                    placeholder="Digite o nome da sua empresa"
+                    className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
                   />
-                  {errors.name && (
-                    <Alert variant="destructive" className="mt-2">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>{errors.name}</AlertDescription>
-                    </Alert>
+                  {errors.companyName && (
+                    <div className="mt-3 text-red-600 text-base">{errors.companyName}</div>
                   )}
                 </div>
+              )}
 
-                <div>
-                  <Label htmlFor="email" className="text-lg font-medium">Seu melhor e-mail</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="seu@email.com"
-                    className="mt-2 text-lg py-6"
-                  />
-                  {errors.email && (
-                    <Alert variant="destructive" className="mt-2">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>{errors.email}</AlertDescription>
-                    </Alert>
+              <div>
+                <Label htmlFor="name" className="text-lg font-semibold text-[#E27936] mb-3 block">
+                  {formData.accountType === 'cpf' ? 'Seu nome completo' : 'Nome do responsável'}
+                </Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder={formData.accountType === 'cpf' ? 'Digite seu nome completo' : 'Digite o nome do responsável'}
+                  className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
+                />
+                {errors.name && (
+                  <div className="mt-3 text-red-600 text-base">{errors.name}</div>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="email" className="text-lg font-semibold text-[#E27936] mb-3 block">Seu melhor e-mail</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="seu@email.com"
+                  className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
+                />
+                {errors.email && (
+                  <div className="mt-3 text-red-600 text-base">{errors.email}</div>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="phone" className="text-lg font-semibold text-[#E27936] mb-3 block">Seu WhatsApp</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={(e) => {
+                    const formatted = formatPhone(e.target.value);
+                    handleInputChange({ target: { name: 'phone', value: formatted } } as any);
+                  }}
+                  placeholder="(00) 00000-0000"
+                  className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
+                />
+                {errors.phone && (
+                  <div className="mt-3 text-red-600 text-base">{errors.phone}</div>
+                )}
+              </div>
+
+              <div className="flex items-start space-x-4 p-6 bg-white/90 rounded-xl border border-[#E27936]/20">
+                <Checkbox
+                  id="privacyConsent"
+                  checked={formData.privacyConsent}
+                  onCheckedChange={(checked) => {
+                    setFormData(prev => ({
+                      ...prev,
+                      privacyConsent: checked as boolean
+                    }));
+                    if (errors.privacyConsent) {
+                      setErrors(prev => {
+                        const newErrors = { ...prev };
+                        delete newErrors.privacyConsent;
+                        return newErrors;
+                      });
+                    }
+                  }}
+                  className="mt-1 border-[#E27936] data-[state=checked]:bg-[#E27936] data-[state=checked]:border-[#E27936]"
+                />
+                <div className="grid gap-2 leading-relaxed">
+                  <label
+                    htmlFor="privacyConsent"
+                    className="text-base font-medium text-[#E27936] peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Declaro que conheço e autorizo o tratamento dos meus dados pessoais de acordo com a Política de Privacidade da Debita.aí.
+                  </label>
+                  {errors.privacyConsent && (
+                    <div className="text-red-600 text-base">{errors.privacyConsent}</div>
                   )}
                 </div>
               </div>
-
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="phone" className="text-lg font-medium">Seu WhatsApp</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={(e) => {
-                      const formatted = formatPhone(e.target.value);
-                      handleInputChange({ target: { name: 'phone', value: formatted } } as any);
-                    }}
-                    placeholder="(00) 00000-0000"
-                    className="mt-2 text-lg py-6"
-                  />
-                  {errors.phone && (
-                    <Alert variant="destructive" className="mt-2">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>{errors.phone}</AlertDescription>
-                    </Alert>
-                  )}
-                </div>
-
-                <div className="flex items-start space-x-3 mt-6">
-                  <Checkbox
-                    id="privacyConsent"
-                    checked={formData.privacyConsent}
-                    onCheckedChange={(checked) => {
-                      setFormData(prev => ({
-                        ...prev,
-                        privacyConsent: checked as boolean
-                      }));
-                      if (errors.privacyConsent) {
-                        setErrors(prev => {
-                          const newErrors = { ...prev };
-                          delete newErrors.privacyConsent;
-                          return newErrors;
-                        });
-                      }
-                    }}
-                    className="mt-1"
-                  />
-                  <div className="grid gap-1.5 leading-none">
-                    <label
-                      htmlFor="privacyConsent"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Declaro que conheço e autorizo o tratamento dos meus dados pessoais de acordo com a Política de Privacidade da Debita.aí.
-                    </label>
-                    {errors.privacyConsent && (
-                      <Alert variant="destructive" className="mt-2">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertDescription>{errors.privacyConsent}</AlertDescription>
-                      </Alert>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
         );
 
@@ -422,103 +484,85 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col items-center relative overflow-hidden">
-      {/* Radial background effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#E85A27]/5 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#E85A27]/5 via-transparent to-transparent scale-150" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#E85A27]/5 via-transparent to-transparent scale-200" />
-      
-      {/* Radial lines effect */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,_#E85A27_1px,_transparent_1px),_linear-gradient(to_bottom,_#E85A27_1px,_transparent_1px)] bg-[size:4rem_4rem]" />
+    <div className="min-h-screen bg-[#F0E0D1] flex flex-col relative font-sans">
+      {/* Header com logo e botão voltar */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center group">
+            <Image 
+              src={DebitaLogo} 
+              alt="Debita.aí" 
+              width={120} 
+              height={32}
+              className="transition-all duration-300 group-hover:scale-105"
+            />
+          </Link>
+
+          <Link href="/">
+            <Button
+              variant="secondary"
+              size="normal"
+              label="Voltar para a home"
+            />
+          </Link>
+        </div>
       </div>
 
-      {/* Brand Logo and Home Button */}
-      <div className="mt-8 mb-4 relative z-10 flex justify-between items-center w-full max-w-[1124px]">
-        <img src="/logo.svg" alt="Debita.aí" className="h-8 w-auto object-contain drop-shadow-lg" />
-        <Button
-          variant="outline"
-          onClick={() => router.push('/')}
-          className="text-[#E85A27] border-[#E85A27] hover:bg-[#E85A27] hover:text-white transition-all duration-200"
-        >
-          Voltar para a home
-        </Button>
-      </div>
-
-      <div className="flex-1 flex items-center justify-center w-full mb-32">
-        <Card className="w-full max-w-[1124px] p-8 shadow-2xl border-none bg-white/80 backdrop-blur-sm relative z-10 min-h-[750px] flex flex-col mt-16">
-          <div className="mb-8 max-w-[400px] mx-auto w-full">
-            <div className="relative flex justify-between mb-2">
-              {/* Connecting lines */}
-              <div className="absolute top-5 left-0 right-0 h-[2px] bg-gray-200 -z-10" />
-              <div 
-                className="absolute top-5 left-0 h-[2px] bg-[#E85A27] transition-all duration-300 -z-10"
-                style={{ width: `${((step - 1) / 1) * 100}%` }}
-              />
-              
-              {[1, 2].map((stepNumber) => (
-                <div key={stepNumber} className="relative">
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-semibold transition-all duration-300 ${
-                      stepNumber <= step
-                        ? 'bg-[#E85A27] text-white scale-110 shadow-lg shadow-[#E85A27]/20'
-                        : 'bg-gray-200 text-gray-600'
-                    }`}
-                  >
-                    {stepNumber}
-                  </div>
-                  {stepNumber <= step && (
-                    <div className="absolute inset-0 rounded-full ring-2 ring-[#E85A27] animate-pulse" />
-                  )}
-                </div>
-              ))}
+      {/* Content container - estilo Netflix */}
+      <div className="flex-1 flex items-center justify-center container mx-auto px-4 sm:px-6 lg:px-8 z-10 py-8">
+        <div className="w-full max-w-2xl">
+          {/* Progress indicator - estilo Netflix */}
+          <motion.div 
+            className="mb-12 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <div className="text-lg text-[#E27936]/80 font-medium">
+              {step === 1 ? 'Passo 1 de 2' : 'Passo 2 de 2'}
             </div>
-            <div className="flex justify-between mt-4">
-              <div className={`text-xs text-center w-16 transition-colors duration-300 ${step >= 1 ? 'text-[#E85A27] font-medium' : 'text-gray-500'}`}>
-                <div className="flex flex-col items-center">
-                  <span>Tipo de</span>
-                  <span>conta</span>
-                </div>
-              </div>
-              <div className={`text-xs text-center w-16 transition-colors duration-300 ${step >= 2 ? 'text-[#E85A27] font-medium' : 'text-gray-500'}`}>
-                <div className="flex flex-col items-center">
-                  <span>Dados</span>
-                  <span>pessoais</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </motion.div>
 
-          <div className="flex-1 overflow-y-auto pr-2">
-            <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
-          </div>
+          {/* Form content - sem card, estilo Netflix */}
+          <div className="w-full">
+            <AnimatePresence mode="wait">
+              {renderStep()}
+            </AnimatePresence>
 
-          <div className="mt-8 pt-4 border-t border-gray-100">
-            <div className="flex space-x-4">
+            {/* Action buttons */}
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4 mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            >
               {step > 1 && (
-                <Button variant="outline" onClick={prevStep} className="w-full text-lg py-6 rounded-xl">
-                  Voltar
-                </Button>
+                <Button
+                  variant="secondary"
+                  size="normal"
+                  label="Voltar"
+                  onClick={prevStep}
+                />
               )}
-              <Button 
-                onClick={step === 2 ? handleSubmit : nextStep} 
-                className="w-full bg-[#E85A27] hover:bg-[#D84A1F] text-lg py-6 rounded-xl"
-                disabled={isSubmitting}
-              >
-                {step === 2 
-                  ? (isSubmitting ? 'Criando conta...' : 'Criar conta')
-                  : 'Continuar'
-                }
-              </Button>
-            </div>
+              <Button
+                variant="primary"
+                size="normal"
+                label={step === 2 ? (isSubmitting ? 'Criando conta...' : 'Criar conta') : 'Continuar'}
+                onClick={step === 2 ? handleSubmit : nextStep}
+              />
+            </motion.div>
+
             {errors.submit && (
-              <Alert variant="destructive" className="mt-4">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{errors.submit}</AlertDescription>
-              </Alert>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-6 bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-base"
+              >
+                {errors.submit}
+              </motion.div>
             )}
           </div>
-        </Card>
+        </div>
       </div>
 
       {/* Chat Icon */}
@@ -526,7 +570,7 @@ export default function SignUpPage() {
         href="https://wa.me/551152414928"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 z-50 bg-[#E85A27] text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+        className="fixed bottom-6 right-6 z-50 bg-[#E27936] text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -534,9 +578,99 @@ export default function SignUpPage() {
       </motion.a>
 
       {/* Footer */}
-      <div className="w-full mt-8 relative z-50">
-        <SimpleFooter />
-      </div>
+      <footer className="bg-[#D9F0E9] border-t border-[#E27936]/20 mt-auto">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Logo e descrição */}
+          <div className="text-center mb-10">
+            <div className="flex justify-center mb-4">
+              <Image 
+                src={DebitaLogo} 
+                alt="Debita.aí" 
+                width={140} 
+                height={36}
+                className="opacity-80"
+              />
+            </div>
+            <p className="text-[#006178]/80 text-base max-w-2xl mx-auto leading-relaxed">
+              Sua plataforma completa de gestão financeira e meios de pagamento. 
+              Simplifique suas cobranças e gerencie suas finanças com total segurança.
+            </p>
+          </div>
+
+          {/* Grid principal */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+            {/* Informações da empresa */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-[#006178] mb-4">Empresa</h3>
+              <div className="space-y-3 text-sm text-[#006178]/70 leading-relaxed">
+                <p className="font-medium">DEBITA.AI GESTAO FINANCEIRA E MEIOS DE PAGAMENTO LTDA</p>
+                <p>CNPJ: 46.379.233/0001-48</p>
+                <p>suporte@debita.ai</p>
+              </div>
+            </div>
+
+            {/* Segurança e confiança */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-[#006178] mb-4">Segurança</h3>
+              <div className="space-y-3 text-sm text-[#006178]/70">
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 bg-[#4A8C7A]/10 rounded-lg">
+                    <Shield className="h-4 w-4 text-[#4A8C7A]" />
+                  </div>
+                  <span>Dados criptografados</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 bg-[#4A8C7A]/10 rounded-lg">
+                    <Shield className="h-4 w-4 text-[#4A8C7A]" />
+                  </div>
+                  <span>Conformidade LGPD</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 bg-[#4A8C7A]/10 rounded-lg">
+                    <Shield className="h-4 w-4 text-[#4A8C7A]" />
+                  </div>
+                  <span>Pagamentos seguros</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Links úteis */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-[#006178] mb-4">Suporte</h3>
+              <div className="space-y-3 text-sm text-[#006178]/70">
+                <a href="#" className="block hover:text-[#4A8C7A] transition-colors duration-200">Central de ajuda</a>
+                <a href="#" className="block hover:text-[#4A8C7A] transition-colors duration-200">Política de privacidade</a>
+                <a href="#" className="block hover:text-[#4A8C7A] transition-colors duration-200">Termos de uso</a>
+                <a href="https://wa.me/551152414928" className="block hover:text-[#4A8C7A] transition-colors duration-200">WhatsApp</a>
+              </div>
+            </div>
+
+            {/* Contato */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-[#006178] mb-4">Contato</h3>
+              <div className="space-y-3 text-sm text-[#006178]/70">
+                <a href="https://wa.me/551152414928" className="flex items-center gap-3 hover:text-[#4A8C7A] transition-colors duration-200">
+                  <MessageCircle className="h-4 w-4" />
+                  <span>WhatsApp</span>
+                </a>
+                <a href="mailto:suporte@debita.ai" className="flex items-center gap-3 hover:text-[#4A8C7A] transition-colors duration-200">
+                  <MessageCircle className="h-4 w-4" />
+                  <span>suporte@debita.ai</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Linha de separação e copyright */}
+          <div className="pt-8 border-t border-[#006178]/20">
+            <div className="text-center">
+              <p className="text-sm text-[#006178]/60">
+                © 2025 Debita.aí - Todos os direitos reservados
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 } 

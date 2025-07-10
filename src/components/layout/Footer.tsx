@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "@debita-ai/ragekit";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Shield } from "iconoir-react";
 import { Instagram, Linkedin, Globe } from "lucide-react";
@@ -35,16 +35,12 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gradient-to-b from-[#1a1f3a] to-[#0f1323] text-white relative overflow-hidden">
-      {/* Giant Background Text */}
-      <div className="absolute bottom-28 left-0 right-4 sm:right-16 md:right-28 flex justify-center pointer-events-none">
-        <div className="text-[8rem] xs:text-[10rem] sm:text-[12rem] md:text-[16rem] lg:text-[20rem] xl:text-[25rem] 2xl:text-[30rem] font-bold text-white/[0.02] select-none whitespace-nowrap transform translate-y-1/2">
-          Debita.aí
-        </div>
-      </div>
+    <footer className="bg-[#006178] text-white relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 z-0" />
       
       {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#E85A27]/10 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#E27936]/10 to-transparent rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#00809d]/10 to-transparent rounded-full blur-3xl"></div>
 
       <div className="container mx-auto px-4 relative">
@@ -62,25 +58,17 @@ export default function Footer() {
                 <Link href="/" className="inline-block mb-6">
                   <Image src={DebitaLogo} width={180} alt="Logo Debita.aí" />
                 </Link>
-                <p className="text-gray-300 leading-relaxed mb-6 text-sm">
+                <p className="text-gray-200 leading-relaxed mb-6 text-sm">
                   Plataforma completa de gestão financeira e cobranças digitais. 
                   Simplifique seus processos financeiros com segurança e eficiência.
                 </p>
                 
                 {/* Security Badges */}
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10">
-                    <Shield className="h-4 w-4 text-green-400" />
-                    <span className="text-xs font-medium">Ambiente seguro e criptografado</span>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20">
+                    <Shield className="h-4 w-4 text-[#E27936]" />
+                    <span className="text-xs font-medium text-white">Ambiente seguro e criptografado</span>
                   </div>
-                  {/* <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10">
-                    <Shield className="h-4 w-4 text-green-400" />
-                    <span className="text-xs font-medium">SSL 256-bit</span>
-                  </div>
-                  <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10">
-                    <Lock className="h-4 w-4 text-blue-400" />
-                    <span className="text-xs font-medium">PCI DSS</span>
-                  </div> */}
                 </div>
 
                 {/* ABFintechs Logo */}
@@ -113,17 +101,17 @@ export default function Footer() {
                 viewport={{ once: true }}
               >
                 <motion.li variants={itemMotion}>
-                  <Link href="#recursos" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
+                  <Link href="#recursos" className="text-gray-200 hover:text-[#E27936] transition-colors text-sm">
                     Recursos
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="#calculadora" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
+                  <Link href="#calculadora" className="text-gray-200 hover:text-[#E27936] transition-colors text-sm">
                     Planos
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="#tarifas" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
+                  <Link href="#tarifas" className="text-gray-200 hover:text-[#E27936] transition-colors text-sm">
                     Tarifas
                   </Link>
                 </motion.li>
@@ -148,36 +136,36 @@ export default function Footer() {
                 whileInView="visible"
                 viewport={{ once: true }}
               >
-                <motion.div variants={itemMotion} className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+                <motion.div variants={itemMotion} className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20">
                   <div className="flex items-start gap-3">
-                    <Phone className="h-5 w-5 text-[#E85A27] mt-0.5" />
+                    <Phone className="h-5 w-5 text-[#E27936] mt-0.5" />
                     <div>
-                      <p className="text-xs text-gray-400 mb-1">Atendimento</p>
-                      <a href="https://wa.me/551152414928" className="text-white hover:text-[#E85A27] transition-colors font-medium text-sm">
+                      <p className="text-xs text-gray-300 mb-1">Atendimento</p>
+                      <a href="https://wa.me/551152414928" className="text-white hover:text-[#E27936] transition-colors font-medium text-sm">
                         +55 11 5241-4928
                       </a>
-                      <p className="text-xs text-gray-400 mt-1">Seg-Sex: 9h às 18h</p>
+                      <p className="text-xs text-gray-300 mt-1">Seg-Sex: 9h às 18h</p>
                     </div>
                   </div>
                 </motion.div>
 
-                <motion.div variants={itemMotion} className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+                <motion.div variants={itemMotion} className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20">
                   <div className="flex items-start gap-3">
-                    <Mail className="h-5 w-5 text-[#E85A27] mt-0.5" />
+                    <Mail className="h-5 w-5 text-[#E27936] mt-0.5" />
                     <div>
-                      <p className="text-xs text-gray-400 mb-1">Email</p>
-                      <a href="mailto:suporte@debita.ai" className="text-white hover:text-[#E85A27] transition-colors font-medium text-sm">
+                      <p className="text-xs text-gray-300 mb-1">Email</p>
+                      <a href="mailto:suporte@debita.ai" className="text-white hover:text-[#E27936] transition-colors font-medium text-sm">
                         suporte@debita.ai
                       </a>
                     </div>
                   </div>
                 </motion.div>
 
-                <motion.div variants={itemMotion} className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+                <motion.div variants={itemMotion} className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20">
                   <div className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-[#E85A27] mt-0.5" />
+                    <MapPin className="h-5 w-5 text-[#E27936] mt-0.5" />
                     <div>
-                      <p className="text-xs text-gray-400 mb-1">Endereço</p>
+                      <p className="text-xs text-gray-300 mb-1">Endereço</p>
                       <p className="text-white text-sm">Uruçuí, PI</p>
                     </div>
                   </div>
@@ -187,65 +175,50 @@ export default function Footer() {
           </div>
 
           {/* Social Media & Links */}
-          <motion.div
-            className="flex flex-col md:flex-row justify-between items-center gap-6 py-8 border-t border-white/10"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center gap-6">
-              <motion.a
-                href="https://instagram.com/debita.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Instagram className="h-5 w-5 text-gray-300" />
-              </motion.a>
-              <motion.a
-                href="https://linkedin.com/company/debitaai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Linkedin className="h-5 w-5 text-gray-300" />
-              </motion.a>
-              <motion.a
-                href="https://debita.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Globe className="h-5 w-5 text-gray-300" />
-              </motion.a>
-            </div>
-
-            {/* <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <Link href="/termos" className="hover:text-white transition-colors">
-                Termos de Uso
-              </Link>
-              <Link href="/privacidade" className="hover:text-white transition-colors">
-                Política de Privacidade
-              </Link>
-              <Link href="/cookies" className="hover:text-white transition-colors">
-                Cookies
-              </Link>
-              <Link href="/regulamentacao" className="hover:text-white transition-colors">
-                Regulamentação
-              </Link>
-            </div> */}
-          </motion.div>
+                      <motion.div
+              className="flex flex-col md:flex-row justify-between items-center gap-6 py-8 border-t border-white/20"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-center gap-6">
+                <motion.a
+                  href="https://instagram.com/debita.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors border border-white/20"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Instagram className="h-5 w-5 text-white" />
+                </motion.a>
+                <motion.a
+                  href="https://linkedin.com/company/debitaai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors border border-white/20"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Linkedin className="h-5 w-5 text-white" />
+                </motion.a>
+                <motion.a
+                  href="https://debita.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors border border-white/20"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Globe className="h-5 w-5 text-white" />
+                </motion.a>
+              </div>
+            </motion.div>
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-white/10 py-8">
+        <div className="border-t border-white/20 py-8">
           <motion.div
             className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6"
             initial={{ opacity: 0, y: 20 }}
@@ -254,23 +227,16 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <div className="space-y-2">
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-gray-200">
                 <strong>© 2025 Debita.aí</strong> - Todos os direitos reservados
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-300">
                 DEBITA.AI GESTAO FINANCEIRA E MEIOS DE PAGAMENTO LTDA
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-300">
                 CNPJ: 46.379.233/0001-48
               </p>
             </div>
-
-            {/* <div className="text-right space-y-2">
-              <div className="flex items-center gap-2 justify-end">
-                <Shield className="h-4 w-4 text-green-400" />
-                <span className="text-xs text-gray-400">Ambiente seguro e criptografado</span>
-              </div>
-            </div> */}
           </motion.div>
         </div>
       </div>
