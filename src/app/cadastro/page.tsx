@@ -17,6 +17,8 @@ import SimpleFooter from '@/components/layout/SimpleFooter';
 import Link from 'next/link';
 import Image from 'next/image';
 import DebitaLogo from '../../../public/logo.svg';
+import MinDebitaLogoGreen from '../../../public/min-logo-green.svg';
+import ABFintechsLogo from '../../../public/abfintechs.png';
 
 type AccountType = 'cpf' | 'cnpj';
 
@@ -223,101 +225,47 @@ export default function SignUpPage() {
             className="text-center"
           >
             <motion.h1 
-              className="text-4xl sm:text-5xl font-bold text-[#E27936] mb-6 leading-tight"
+              className="text-5xl sm:text-6xl font-extrabold text-[#E27936] mb-6 leading-tight tracking-tight font-[Montserrat] "
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
             >
-              Vamos começar! 🚀
+              Você tem uma empresa?
             </motion.h1>
 
             <motion.p 
-              className="text-xl text-[#E27936]/90 mb-12 max-w-2xl mx-auto leading-relaxed"
+              className="text-lg text-[#E27936]/90 mb-12 max-w-2xl mx-auto leading-relaxed font-medium"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
-              Você é uma pessoa física ou jurídica?
+              O cadastro é exclusivo para empresas (CNPJ). Caso não seja empresa, clique abaixo.
             </motion.p>
 
             <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto"
+              className="flex flex-col gap-4 items-center justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             >
-                <button
-                  type="button"
-                  onClick={() => handleAccountTypeChange('cpf')}
-                  className={`relative p-10 rounded-3xl transition-all duration-500 hover:scale-105 active:scale-95 group ${
-                    formData.accountType === 'cpf'
-                      ? 'bg-gradient-to-br from-white to-white/95 shadow-2xl border-2 border-[#E27936]'
-                      : 'bg-white/90 backdrop-blur-sm border-2 border-white/50 hover:border-[#E27936]/30 hover:bg-white hover:shadow-xl'
-                  }`}
-                >
-                  <div className="text-center relative z-10">
-                    <div className="flex justify-center mb-4">
-                      <div className={`p-4 rounded-2xl ${formData.accountType === 'cpf' ? 'bg-[#E27936]/10' : 'bg-gray-100'}`}>
-                        <User className={`h-8 w-8 ${formData.accountType === 'cpf' ? 'text-[#E27936]' : 'text-gray-500'}`} />
-                      </div>
-                    </div>
-                    <div className="text-2xl sm:text-3xl font-bold text-[#E27936] mb-3 group-hover:scale-105 transition-transform">
-                      Pessoa Física
-                    </div>
-                    <div className="text-base text-[#E27936]/70 font-medium mb-4">CPF</div>
-                    <div className="text-sm text-[#E27936]/60 leading-relaxed">
-                      Ideal para freelancers e profissionais autônomos
-                    </div>
-                  </div>
-                  {formData.accountType === 'cpf' && (
-                    <div className="absolute top-6 right-6 bg-[#E27936] text-white p-3 rounded-full shadow-lg">
-                      <CheckCircle2 className="h-6 w-6" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#E27936]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleAccountTypeChange('cnpj')}
-                  className={`relative p-10 rounded-3xl transition-all duration-500 hover:scale-105 active:scale-95 group ${
-                    formData.accountType === 'cnpj'
-                      ? 'bg-gradient-to-br from-white to-white/95 shadow-2xl border-2 border-[#4A8C7A]'
-                      : 'bg-white/90 backdrop-blur-sm border-2 border-white/50 hover:border-[#4A8C7A]/30 hover:bg-white hover:shadow-xl'
-                  }`}
-                >
-                  <div className="text-center relative z-10">
-                    <div className="flex justify-center mb-4">
-                      <div className={`p-4 rounded-2xl ${formData.accountType === 'cnpj' ? 'bg-[#4A8C7A]/10' : 'bg-gray-100'}`}>
-                        <Building2 className={`h-8 w-8 ${formData.accountType === 'cnpj' ? 'text-[#4A8C7A]' : 'text-gray-500'}`} />
-                      </div>
-                    </div>
-                    <div className="text-2xl sm:text-3xl font-bold text-[#4A8C7A] mb-3 group-hover:scale-105 transition-transform">
-                      Pessoa Jurídica
-                    </div>
-                    <div className="text-base text-[#4A8C7A]/70 font-medium mb-4">CNPJ</div>
-                    <div className="text-sm text-[#4A8C7A]/60 leading-relaxed">
-                      Perfeito para empresas e organizações
-                    </div>
-                  </div>
-                  {formData.accountType === 'cnpj' && (
-                    <div className="absolute top-6 right-6 bg-[#4A8C7A] text-white p-3 rounded-full shadow-lg">
-                      <CheckCircle2 className="h-6 w-6" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#4A8C7A]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </button>
+              <Button
+                variant="primary"
+                size="normal"
+                label="Sim, eu tenho uma empresa"
+                onClick={() => {
+                  handleAccountTypeChange('cnpj');
+                  nextStep();
+                }}
+              />
+              <Button
+                variant="tertiary"
+                size="normal"
+                label="Não sou empresa"
+                onClick={() => {
+                  window.open('https://docs.google.com/forms/d/e/1FAIpQLSf-placeholder/viewform', '_blank');
+                }}
+              />
             </motion.div>
-
-            {errors.accountType && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-base"
-              >
-                {errors.accountType}
-              </motion.div>
-            )}
           </motion.div>
         );
 
@@ -331,28 +279,29 @@ export default function SignUpPage() {
             className="w-full"
           >
             <motion.div 
-              className="text-center mb-12"
+              className="text-center mb-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
             >
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#E27936] mb-4">
-                Quase lá! 🎯
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-[#E27936] mb-6 leading-tight tracking-tight font-[Montserrat]">
+                Quase lá!
               </h2>
-              <p className="text-xl text-[#E27936]/90 max-w-2xl mx-auto leading-relaxed">
-                Precisamos de algumas informações {formData.accountType === 'cpf' ? 'pessoais' : 'da empresa'}
+              <p className="text-lg text-[#E27936]/90 max-w-2xl mx-auto leading-relaxed font-medium">
+                Só mais algumas informações para finalizar seu cadastro.
               </p>
             </motion.div>
 
+            {/* Grid de inputs */}
             <motion.div 
-              className="space-y-8 max-w-2xl mx-auto"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
               <div>
-                <Label htmlFor="document" className="text-lg font-semibold text-[#E27936] mb-3 block">
-                  {formData.accountType === 'cpf' ? 'Seu CPF' : 'CNPJ da empresa'}
+                <Label htmlFor="document" className="text-lg font-semibold text-[#E27936] mb-4 block">
+                  CNPJ da empresa
                 </Label>
                 <Input
                   id="document"
@@ -362,55 +311,53 @@ export default function SignUpPage() {
                     const formatted = formatDocument(e.target.value, formData.accountType);
                     handleInputChange({ target: { name: 'document', value: formatted } } as any);
                   }}
-                  placeholder={formData.accountType === 'cpf' ? '000.000.000-00' : '00.000.000/0000-00'}
-                  className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
+                  placeholder="00.000.000/0000-00"
+                  className="text-lg py-5 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl w-full"
                 />
                 {errors.document && (
-                  <div className="mt-3 text-red-600 text-base flex items-center gap-2">
+                  <div className="mt-4 text-red-600 text-base flex items-center gap-2">
                     <AlertCircle className="h-5 w-5" />
                     {errors.document}
                   </div>
                 )}
               </div>
 
-              {formData.accountType === 'cnpj' && (
-                <div>
-                  <Label htmlFor="companyName" className="text-lg font-semibold text-[#E27936] mb-3 block">
-                    Nome da empresa
-                  </Label>
-                  <Input
-                    id="companyName"
-                    name="companyName"
-                    value={formData.companyName}
-                    onChange={handleInputChange}
-                    placeholder="Digite o nome da sua empresa"
-                    className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
-                  />
-                  {errors.companyName && (
-                    <div className="mt-3 text-red-600 text-base">{errors.companyName}</div>
-                  )}
-                </div>
-              )}
+              <div>
+                <Label htmlFor="companyName" className="text-lg font-semibold text-[#E27936] mb-4 block">
+                  Nome da empresa
+                </Label>
+                <Input
+                  id="companyName"
+                  name="companyName"
+                  value={formData.companyName}
+                  onChange={handleInputChange}
+                  placeholder="Digite o nome da sua empresa"
+                  className="text-lg py-5 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl w-full"
+                />
+                {errors.companyName && (
+                  <div className="mt-4 text-red-600 text-base">{errors.companyName}</div>
+                )}
+              </div>
 
               <div>
-                <Label htmlFor="name" className="text-lg font-semibold text-[#E27936] mb-3 block">
-                  {formData.accountType === 'cpf' ? 'Seu nome completo' : 'Nome do responsável'}
+                <Label htmlFor="name" className="text-lg font-semibold text-[#E27936] mb-4 block">
+                  Nome do responsável
                 </Label>
                 <Input
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  placeholder={formData.accountType === 'cpf' ? 'Digite seu nome completo' : 'Digite o nome do responsável'}
-                  className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
+                  placeholder="Digite o nome do responsável"
+                  className="text-lg py-5 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl w-full"
                 />
                 {errors.name && (
-                  <div className="mt-3 text-red-600 text-base">{errors.name}</div>
+                  <div className="mt-4 text-red-600 text-base">{errors.name}</div>
                 )}
               </div>
 
               <div>
-                <Label htmlFor="email" className="text-lg font-semibold text-[#E27936] mb-3 block">Seu melhor e-mail</Label>
+                <Label htmlFor="email" className="text-lg font-semibold text-[#E27936] mb-4 block">Seu melhor e-mail</Label>
                 <Input
                   id="email"
                   name="email"
@@ -418,15 +365,15 @@ export default function SignUpPage() {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="seu@email.com"
-                  className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
+                  className="text-lg py-5 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl w-full"
                 />
                 {errors.email && (
-                  <div className="mt-3 text-red-600 text-base">{errors.email}</div>
+                  <div className="mt-4 text-red-600 text-base">{errors.email}</div>
                 )}
               </div>
 
               <div>
-                <Label htmlFor="phone" className="text-lg font-semibold text-[#E27936] mb-3 block">Seu WhatsApp</Label>
+                <Label htmlFor="phone" className="text-lg font-semibold text-[#E27936] mb-4 block">Seu WhatsApp</Label>
                 <Input
                   id="phone"
                   name="phone"
@@ -436,45 +383,72 @@ export default function SignUpPage() {
                     handleInputChange({ target: { name: 'phone', value: formatted } } as any);
                   }}
                   placeholder="(00) 00000-0000"
-                  className="text-lg py-4 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl"
+                  className="text-lg py-5 px-6 border-[#E27936]/20 focus:border-[#E27936] focus:ring-[#E27936]/20 bg-white/90 rounded-xl w-full"
                 />
                 {errors.phone && (
-                  <div className="mt-3 text-red-600 text-base">{errors.phone}</div>
+                  <div className="mt-4 text-red-600 text-base">{errors.phone}</div>
                 )}
               </div>
-
-              <div className="flex items-start space-x-4 p-6 bg-white/90 rounded-xl border border-[#E27936]/20">
-                <Checkbox
-                  id="privacyConsent"
-                  checked={formData.privacyConsent}
-                  onCheckedChange={(checked) => {
-                    setFormData(prev => ({
-                      ...prev,
-                      privacyConsent: checked as boolean
-                    }));
-                    if (errors.privacyConsent) {
-                      setErrors(prev => {
-                        const newErrors = { ...prev };
-                        delete newErrors.privacyConsent;
-                        return newErrors;
-                      });
-                    }
-                  }}
-                  className="mt-1 border-[#E27936] data-[state=checked]:bg-[#E27936] data-[state=checked]:border-[#E27936]"
-                />
-                <div className="grid gap-2 leading-relaxed">
-                  <label
-                    htmlFor="privacyConsent"
-                    className="text-base font-medium text-[#E27936] peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Declaro que conheço e autorizo o tratamento dos meus dados pessoais de acordo com a Política de Privacidade da Debita.aí.
-                  </label>
-                  {errors.privacyConsent && (
-                    <div className="text-red-600 text-base">{errors.privacyConsent}</div>
-                  )}
-                </div>
-              </div>
             </motion.div>
+
+            {/* Checkbox de privacidade */}
+            <div className="flex items-start space-x-4 p-8 bg-white/90 rounded-xl border border-[#E27936]/20 mb-8">
+              <Checkbox
+                id="privacyConsent"
+                checked={formData.privacyConsent}
+                onCheckedChange={(checked) => {
+                  setFormData(prev => ({
+                    ...prev,
+                    privacyConsent: checked as boolean
+                  }));
+                  if (errors.privacyConsent) {
+                    setErrors(prev => {
+                      const newErrors = { ...prev };
+                      delete newErrors.privacyConsent;
+                      return newErrors;
+                    });
+                  }
+                }}
+                className="mt-1 border-[#E27936] data-[state=checked]:bg-[#E27936] data-[state=checked]:border-[#E27936]"
+              />
+              <div className="grid gap-2 leading-relaxed">
+                <label
+                  htmlFor="privacyConsent"
+                  className="text-base font-medium text-[#E27936] peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Declaro que conheço e autorizo o tratamento dos meus dados pessoais de acordo com a Política de Privacidade da Debita.aí.
+                </label>
+                {errors.privacyConsent && (
+                  <div className="text-red-600 text-base">{errors.privacyConsent}</div>
+                )}
+              </div>
+            </div>
+
+            {/* Botões de ação */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                variant="secondary"
+                size="normal"
+                label="Voltar"
+                onClick={prevStep}
+              />
+              <Button
+                variant="primary"
+                size="normal"
+                label={isSubmitting ? 'Criando conta...' : 'Criar conta'}
+                onClick={handleSubmit}
+              />
+            </div>
+
+            {errors.submit && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-6 bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-base"
+              >
+                {errors.submit}
+              </motion.div>
+            )}
           </motion.div>
         );
 
@@ -484,9 +458,9 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0E0D1] flex flex-col relative font-sans">
+    <div className="min-h-screen bg-[#F0E0D1] flex flex-col relative font-satoshi">
       {/* Header com logo e botão voltar */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center group">
             <Image 
@@ -509,11 +483,11 @@ export default function SignUpPage() {
       </div>
 
       {/* Content container - estilo Netflix */}
-      <div className="flex-1 flex items-center justify-center container mx-auto px-4 sm:px-6 lg:px-8 z-10 py-8">
+      <div className="flex-1 flex items-center justify-center container mx-auto px-4 sm:px-6 lg:px-8 z-10 py-12">
         <div className="w-full max-w-2xl">
           {/* Progress indicator - estilo Netflix */}
           <motion.div 
-            className="mb-12 text-center"
+            className="mb-16 text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -531,25 +505,13 @@ export default function SignUpPage() {
 
             {/* Action buttons */}
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4 mt-12"
+              className="flex flex-col sm:flex-row gap-4 mt-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             >
-              {step > 1 && (
-                <Button
-                  variant="secondary"
-                  size="normal"
-                  label="Voltar"
-                  onClick={prevStep}
-                />
-              )}
-              <Button
-                variant="primary"
-                size="normal"
-                label={step === 2 ? (isSubmitting ? 'Criando conta...' : 'Criar conta') : 'Continuar'}
-                onClick={step === 2 ? handleSubmit : nextStep}
-              />
+
+
             </motion.div>
 
             {errors.submit && (
@@ -578,93 +540,60 @@ export default function SignUpPage() {
       </motion.a>
 
       {/* Footer */}
-      <footer className="bg-[#D9F0E9] border-t border-[#E27936]/20 mt-auto">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Logo e descrição */}
-          <div className="text-center mb-10">
-            <div className="flex justify-center mb-4">
+      <footer className="bg-[#D9F0E9] border-t border-[#E27936]/20 mt-auto font-satoshi">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Linha principal: logo, texto, links */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-6">
+            <div className="flex items-center gap-3 lg:gap-4 mb-4 lg:mb-0">
               <Image 
-                src={DebitaLogo} 
+                src={MinDebitaLogoGreen} 
                 alt="Debita.aí" 
-                width={140} 
-                height={36}
+                width={40} 
+                height={20}
                 className="opacity-80"
               />
+              <div className="hidden sm:block w-px h-6 bg-[#006178]/20"></div>
+              <p className="text-[#006178]/70 text-xs font-medium">
+                Sua plataforma completa de gestão financeira
+              </p>
             </div>
-            <p className="text-[#006178]/80 text-base max-w-2xl mx-auto leading-relaxed">
-              Sua plataforma completa de gestão financeira e meios de pagamento. 
-              Simplifique suas cobranças e gerencie suas finanças com total segurança.
-            </p>
-          </div>
-
-          {/* Grid principal */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-            {/* Informações da empresa */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-[#006178] mb-4">Empresa</h3>
-              <div className="space-y-3 text-sm text-[#006178]/70 leading-relaxed">
-                <p className="font-medium">DEBITA.AI GESTAO FINANCEIRA E MEIOS DE PAGAMENTO LTDA</p>
-                <p>CNPJ: 46.379.233/0001-48</p>
-                <p>suporte@debita.ai</p>
+            <div className="flex w-full justify-center">
+              <div className="flex items-center gap-2 text-xs text-[#006178]/60">
+                <Shield className="h-3 w-3 text-[#4A8C7A]" />
+                <span>Todos seus dados estão protegidos</span>
               </div>
             </div>
-
-            {/* Segurança e confiança */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-[#006178] mb-4">Segurança</h3>
-              <div className="space-y-3 text-sm text-[#006178]/70">
-                <div className="flex items-center gap-3">
-                  <div className="p-1.5 bg-[#4A8C7A]/10 rounded-lg">
-                    <Shield className="h-4 w-4 text-[#4A8C7A]" />
-                  </div>
-                  <span>Dados criptografados</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="p-1.5 bg-[#4A8C7A]/10 rounded-lg">
-                    <Shield className="h-4 w-4 text-[#4A8C7A]" />
-                  </div>
-                  <span>Conformidade LGPD</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="p-1.5 bg-[#4A8C7A]/10 rounded-lg">
-                    <Shield className="h-4 w-4 text-[#4A8C7A]" />
-                  </div>
-                  <span>Pagamentos seguros</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Links úteis */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-[#006178] mb-4">Suporte</h3>
-              <div className="space-y-3 text-sm text-[#006178]/70">
-                <a href="#" className="block hover:text-[#4A8C7A] transition-colors duration-200">Central de ajuda</a>
-                <a href="#" className="block hover:text-[#4A8C7A] transition-colors duration-200">Política de privacidade</a>
-                <a href="#" className="block hover:text-[#4A8C7A] transition-colors duration-200">Termos de uso</a>
-                <a href="https://wa.me/551152414928" className="block hover:text-[#4A8C7A] transition-colors duration-200">WhatsApp</a>
-              </div>
-            </div>
-
-            {/* Contato */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-[#006178] mb-4">Contato</h3>
-              <div className="space-y-3 text-sm text-[#006178]/70">
-                <a href="https://wa.me/551152414928" className="flex items-center gap-3 hover:text-[#4A8C7A] transition-colors duration-200">
-                  <MessageCircle className="h-4 w-4" />
-                  <span>WhatsApp</span>
-                </a>
-                <a href="mailto:suporte@debita.ai" className="flex items-center gap-3 hover:text-[#4A8C7A] transition-colors duration-200">
-                  <MessageCircle className="h-4 w-4" />
-                  <span>suporte@debita.ai</span>
-                </a>
-              </div>
+            <div className="flex items-center gap-4 lg:gap-6 text-xs text-[#006178]/70">
+              <a href="#" className="hover:text-[#4A8C7A] transition-colors duration-200 font-medium">Ajuda</a>
+              <a href="#" className="hover:text-[#4A8C7A] transition-colors duration-200 font-medium">Privacidade</a>
+              <a href="https://wa.me/551152414928" className="hover:text-[#4A8C7A] transition-colors duration-200 font-medium">WhatsApp</a>
             </div>
           </div>
 
-          {/* Linha de separação e copyright */}
-          <div className="pt-8 border-t border-[#006178]/20">
+          {/* Linha de informações e certificação */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-4 border-t border-[#006178]/10">
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs text-[#006178]/60 text-center sm:text-left">
+              <span className="font-medium">DEBITA.AI GESTAO FINANCEIRA E MEIOS DE PAGAMENTO LTDA</span>
+              <span className="hidden sm:inline">|</span>
+              <span>CNPJ: 46.379.233/0001-48</span>
+              <span className="hidden sm:inline">|</span>
+              <span>suporte@debita.ai</span>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 mt-4 sm:mt-0">
+              <Image 
+                src={ABFintechsLogo} 
+                alt="ABFintechs" 
+                width={80} 
+                height={20}
+                className="opacity-100"
+              />
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="pt-4 border-t border-[#006178]/10 mt-2">
             <div className="text-center">
-              <p className="text-sm text-[#006178]/60">
+              <p className="text-xs text-[#006178]/50 font-medium">
                 © 2025 Debita.aí - Todos os direitos reservados
               </p>
             </div>
