@@ -57,8 +57,8 @@ export default function Tarifas() {
                 <tr className="bg-gray-50">
                   <th className="p-4 text-left font-semibold text-gray-700">Método de Pagamento</th>
                   <th className="p-4 text-center font-semibold text-gray-700">Debita.aí</th>
-                  <th className="p-4 text-center font-semibold text-gray-700">Iugu</th>
-                  <th className="p-4 text-center font-semibold text-gray-700">Asaas</th>
+                  <th className="p-4 text-center font-semibold text-gray-700">Concorrente A</th>
+                  <th className="p-4 text-center font-semibold text-gray-700">Concorrente B</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
