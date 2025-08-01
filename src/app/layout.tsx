@@ -1,4 +1,3 @@
-import "@debita-ai/ragekit/styles";
 import './globals.css'
 import type { Metadata } from 'next'
 import { Libre_Baskerville } from 'next/font/google'
@@ -20,9 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={`${baskerville.variable}`} suppressHydrationWarning>
-      <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
-        {/* <ScrollProgressBar /> */}
-        {/* Remover o scroll progress bar */}
+      <head>
+        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,301,400,401,500,501,700,701,900,901,1,2&display=swap" rel="stylesheet" />
+      </head>
+      <body className="min-h-screen font-satoshi antialiased" suppressHydrationWarning>
         <HeaderWrapper />
         <div className="min-h-screen bg-gray-50">
           {children}

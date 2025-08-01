@@ -5,7 +5,7 @@ import Header from './Header';
 
 export default function HeaderWrapper() {
   const pathname = usePathname();
-  const hideHeader = pathname !== '/';
+  const hideHeader = pathname !== '/' || pathname.startsWith('/legal');
 
   if (hideHeader) {
     return null;

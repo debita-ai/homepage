@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { LogIn, Menu, X, NavArrowRight } from "iconoir-react";
-import { Button } from "@debita-ai/ragekit";
+import { Menu, X } from "iconoir-react";
 import DebitaLogo from "../../../public/logo.svg";
 
 export default function Header() {
@@ -44,21 +43,19 @@ export default function Header() {
 
           {/* Desktop Auth Buttons - Fora da pílula */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Button
-              variant="tertiary"
-              size="normal"
-              label="Entrar na conta"
+            <button
+              className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-3 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-transparent hover:bg-[#E37A37]/10 text-[#E37A37] hover:text-[#E37A37]"
               onClick={() => {
                 window.location.href = process.env.NEXT_PUBLIC_APP_URL || "";
               }}
-             />
+            >
+              Entrar na conta
+            </button>
 
             <Link href="/cadastro" prefetch className="inline-block">
-              <Button
-                variant="primary"
-                size="normal"
-                label="Comece agora"
-              />
+              <button className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-3 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white">
+                Comece agora
+              </button>
             </Link>
           </div>
 
@@ -174,21 +171,19 @@ export default function Header() {
 
                   {/* Action Buttons */}
                   <div className="space-y-3">
-                    <Button
-                      variant="secondary"
-                      size="large"
-                      label="Entrar na conta"
+                    <button
+                      className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-full py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 border-2 border-[#E37A37]/50 hover:border-[#E37A37] bg-transparent hover:bg-[#E37A37]/10 text-[#E37A37] hover:text-[#E37A37]"
                       onClick={() => {
                         window.location.href = process.env.NEXT_PUBLIC_APP_URL || "";
                       }}
-                    />
+                    >
+                      Entrar na conta
+                    </button>
 
                     <Link href="/cadastro" prefetch className="block">
-                      <Button
-                        variant="primary"
-                        size="large"
-                        label="Entrar na lista de espera"
-                      />
+                      <button className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-full py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white">
+                        Entrar na lista de espera
+                      </button>
                     </Link>
                   </div>
                 </div>

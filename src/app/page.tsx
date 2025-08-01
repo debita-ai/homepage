@@ -1,20 +1,12 @@
 "use client";
 
-import Header from "@/components/layout/Header";
 import ParallaxHero from "@/components/layout/ParallaxHero";
 import Features from "@/components/layout/Features";
-import ForWho from "@/components/layout/ForWho";
-import MainFeatures from "@/components/layout/MainFeatures";
-import EnhancedTestimonials from "@/components/layout/EnhancedTestimonials";
-import SimplePriceCalculator from "@/components/layout/SimplePriceCalculator";
-import SimpleFaq from "@/components/layout/SimpleFaq";
-import AppPromo from "@/components/layout/AppPromo";
-import Blog from "@/components/layout/Blog";
-import Footer from "@/components/layout/Footer";
-import SimpleChatWidget from "@/components/ui/SimpleChatWidget";
-import Integrations from "@/components/layout/Integrations";
+import BentoGrid from "@/components/layout/BentoGrid";
 import Tarifas from "@/components/layout/Tarifas";
-import LogosSection from "@/components/LogosSection";
+import SimpleFaq from "@/components/layout/SimpleFaq";
+import CTAFinal from "@/components/layout/CTAFinal";
+import Footer from "@/components/layout/Footer";
 import { useEffect, useState } from "react";
 import { Crisp } from "crisp-sdk-web";
 
@@ -23,32 +15,24 @@ export default function Home() {
 
   useEffect(() => {
     Crisp.configure("e420b242-8cad-462c-bcb4-088409303ca6");
-
     setIsMounted(true);
   }, []);
 
   if (!isMounted) {
-    return null; // Or a loading skeleton
+    return null;
   }
 
   return (
     <div className="min-h-screen">
-      <Header key="header" />
       <main>
         <ParallaxHero />
-        {/* <LogosSection />  */}
         <Features />
-        {/* <MainFeatures key="main-features" /> */}
-        {/* <EnhancedTestimonials key="testimonials" /> */}
-        {/* <ForWho key="for-who" /> */}
-        {/* <Integrations key="integrations" /> */}
-        {/* <SimplePriceCalculator key="pricing" /> */}
-        {/* <Tarifas key="tarifas" /> */}
-        {/* <SimpleFaq key="faq" /> */}
-        {/* <AppPromo key="app-promo" /> */}
-        {/* <Blog key="blog" /> */}
+        <BentoGrid />
+        <Tarifas />
+        <SimpleFaq />
+        <CTAFinal />
       </main>
-      <Footer key="footer" />
+      <Footer />
     </div>
   );
 }

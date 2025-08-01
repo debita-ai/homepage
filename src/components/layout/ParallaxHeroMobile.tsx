@@ -47,7 +47,7 @@ export default function ParallaxHeroMobile() {
   return (
     <section 
       ref={sectionRef}
-      className="relative h-[900px] overflow-hidden bg-[#E27936] flex flex-col mx-auto"
+      className="relative h-[900px] overflow-hidden bg-[#FFF3E7] flex flex-col mx-auto"
       style={{ maxWidth: '1920px', borderRadius: '0px 0px 1.6rem 1.6rem' }}
     >
       {/* Background elements with parallax effect */}
@@ -62,19 +62,19 @@ export default function ParallaxHeroMobile() {
       <div className="mt-8 container relative mx-auto px-3 sm:px-6 z-10 pt-2 sm:pt-8 flex flex-col flex-1 justify-around items-center">
         {/* Text Section */}
         <div className="text-center w-full flex flex-col items-center px-2 sm:px-4">
-          <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl font-bold text-[#E27936] mb-3 mt-4 sm:mt-10 sm:mb-6 leading-tight max-w-[280px] sm:max-w-md lg:max-w-lg">
+          <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl font-bold text-[#E37A37] mb-3 mt-4 sm:mt-10 sm:mb-6 leading-tight max-w-[280px] sm:max-w-md lg:max-w-lg">
             Sua nova plataforma
             <span className="block">de gestão de cobranças</span>
           </h1>
 
-          <p className="text-base xs:text-lg sm:text-2xl lg:text-3xl text-[#E27936]/80 mb-4 sm:mb-10 max-w-[280px] sm:max-w-md lg:max-w-lg mx-auto">
+          <p className="text-base xs:text-lg sm:text-2xl lg:text-3xl text-[#E37A37]/80 mb-4 sm:mb-10 max-w-[280px] sm:max-w-md lg:max-w-lg mx-auto">
             Um <b>gateway de pagamentos moderno</b>. Simplifique a gestão de cobranças e pagamentos da sua empresa.
           </p>
 
           <div className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-8 w-full max-w-[280px] sm:max-w-md lg:max-w-lg">
             <Button
               size="lg"
-              className="bg-[#E27936] hover:bg-[#d24a1e] text-white text-base xs:text-lg sm:text-2xl lg:text-3xl px-5 sm:px-8 py-5 sm:py-7 rounded-xl"
+              className="bg-[#E37A37] hover:bg-[#C65A1A] text-white text-base xs:text-lg sm:text-2xl lg:text-3xl px-5 sm:px-8 py-5 sm:py-7 rounded-xl"
               asChild
             >
               <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center">
@@ -86,7 +86,7 @@ export default function ParallaxHeroMobile() {
             <Button
               variant="outline"
               size="lg"
-              className="border-[#E27936] bg-transparent hover:bg-[#E27936]/10 text-[#E27936] hover:text-[#E27936] text-base xs:text-lg sm:text-2xl lg:text-3xl px-5 sm:px-8 py-5 sm:py-7 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              className="border-[#E37A37] bg-transparent hover:bg-[#E37A37]/10 text-[#E37A37] hover:text-[#E37A37] text-base xs:text-lg sm:text-2xl lg:text-3xl px-5 sm:px-8 py-5 sm:py-7 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
               asChild
             >
               <Link href="#recursos" className="flex items-center justify-center">Conhecer recursos</Link>

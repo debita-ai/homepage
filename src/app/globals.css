@@ -1,4 +1,5 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@1,900,700,500,301,701,300,501,401,901&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -201,7 +202,6 @@
   }
 
   * {
-    @apply border-border;
   }
 }
 
@@ -275,6 +275,19 @@
   transform: translateY(20px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   will-change: opacity, transform;
+}
+
+/* Hand-drawn border animation */
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dashoffset: 10;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 .scroll-reveal.active {

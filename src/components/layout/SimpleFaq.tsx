@@ -6,20 +6,52 @@ import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
-    question: "Como funciona o período gratuito de 7 dias?",
-    answer: "Durante os 7 dias gratuitos, você tem acesso a todas as funcionalidades do Debita.aí. Não exigimos cartão de crédito para o período de teste, e você receberá uma notificação antes do término para decidir se deseja continuar."
+    question: "A plataforma é segura?",
+    answer: "Sim. Usamos criptografia de ponta e seguimos as melhores práticas de segurança do mercado financeiro para proteger seus dados e os de seus clientes. Somos regulamentados pelo Banco Central."
   },
   {
-    question: "O Debita.aí é seguro para gerenciar minhas finanças?",
-    answer: "Sim, usamos criptografia de ponta e medidas de segurança em conformidade com os padrões do mercado. Seus dados são protegidos com o mesmo nível de segurança utilizado por bancos, e nossos servidores possuem certificação de segurança."
+    question: "Em quanto tempo o dinheiro fica disponível para saque?",
+    answer: "Pagamentos via Pix ficam disponíveis em segundos. Boletos em até 1 dia útil após o pagamento. Cartão de crédito em D+30, com opção de antecipação."
   },
   {
-    question: "Posso usar o Debita.aí em múltiplos dispositivos?",
-    answer: "Certamente! O Debita.aí funciona em qualquer dispositivo com acesso à internet. Temos aplicativos nativos para iOS e Android, além de funcionar perfeitamente em qualquer navegador. Todos os seus dados são sincronizados automaticamente."
+    question: "Preciso ter CNPJ para usar a Debita.ai?",
+    answer: "Não! Você pode se cadastrar tanto com seu CPF quanto com seu CNPJ, de forma rápida e sem burocracia."
   },
   {
-    question: "É possível importar dados financeiros de outros sistemas?",
-    answer: "Sim, o Debita.aí suporta importação de dados via arquivos CSV, OFX, e extrato de banco em formato PDF. Também oferecemos uma ferramenta de migração assistida para usuários empresariais vindos de outros sistemas."
+    question: "Qual o limite de transações por mês?",
+    answer: "No plano gratuito, você pode processar transações ilimitadas. Aplicamos apenas as taxas sobre o valor recebido, sem limites de volume ou quantidade."
+  },
+  {
+    question: "Como funciona a antecipação de recebíveis?",
+    answer: "Você pode antecipar seus recebíveis de cartão de crédito com taxas competitivas. O valor antecipado fica disponível em até 1 dia útil na sua conta."
+  },
+  {
+    question: "Posso integrar com meu sistema atual?",
+    answer: "Sim! Oferecemos APIs completas para desenvolvedores, webhooks e integrações com os principais ERPs e sistemas de e-commerce do mercado."
+  },
+  {
+    question: "Há taxa para saques?",
+    answer: "Sim, cobramos uma taxa única de R$ 0,80 por saque para qualquer conta bancária. Não há limite mínimo para saque."
+  },
+  {
+    question: "Como funciona o suporte técnico?",
+    answer: "Oferecemos suporte via WhatsApp, email e chat no horário comercial. No plano premium, você terá suporte prioritário com atendimento diferenciado."
+  },
+  {
+    question: "Posso cancelar a qualquer momento sem multa?",
+    answer: "Sim! Não há contrato de fidelidade, taxa de cancelamento ou multa. Você pode deixar de usar nossos serviços quando quiser."
+  },
+  {
+    question: "Vocês emitem nota fiscal das transações?",
+    answer: "Sim, emitimos nota fiscal de todas as taxas cobradas. As transações dos seus clientes não geram NF para você, apenas para seus compradores."
+  },
+  {
+    question: "Como funciona a conciliação bancária?",
+    answer: "Nossa plataforma faz a conciliação automática das suas vendas. Você visualiza em tempo real o que foi vendido, recebido e quando o dinheiro estará disponível."
+  },
+  {
+    question: "O que acontece se eu exceder os limites do plano gratuito?",
+    answer: "O plano gratuito não tem limites de transações. Cobramos apenas as taxas sobre o valor processado. Planos premium oferecerão recursos adicionais no futuro."
   }
 ];
 
@@ -32,7 +64,7 @@ export default function SimpleFaq() {
 
   return (
     <section className="py-20 bg-gray-50" id="faq">
-      <div className="container mx-auto px-6 lg:px-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -40,9 +72,11 @@ export default function SimpleFaq() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-secondary">Perguntas frequentes</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-800">
+            Ainda tem dúvidas? A gente responde.
+          </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Encontre respostas para as dúvidas mais comuns sobre o Debita.aí
+            Elimine as dúvidas e objeções mais comuns sobre nossa plataforma
           </p>
         </motion.div>
 
@@ -54,28 +88,40 @@ export default function SimpleFaq() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="border-b border-gray-200 last:border-b-0"
               >
                 <button
-                  className="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-secondary focus:outline-none"
                   onClick={() => toggleFaq(index)}
+                  className="w-full px-6 py-6 text-left hover:bg-gray-50 transition-colors focus:outline-none focus:bg-gray-50"
                 >
-                  <span className="text-lg">{faq.question}</span>
-                  <ChevronDown
-                    className={`transition-transform duration-300 ease-in-out text-gray-500 ${
-                      activeIndex === index ? "rotate-180" : ""
-                    }`}
-                    size={20}
-                  />
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-semibold text-gray-800 pr-4">
+                      {faq.question}
+                    </h3>
+                    <ChevronDown 
+                      className={`h-5 w-5 text-[#E37A37] transition-transform duration-200 flex-shrink-0 ${
+                        activeIndex === index ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </div>
                 </button>
-                <div
-                  className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-                    activeIndex === index ? "max-h-96 pb-6" : "max-h-0"
-                  }`}
+                
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: activeIndex === index ? "auto" : 0,
+                    opacity: activeIndex === index ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
                 >
-                  <p className="text-gray-600">{faq.answer}</p>
-                </div>
+                  <div className="px-6 pb-6">
+                    <p className="text-gray-600 leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
