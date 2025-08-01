@@ -15,7 +15,8 @@ import {
   ShoppingCart,
   Code2,
   Webhook,
-  ArrowRight
+  ArrowRight,
+  Sparkles
 } from "lucide-react";
 
 export default function BentoGrid() {
@@ -104,7 +105,7 @@ export default function BentoGrid() {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-white relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-[#E27936] relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 z-0" />
       
@@ -123,10 +124,10 @@ export default function BentoGrid() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="font-['Satoshi',sans-serif] text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gray-800">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-white font-baskerville">
             Tudo que você precisa para crescer
           </h2>
-          <p className="font-['Satoshi',sans-serif] text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
+          <p className="font-['Satoshi',sans-serif] text-lg sm:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium">
             Descubra os recursos que fazem da Debita.aí a escolha certa para sua gestão financeira.
           </p>
         </motion.div>
@@ -140,50 +141,33 @@ export default function BentoGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: feature.delay }}
-              className={`${feature.size} group relative overflow-hidden rounded-3xl border border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]`}
+              className={`${feature.size} group relative overflow-hidden rounded-3xl bg-white border border-white/20 hover:border-white/40 transition-all duration-500 hover:shadow-2xl hover:shadow-black/10 hover:scale-[1.02]`}
             >
-              {/* Background Image with Gradient Overlay */}
-              {feature.image && (
-                <div className="absolute inset-0">
-                  <Image
-                    src={feature.image}
-                    alt={feature.title}
-                    fill
-                    className="object-cover rounded-3xl transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-80 group-hover:opacity-70 transition-opacity duration-500 rounded-3xl`} />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all duration-500 rounded-3xl" />
-                </div>
-              )}
+              {/* Background subtle pattern */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-transparent rounded-3xl" />
               
-              {/* Content Container - Asymmetrical Layout */}
-              <div className="relative h-full p-6 lg:p-8 flex flex-col justify-between min-h-[200px] text-white">
+              {/* Content Container */}
+              <div className="relative h-full p-6 lg:p-8 flex flex-col justify-between min-h-[200px]">
                 {/* Top Section - Icon */}
                 <div className="flex justify-between items-start">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm text-white border border-white/30 group-hover:bg-white/30 transition-all duration-300">
+                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.color} text-white shadow-lg group-hover:scale-110 transition-all duration-300`}>
                     {feature.icon}
                   </div>
-                  <div className="w-2 h-2 rounded-full bg-white/60 group-hover:bg-white/80 transition-colors duration-300" />
+                  <div className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-gray-400 transition-colors duration-300" />
                 </div>
                 
                 {/* Bottom Section - Text Content */}
                 <div className="space-y-3">
-                  <h3 className="font-['Satoshi',sans-serif] text-xl lg:text-2xl font-bold text-white group-hover:text-white/95 transition-colors leading-tight">
+                  <h3 className="font-['Satoshi',sans-serif] text-xl lg:text-2xl font-bold text-gray-800 group-hover:text-gray-900 transition-colors leading-tight">
                     {feature.title}
                   </h3>
                   
-                  <p className="font-['Satoshi',sans-serif] text-white/90 leading-relaxed text-sm lg:text-base font-medium group-hover:text-white/95 transition-colors">
+                  <p className="font-['Satoshi',sans-serif] text-gray-600 leading-relaxed text-sm lg:text-base font-medium group-hover:text-gray-700 transition-colors">
                     {feature.description}
                   </p>
                 </div>
               </div>
               
-              {/* Subtle Animation Elements */}
-              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                  <ArrowRight className="h-4 w-4 text-white" />
-                </div>
-              </div>
             </motion.div>
           ))}
         </div>
@@ -196,9 +180,8 @@ export default function BentoGrid() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.9 }}
         >
-          <button className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white inline-flex gap-2">
+          <button className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 border-2 border-white/50 hover:border-white bg-transparent hover:bg-white/10 text-white hover:text-white inline-flex gap-2">
             Explore todos os recursos
-            <ArrowRight className="h-5 w-5" />
           </button>
         </motion.div>
       </div>

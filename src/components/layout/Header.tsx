@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "iconoir-react";
+import { Menu, X, User, ArrowRight } from "iconoir-react";
 import DebitaLogo from "../../../public/logo.svg";
 
 export default function Header() {
@@ -16,15 +16,15 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Desktop Navigation - Pill-shaped background apenas para logo e nav */}
           <nav className="hidden lg:flex items-center">
-            <div className="bg-[#E3EEEA] backdrop-blur-sm rounded-full px-8 py-4 border border-[#BBDEFB]/60">
+            <div className="bg-[#E1EBEB] backdrop-blur-sm rounded-full px-8 py-4 border border-[#BBDEFB]/60">
               <div className="flex items-center space-x-8">
                 {/* Logo dentro da pílula */}
                 <Link href="/" className="flex items-center group">
                   <Image 
                     src={DebitaLogo} 
                     alt="Debita.aí" 
-                    width={120} 
-                    height={32}
+                    width={150} 
+                    height={40}
                     className="transition-all duration-300 group-hover:scale-105"
                   />
                 </Link>
@@ -44,16 +44,18 @@ export default function Header() {
           {/* Desktop Auth Buttons - Fora da pílula */}
           <div className="hidden lg:flex items-center space-x-4">
             <button
-              className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-3 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-transparent hover:bg-[#E37A37]/10 text-[#E37A37] hover:text-[#E37A37]"
+              className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-3 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#FFF3E7] hover:bg-[#F5E6D3] text-[#E37A37] hover:text-[#E37A37] gap-2"
               onClick={() => {
                 window.location.href = process.env.NEXT_PUBLIC_APP_URL || "";
               }}
             >
+              <User className="h-4 w-4" />
               Entrar na conta
             </button>
 
             <Link href="/cadastro" prefetch className="inline-block">
-              <button className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-3 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white">
+              <button className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-3 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 border-2 border-[#FAECDF] hover:border-[#F5E6D3] bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white gap-2">
+                <ArrowRight className="h-4 w-4" />
                 Comece agora
               </button>
             </Link>
@@ -172,16 +174,18 @@ export default function Header() {
                   {/* Action Buttons */}
                   <div className="space-y-3">
                     <button
-                      className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-full py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 border-2 border-[#E37A37]/50 hover:border-[#E37A37] bg-transparent hover:bg-[#E37A37]/10 text-[#E37A37] hover:text-[#E37A37]"
+                      className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-full py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#FFF3E7] hover:bg-[#F5E6D3] text-[#E37A37] hover:text-[#E37A37] gap-2"
                       onClick={() => {
                         window.location.href = process.env.NEXT_PUBLIC_APP_URL || "";
                       }}
                     >
+                      <User className="h-4 w-4" />
                       Entrar na conta
                     </button>
 
                     <Link href="/cadastro" prefetch className="block">
-                      <button className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-full py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white">
+                      <button className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-full py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 border-2 border-[#FAECDF] hover:border-[#F5E6D3] bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white gap-2">
+                        <ArrowRight className="h-4 w-4" />
                         Entrar na lista de espera
                       </button>
                     </Link>

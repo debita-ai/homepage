@@ -60,14 +60,14 @@ export default function Features() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-              <div className="relative w-full max-w-xl mx-auto h-[28rem]">
+              <div className="relative w-full max-w-xl mx-auto h-[28rem] mt-[100px]">
                 {/* Peace Guy - Base */}
                   <Image
                     src={PeaceGuy}
                     alt="Peace Guy"
                     width={420}
                     height={420}
-                    className="object-contain drop-shadow-lg "
+                    className="object-contain drop-shadow-lg pt-[100px]"
                     unoptimized
                     priority
                   />

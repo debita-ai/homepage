@@ -35,6 +35,209 @@ export default function ParallaxHeroDesktop() {
     >
       {/* Background elements */}
       <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 z-0 rounded-b-[28px]" />
+      
+      {/* Organic Ipanema-style fluid waves that morph */}
+      <div className="absolute inset-0 z-0 overflow-hidden rounded-b-[28px]">
+        {/* Morphing Fluid Blob 1 */}
+        <div 
+          className="absolute w-[400px] h-[200px] top-[15%] left-[10%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD90 0%, 
+              #F0DCCD70 30%, 
+              #F0DCCD40 60%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 20s ease-in-out infinite',
+            filter: 'blur(3px)'
+          }}
+        />
+        
+        {/* Morphing Fluid Blob 2 */}
+        <div 
+          className="absolute w-[350px] h-[180px] top-[35%] right-[15%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD80 0%, 
+              #F0DCCD60 40%, 
+              #F0DCCD30 70%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-2 25s ease-in-out infinite',
+            filter: 'blur(2.5px)'
+          }}
+        />
+
+        {/* Morphing Fluid Blob 3 */}
+        <div 
+          className="absolute w-[500px] h-[250px] top-[55%] left-[5%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD70 0%, 
+              #F0DCCD50 35%, 
+              #F0DCCD25 65%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-3 30s ease-in-out infinite',
+            filter: 'blur(4px)'
+          }}
+        />
+
+        {/* Morphing Fluid Blob 4 */}
+        <div 
+          className="absolute w-[320px] h-[160px] top-[25%] left-[60%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD85 0%, 
+              #F0DCCD55 45%, 
+              #F0DCCD20 80%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 22s ease-in-out infinite reverse',
+            filter: 'blur(2px)'
+          }}
+        />
+
+        {/* Morphing Fluid Blob 5 */}
+        <div 
+          className="absolute w-[450px] h-[220px] top-[70%] right-[20%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD75 0%, 
+              #F0DCCD45 50%, 
+              #F0DCCD15 85%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-2 28s ease-in-out infinite reverse',
+            filter: 'blur(3.5px)'
+          }}
+        />
+
+        {/* Large blobs in corners */}
+        {/* Big blob - Top Left */}
+        <div 
+          className="absolute w-[600px] h-[300px] top-[5%] left-[-10%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD60 0%, 
+              #F0DCCD40 40%, 
+              #F0DCCD20 70%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 35s ease-in-out infinite',
+            filter: 'blur(5px)'
+          }}
+        />
+
+        {/* Big blob - Bottom Right */}
+        <div 
+          className="absolute w-[700px] h-[350px] bottom-[5%] right-[-15%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD65 0%, 
+              #F0DCCD45 35%, 
+              #F0DCCD25 65%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-2 32s ease-in-out infinite',
+            filter: 'blur(6px)'
+          }}
+        />
+
+        {/* Medium blobs */}
+        <div 
+          className="absolute w-[280px] h-[140px] top-[20%] left-[75%]"
+          style={{
+            background: `radial-gradient(ellipse, 
+              #F0DCCD70 0%, 
+              #F0DCCD50 50%, 
+              #F0DCCD25 80%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-3 24s ease-in-out infinite',
+            filter: 'blur(2.8px)'
+          }}
+        />
+
+        <div 
+          className="absolute w-[380px] h-[190px] top-[80%] left-[8%]"
+          style={{
+            background: `radial-gradient(ellipse, 
+              #F0DCCD55 0%, 
+              #F0DCCD35 45%, 
+              #F0DCCD15 75%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 26s ease-in-out infinite reverse',
+            filter: 'blur(3.2px)'
+          }}
+        />
+
+        {/* Small accent blobs */}
+        <div 
+          className="absolute w-[120px] h-[60px] top-[12%] left-[45%]"
+          style={{
+            background: `radial-gradient(circle, 
+              #F0DCCD75 0%, 
+              #F0DCCD45 55%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-2 16s ease-in-out infinite',
+            filter: 'blur(1.2px)'
+          }}
+        />
+
+        <div 
+          className="absolute w-[90px] h-[45px] top-[65%] left-[55%]"
+          style={{
+            background: `radial-gradient(circle, 
+              #F0DCCD80 0%, 
+              #F0DCCD50 60%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-3 14s ease-in-out infinite',
+            filter: 'blur(1px)'
+          }}
+        />
+
+        <div 
+          className="absolute w-[150px] h-[75px] top-[88%] left-[65%]"
+          style={{
+            background: `radial-gradient(ellipse, 
+              #F0DCCD65 0%, 
+              #F0DCCD40 50%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 19s ease-in-out infinite',
+            filter: 'blur(1.8px)'
+          }}
+        />
+
+        {/* Tiny accent blobs */}
+        <div 
+          className="absolute w-[70px] h-[35px] top-[35%] left-[25%]"
+          style={{
+            background: `radial-gradient(circle, 
+              #F0DCCD85 0%, 
+              #F0DCCD55 65%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-2 12s ease-in-out infinite reverse',
+            filter: 'blur(0.8px)'
+          }}
+        />
+
+        <div 
+          className="absolute w-[100px] h-[50px] top-[78%] left-[85%]"
+          style={{
+            background: `radial-gradient(ellipse, 
+              #F0DCCD70 0%, 
+              #F0DCCD45 60%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-3 15s ease-in-out infinite',
+            filter: 'blur(1.3px)'
+          }}
+        />
+
+        <div 
+          className="absolute w-[60px] h-[30px] top-[50%] left-[15%]"
+          style={{
+            background: `radial-gradient(circle, 
+              #F0DCCD90 0%, 
+              #F0DCCD60 70%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 11s ease-in-out infinite',
+            filter: 'blur(0.6px)'
+          }}
+        />
+      </div>
 
       {/* Content container */}
       <div className="container relative mx-auto px-4 sm:px-6 z-10 h-full flex flex-col items-center justify-center">
@@ -120,30 +323,26 @@ export default function ParallaxHeroDesktop() {
               style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
             >
               <path
-                d="M 12 15 
-                   C 10 10, 8 8, 15 6
-                   C 18 5, 22 4, 26 5
-                   L 374 6
-                   C 380 6, 385 8, 388 12
-                   C 390 15, 392 18, 390 20
-                   C 391 22, 394 25, 394 28
-                   L 393 272
-                   C 394 278, 392 283, 388 286
-                   C 385 289, 382 290, 378 289
-                   C 375 291, 372 294, 368 294
-                   L 26 293
-                   C 20 294, 15 291, 12 287
-                   C 9 284, 8 280, 9 276
-                   C 7 273, 5 270, 6 267
-                   L 8 20
-                   C 7 17, 9 15, 12 15 Z"
+                d="M 25 8 
+                   C 18 6, 15 8, 12 12
+                   C 10 15, 8 18, 9 22
+                   L 8 270
+                   C 7 275, 9 280, 12 283
+                   C 15 287, 18 289, 22 288
+                   L 375 290
+                   C 380 291, 385 288, 388 284
+                   C 391 280, 393 275, 392 270
+                   L 394 25
+                   C 395 20, 393 15, 390 12
+                   C 387 8, 382 6, 377 7
+                   L 25 8 Z"
                 fill="none"
                 stroke="#E37A37"
-                strokeWidth="2"
+                strokeWidth="1.0"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 style={{
-                  strokeDasharray: '8,3',
+                  strokeDasharray: '0,1',
                   animation: 'dash 10s ease-in-out infinite',
                   filter: 'url(#rough)'
                 }}

@@ -72,10 +72,10 @@ export default function SimpleFaq() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-800">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-800 font-baskerville">
             Ainda tem dúvidas? A gente responde.
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="font-['Satoshi',sans-serif] text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-medium">
             Elimine as dúvidas e objeções mais comuns sobre nossa plataforma
           </p>
         </motion.div>
@@ -96,7 +96,7 @@ export default function SimpleFaq() {
                   className="w-full px-6 py-6 text-left hover:bg-gray-50 transition-colors focus:outline-none focus:bg-gray-50"
                 >
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-semibold text-gray-800 pr-4">
+                    <h3 className="font-['Satoshi',sans-serif] text-lg font-semibold text-gray-800 pr-4">
                       {faq.question}
                     </h3>
                     <ChevronDown 
@@ -117,7 +117,7 @@ export default function SimpleFaq() {
                   className="overflow-hidden"
                 >
                   <div className="px-6 pb-6">
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="font-['Satoshi',sans-serif] text-gray-600 leading-relaxed font-medium">
                       {faq.answer}
                     </p>
                   </div>

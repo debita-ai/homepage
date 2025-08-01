@@ -44,44 +44,44 @@ export default function Footer() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Main Footer Content */}
-        <div className="pt-16 pb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">
+        <div className="pt-12 sm:pt-16 pb-8 sm:pb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 mb-12 sm:mb-16">
             {/* Company Info */}
-            <div className="lg:col-span-2">
+            <div className="sm:col-span-2 lg:col-span-2">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <Link href="/" className="inline-block mb-6">
+                <Link href="/" className="inline-block mb-4 sm:mb-6">
                   <Image src={DebitaLogo} width={80} alt="Logo Debita.aí" />
                 </Link>
-                <p className="text-white/80 leading-relaxed mb-6 text-sm max-w-sm">
+                <p className="text-white/80 leading-relaxed mb-4 sm:mb-6 text-sm max-w-sm">
                   Plataforma completa de gestão financeira e cobranças digitais. 
                   Simplifique seus processos financeiros com segurança e eficiência.
                 </p>
                 
                 {/* Security Badges */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20">
-                    <Shield className="h-4 w-4 text-white" />
+                <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-6">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-2 sm:px-3 py-2 rounded-lg border border-white/20">
+                    <Shield className="h-4 w-4 text-white flex-shrink-0" />
                     <span className="text-xs font-medium text-white">Ambiente seguro e criptografado</span>
                   </div>
                 </div>
 
                 {/* Social Media */}
-                <div className="flex items-center gap-4 mb-6">
-                  <a href="#" className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <a href="#" className="w-10 h-10 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Instagram className="h-4 w-4" />
                   </a>
-                  <a href="#" className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <a href="#" className="w-10 h-10 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Linkedin className="h-4 w-4" />
                   </a>
-                  <a href="#" className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <a href="#" className="w-10 h-10 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Globe className="h-4 w-4" />
                   </a>
-                  <a href="#" className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <a href="#" className="w-10 h-10 sm:w-8 sm:h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Play className="h-4 w-4" />
                   </a>
                 </div>
@@ -99,9 +99,9 @@ export default function Footer() {
             </div>
 
             {/* Empresa */}
-            <div>
+            <div className="sm:col-span-1">
               <motion.h4
-                className="font-semibold mb-6 text-lg text-white"
+                className="font-semibold mb-4 sm:mb-6 text-base sm:text-lg text-white"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
@@ -110,34 +110,34 @@ export default function Footer() {
                 Empresa
               </motion.h4>
               <motion.ul
-                className="space-y-3"
+                className="space-y-2 sm:space-y-3"
                 variants={listMotion}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
               >
                 <motion.li variants={itemMotion}>
-                  <Link href="/sobre" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/sobre" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Sobre nós
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/para-voce" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/para-voce" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Para você
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/recursos" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/recursos" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Recursos
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/tarifas" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/tarifas" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Tarifas
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/blog" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/blog" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Blog
                   </Link>
                 </motion.li>
@@ -145,9 +145,9 @@ export default function Footer() {
             </div>
 
             {/* Suporte */}
-            <div>
+            <div className="sm:col-span-1">
               <motion.h4
-                className="font-semibold mb-6 text-lg text-white"
+                className="font-semibold mb-4 sm:mb-6 text-base sm:text-lg text-white"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -156,29 +156,29 @@ export default function Footer() {
                 Suporte
               </motion.h4>
               <motion.ul
-                className="space-y-3"
+                className="space-y-2 sm:space-y-3"
                 variants={listMotion}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
               >
                 <motion.li variants={itemMotion}>
-                  <Link href="/ajuda" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/ajuda" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Central de ajuda
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/contato" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/contato" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Contato
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/status" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/status" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Status do sistema
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <a href="https://wa.me/551152414928" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <a href="https://wa.me/551152414928" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     WhatsApp
                   </a>
                 </motion.li>
@@ -186,9 +186,9 @@ export default function Footer() {
             </div>
 
             {/* Legal */}
-            <div>
+            <div className="sm:col-span-2 lg:col-span-1">
               <motion.h4
-                className="font-semibold mb-6 text-lg text-white"
+                className="font-semibold mb-4 sm:mb-6 text-base sm:text-lg text-white"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -197,49 +197,49 @@ export default function Footer() {
                 Legal
               </motion.h4>
               <motion.ul
-                className="space-y-3"
+                className="space-y-2 sm:space-y-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-4 lg:gap-x-0"
                 variants={listMotion}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
               >
                 <motion.li variants={itemMotion}>
-                  <Link href="/legal/termos-de-uso" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/legal/termos-de-uso" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Termos de Uso
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/legal/termos-condicoes" className="text-white/80 hover:text-white transition-colors text-sm">
-                    Termos e condições de uso da plataforma
+                  <Link href="/legal/termos-condicoes" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
+                    Termos e condições
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/legal/termos-conta" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/legal/termos-conta" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Termos de Conta
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/legal/termos-software" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/legal/termos-software" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Termos de Software
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/legal/politica-kyc-pld" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/legal/politica-kyc-pld" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Política de KYC e PLD
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/legal/politica-seguranca" className="text-white/80 hover:text-white transition-colors text-sm">
-                    Política de Segurança da Informação
+                  <Link href="/legal/politica-seguranca" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
+                    Política de Segurança
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/legal/politica-lgpd" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/legal/politica-lgpd" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Política de LGPD/Privacidade
                   </Link>
                 </motion.li>
                 <motion.li variants={itemMotion}>
-                  <Link href="/legal/politica-pldcft" className="text-white/80 hover:text-white transition-colors text-sm">
+                  <Link href="/legal/politica-pldcft" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed block py-2 sm:py-0">
                     Política de PLDCFT
                   </Link>
                 </motion.li>
@@ -249,15 +249,15 @@ export default function Footer() {
 
           {/* Contact Info */}
           <motion.div
-            className="border-t border-white/20 pt-8 mb-8"
+            className="border-t border-white/20 pt-6 sm:pt-8 mb-6 sm:mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="flex items-start gap-3">
-                <Phone className="h-5 w-5 text-white mt-1" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div className="flex items-start gap-3 p-3 sm:p-0">
+                <Phone className="h-5 w-5 text-white mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-white font-medium text-sm">Atendimento</p>
                   <p className="text-white/80 text-sm">+55 11 5241-4928</p>
@@ -265,16 +265,16 @@ export default function Footer() {
                 </div>
               </div>
               
-              <div className="flex items-start gap-3">
-                <Mail className="h-5 w-5 text-white mt-1" />
+              <div className="flex items-start gap-3 p-3 sm:p-0">
+                <Mail className="h-5 w-5 text-white mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-white font-medium text-sm">Email</p>
-                  <p className="text-white/80 text-sm">suporte@debita.ai</p>
+                  <p className="text-white/80 text-sm break-all">suporte@debita.ai</p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-white mt-1" />
+              <div className="flex items-start gap-3 p-3 sm:p-0 sm:col-span-2 lg:col-span-1">
+                <MapPin className="h-5 w-5 text-white mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-white font-medium text-sm">Endereço</p>
                   <p className="text-white/80 text-sm">Uruçuí, PI - 64860-000</p>
@@ -286,16 +286,16 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <motion.div
-          className="border-t border-white/20 py-6 text-center"
+          className="border-t border-white/20 py-4 sm:py-6 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
           viewport={{ once: true }}
         >
-          <p className="text-sm text-white/80">
+          <p className="text-xs sm:text-sm text-white/80 leading-relaxed px-4">
             © 2025 DEBITA.AI GESTAO FINANCEIRA E MEIOS DE PAGAMENTO LTDA. Todos os direitos reservados.
           </p>
-          <p className="text-xs text-white/60 mt-2">
+          <p className="text-xs text-white/60 mt-1 sm:mt-2">
             CNPJ: 46.379.233/0001-48
           </p>
         </motion.div>

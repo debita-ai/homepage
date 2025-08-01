@@ -3,112 +3,306 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "iconoir-react";
 import DashboardImage from '../../../public/dashboard.png';
-import { LaptopFrame } from "@/components/ui/LaptopFrame";
 
 export default function ParallaxHeroMobile() {
-  const [scrollY, setScrollY] = useState(0);
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const [sectionHeight, setSectionHeight] = useState(0);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+
+  // Parallax transforms for mobile
+  const scale = useTransform(scrollYProgress, [0, 0.15], [1, 1.03]);
+  const y = useTransform(scrollYProgress, [0, 0.15], [0, 30]);
 
   useEffect(() => {
     setMounted(true);
-
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    const handleResize = () => {
-      if (sectionRef.current) {
-        setSectionHeight(sectionRef.current.offsetHeight);
-      }
-    };
-
-    handleResize();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize);
-    
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
-  // Calculate scroll progress for parallax effects
-  const scrollProgress = mounted ? Math.min(scrollY / (sectionHeight * 0.5), 1) : 0;
-  
-  // Calculate laptop scaling
-  const laptopScale = mounted ? 1.2 : 1;
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <section 
       ref={sectionRef}
-      className="relative h-[900px] overflow-hidden bg-[#FFF3E7] flex flex-col mx-auto"
-      style={{ maxWidth: '1920px', borderRadius: '0px 0px 1.6rem 1.6rem' }}
+      className="relative min-h-screen overflow-hidden bg-[#FFF3E7] flex flex-col mx-auto hero-box cursor-custom rounded-b-[28px]"
     >
-      {/* Background elements with parallax effect */}
-      <div
-        className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-10 z-0"
-        style={{ transform: mounted ? `translateY(${scrollY * 0.05}px)` : 'none' }}
-      />
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 z-0 rounded-b-[28px]" />
+      
+      {/* Mobile-optimized Ipanema-style fluid waves */}
+      <div className="absolute inset-0 z-0 overflow-hidden rounded-b-[28px]">
+        {/* Main fluid blobs - scaled for mobile */}
+        <div 
+          className="absolute w-[250px] h-[120px] top-[10%] left-[5%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD85 0%, 
+              #F0DCCD65 30%, 
+              #F0DCCD35 60%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 18s ease-in-out infinite',
+            filter: 'blur(2px)'
+          }}
+        />
+        
+        <div 
+          className="absolute w-[200px] h-[100px] top-[25%] right-[10%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD75 0%, 
+              #F0DCCD55 40%, 
+              #F0DCCD25 70%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-2 22s ease-in-out infinite',
+            filter: 'blur(1.5px)'
+          }}
+        />
 
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#D84A1F] to-transparent z-0" />
+        <div 
+          className="absolute w-[300px] h-[150px] top-[50%] left-[0%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD70 0%, 
+              #F0DCCD45 35%, 
+              #F0DCCD20 65%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-3 25s ease-in-out infinite',
+            filter: 'blur(3px)'
+          }}
+        />
+
+        <div 
+          className="absolute w-[180px] h-[90px] top-[15%] left-[50%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD80 0%, 
+              #F0DCCD50 45%, 
+              #F0DCCD15 80%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 20s ease-in-out infinite reverse',
+            filter: 'blur(1px)'
+          }}
+        />
+
+        <div 
+          className="absolute w-[250px] h-[125px] top-[65%] right-[15%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD65 0%, 
+              #F0DCCD40 50%, 
+              #F0DCCD10 85%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-2 24s ease-in-out infinite reverse',
+            filter: 'blur(2.5px)'
+          }}
+        />
+
+        {/* Corner blobs */}
+        <div 
+          className="absolute w-[350px] h-[175px] top-[2%] left-[-15%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD55 0%, 
+              #F0DCCD35 40%, 
+              #F0DCCD15 70%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 30s ease-in-out infinite',
+            filter: 'blur(4px)'
+          }}
+        />
+
+        <div 
+          className="absolute w-[400px] h-[200px] bottom-[2%] right-[-20%]"
+          style={{
+            background: `radial-gradient(ellipse at center, 
+              #F0DCCD60 0%, 
+              #F0DCCD40 35%, 
+              #F0DCCD20 65%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-2 28s ease-in-out infinite',
+            filter: 'blur(5px)'
+          }}
+        />
+
+        {/* Small accent blobs */}
+        <div 
+          className="absolute w-[80px] h-[40px] top-[35%] left-[20%]"
+          style={{
+            background: `radial-gradient(circle, 
+              #F0DCCD85 0%, 
+              #F0DCCD50 65%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-3 15s ease-in-out infinite',
+            filter: 'blur(0.8px)'
+          }}
+        />
+
+        <div 
+          className="absolute w-[60px] h-[30px] top-[75%] left-[70%]"
+          style={{
+            background: `radial-gradient(circle, 
+              #F0DCCD90 0%, 
+              #F0DCCD60 70%, 
+              transparent 100%)`,
+            animation: 'fluid-morph-1 12s ease-in-out infinite',
+            filter: 'blur(0.5px)'
+          }}
+        />
+      </div>
 
       {/* Content container */}
-      <div className="mt-8 container relative mx-auto px-3 sm:px-6 z-10 pt-2 sm:pt-8 flex flex-col flex-1 justify-around items-center">
+      <div className="container relative mx-auto px-4 sm:px-6 z-10 h-full flex flex-col items-center justify-center py-8">
         {/* Text Section */}
-        <div className="text-center w-full flex flex-col items-center px-2 sm:px-4">
-          <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl font-bold text-[#E37A37] mb-3 mt-4 sm:mt-10 sm:mb-6 leading-tight max-w-[280px] sm:max-w-md lg:max-w-lg">
-            Sua nova plataforma
-            <span className="block">de gestão de cobranças</span>
-          </h1>
+        <motion.div 
+          className="text-center max-w-sm sm:max-w-md mb-8 sm:mb-12"
+        >
+          <motion.h1 
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#E37A37] mb-4 leading-tight font-baskerville"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            Seu novo braço direito
+            <span className="block text-[#E37A37]">
+              para gestão financeira.
+            </span>
+          </motion.h1>
 
-          <p className="text-base xs:text-lg sm:text-2xl lg:text-3xl text-[#E37A37]/80 mb-4 sm:mb-10 max-w-[280px] sm:max-w-md lg:max-w-lg mx-auto">
-            Um <b>gateway de pagamentos moderno</b>. Simplifique a gestão de cobranças e pagamentos da sua empresa.
-          </p>
+          <motion.p 
+            className="text-sm sm:text-base text-[#E37A37]/90 mb-4 mx-auto leading-relaxed font-semibold"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          >
+            Simplifique a gestão de cobranças e pagamentos 
+          </motion.p>
 
-          <div className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-8 w-full max-w-[280px] sm:max-w-md lg:max-w-lg">
+          <motion.p 
+            className="text-sm sm:text-base text-[#E37A37]/90 mb-6 sm:mb-8 mx-auto leading-relaxed font-semibold"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          >
+            da sua empresa e finalmente durma tranquilo.
+          </motion.p>
+
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          >
             <Button
-              size="lg"
-              className="bg-[#E37A37] hover:bg-[#C65A1A] text-white text-base xs:text-lg sm:text-2xl lg:text-3xl px-5 sm:px-8 py-5 sm:py-7 rounded-xl"
+              className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white"
               asChild
             >
-              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center">
-                Entrar na lista de espera
-                <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
+              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-2">
+                <span>Comece agora</span>
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
 
             <Button
               variant="outline"
-              size="lg"
-              className="border-[#E37A37] bg-transparent hover:bg-[#E37A37]/10 text-[#E37A37] hover:text-[#E37A37] text-base xs:text-lg sm:text-2xl lg:text-3xl px-5 sm:px-8 py-5 sm:py-7 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 border-2 border-[#E37A37]/50 hover:border-[#E37A37] bg-transparent hover:bg-[#E37A37]/10 text-[#E37A37] hover:text-[#E37A37]"
               asChild
             >
-              <Link href="#recursos" className="flex items-center justify-center">Conhecer recursos</Link>
+              <Link href="#recursos" className="flex items-center justify-center gap-2">
+                Conhecer recursos
+              </Link>
             </Button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Laptop container with scaling effect */}
-        <div 
-          className="relative w-full mx-auto max-w-[280px] sm:max-w-[350px] lg:max-w-[400px]"
+        {/* Dashboard container - mobile optimized */}
+        <motion.div 
+          className="relative w-full max-w-sm sm:max-w-md mx-auto"
           style={{
-            transform: mounted ? `translateY(${scrollY * -0.05}px) scale(${laptopScale})` : 'none',
-            transformOrigin: 'center bottom',
-            transition: 'transform 0.1s ease-out'
+            scale,
+            y,
+            transformStyle: 'preserve-3d',
+            backfaceVisibility: 'hidden'
           }}
         >
-          <LaptopFrame 
-            imageSrc={DashboardImage}
-            alt="Dashboard Debita.aí"
-            className="transform"
-          />
-        </div>
+          {/* Container with hand-drawn border */}
+          <div className="relative">
+            {/* Hand-drawn border - scaled for mobile */}
+            <svg 
+              className="absolute -inset-4 sm:-inset-6 w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)] h-[calc(100%+2rem)] sm:h-[calc(100%+3rem)] pointer-events-none z-10" 
+              viewBox="0 0 400 300" 
+              preserveAspectRatio="none"
+              style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+            >
+              <path
+                d="M 25 8 
+                   C 18 6, 15 8, 12 12
+                   C 10 15, 8 18, 9 22
+                   L 8 270
+                   C 7 275, 9 280, 12 283
+                   C 15 287, 18 289, 22 288
+                   L 375 290
+                   C 380 291, 385 288, 388 284
+                   C 391 280, 393 275, 392 270
+                   L 394 25
+                   C 395 20, 393 15, 390 12
+                   C 387 8, 382 6, 377 7
+                   L 25 8 Z"
+                fill="none"
+                stroke="#E37A37"
+                strokeWidth="1.0"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{
+                  strokeDasharray: '0,1',
+                  animation: 'dash 10s ease-in-out infinite',
+                  filter: 'url(#rough)'
+                }}
+              />
+              <defs>
+                <filter id="rough">
+                  <feTurbulence 
+                    baseFrequency="0.06" 
+                    numOctaves="4" 
+                    result="noise"
+                  />
+                  <feDisplacementMap 
+                    in="SourceGraphic" 
+                    in2="noise" 
+                    scale="2"
+                  />
+                </filter>
+              </defs>
+            </svg>
+
+            {/* Dashboard image */}
+            <div 
+              className="relative w-full h-[300px] sm:h-[400px] rounded-2xl overflow-hidden shadow-lg"
+              style={{ 
+                willChange: 'transform',
+                transform: 'translateZ(0)'
+              }}
+            >
+              <Image
+                src={DashboardImage}
+                alt="Dashboard Debita.aí"
+                className="object-cover object-top w-full h-full"
+                priority
+                quality={75}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="eager"
+                placeholder="blur"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/20"></div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
