@@ -492,8 +492,8 @@ export default function ContatoPage() {
               <button
                 className="bg-white text-[#E37A37] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
                 onClick={() => {
-                  if (typeof window !== 'undefined' && window.Crisp) {
-                    window.Crisp.chat.open();
+                  if (typeof window !== 'undefined' && window.$crisp) {
+                    window.$crisp.chat.open();
                   }
                 }}
               >

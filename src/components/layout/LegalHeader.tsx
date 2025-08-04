@@ -41,8 +41,8 @@ export default function LegalHeader() {
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-600 hover:text-[#E37A37] hover:bg-[#E37A37]/10 transition-all duration-200 font-medium"
               onClick={() => {
-                if (typeof window !== 'undefined' && window.Crisp) {
-                  window.Crisp.chat.open();
+                if (typeof window !== 'undefined' && window.$crisp) {
+                  window.$crisp.chat.open();
                 }
               }}
             >
