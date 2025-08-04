@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@debita-ai/ragekit';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -248,7 +247,7 @@ export default function SignUpPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             >
-              <Button
+              {/* <Button
                 variant="primary"
                 size="normal"
                 label="Sim, eu tenho uma empresa"
@@ -264,7 +263,7 @@ export default function SignUpPage() {
                 onClick={() => {
                   window.open('https://docs.google.com/forms/d/e/1FAIpQLSf-placeholder/viewform', '_blank');
                 }}
-              />
+              /> */}
             </motion.div>
           </motion.div>
         );
@@ -426,7 +425,7 @@ export default function SignUpPage() {
 
             {/* Botões de ação */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
+              {/* <Button
                 variant="secondary"
                 size="normal"
                 label="Voltar"
@@ -437,7 +436,7 @@ export default function SignUpPage() {
                 size="normal"
                 label={isSubmitting ? 'Criando conta...' : 'Criar conta'}
                 onClick={handleSubmit}
-              />
+              /> */}
             </div>
 
             {errors.submit && (
@@ -473,11 +472,11 @@ export default function SignUpPage() {
           </Link>
 
           <Link href="/">
-            <Button
+            {/* <Button
               variant="secondary"
               size="normal"
               label="Voltar para a home"
-            />
+            /> */}
           </Link>
         </div>
       </div>
