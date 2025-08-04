@@ -1,347 +1,219 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { cn } from "@/lib/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   CreditCard, 
-  Wallet, 
-  FileText, 
-  Link as LinkIcon,
-  BarChart2,
-  Zap,
-  Shield,
-  Users,
-  Clock,
-  ArrowRight,
+  Zap, 
+  BarChart3, 
+  Users, 
+  MessageSquare, 
+  Settings,
   CheckCircle2,
-  DollarSign,
-  Receipt,
-  Building2,
-  Smartphone,
-  Lock,
-  Barcode,
-  QrCode,
-  CreditCard as CreditCardIcon,
-  FileCheck,
-  Bell,
-  Settings
+  Calendar,
+  FileText,
+  ShoppingCart,
+  Code2,
+  Webhook,
+  ArrowRight,
+  Sparkles,
+  Shield,
+  TrendingUp,
+  Clock,
+  Smartphone
 } from "lucide-react";
 
-const resourceCategories = [
-  {
-    id: "financial-control",
-    title: "Controle Financeiro",
-    resources: [
-      {
-        icon: "💰",
-        title: "Controle de receitas e despesas",
-        description: "Acompanhe todas as suas entradas e saídas de dinheiro de forma simples e intuitiva."
-      },
-      {
-        icon: "📊",
-        title: "Relatórios detalhados",
-        description: "Visualize em gráficos e tabelas como está utilizando seu dinheiro, por categoria ou período."
-      },
-      {
-        icon: "🔄",
-        title: "Lançamentos recorrentes",
-        description: "Configure lançamentos que se repetem automaticamente sem precisar cadastrar todo mês."
-      },
-      {
-        icon: "💳",
-        title: "Controle de cartões de crédito",
-        description: "Gerencie todos os seus cartões de crédito e visualize faturas em aberto e fechadas."
-      }
-    ]
-  },
-  {
-    id: "planning",
-    title: "Planejamento",
-    resources: [
-      {
-        icon: "🎯",
-        title: "Metas financeiras",
-        description: "Defina objetivos financeiros e acompanhe seu progresso de forma visual."
-      },
-      {
-        icon: "💵",
-        title: "Orçamento por categoria",
-        description: "Estabeleça limites de gastos por categoria e receba alertas ao ultrapassá-los."
-      },
-      {
-        icon: "📅",
-        title: "Calendário financeiro",
-        description: "Visualize suas receitas e despesas em um calendário para melhor organização."
-      },
-      {
-        icon: "📝",
-        title: "Notas e comentários",
-        description: "Adicione observações aos seus lançamentos para lembrar detalhes importantes."
-      }
-    ]
-  },
-  {
-    id: "business",
-    title: "Empresarial",
-    resources: [
-      {
-        icon: "🏢",
-        title: "Múltiplas empresas",
-        description: "Gerencie várias empresas ou negócios com acesso único e centralizado."
-      },
-      {
-        icon: "👥",
-        title: "Controle de usuários",
-        description: "Adicione colaboradores com diferentes níveis de permissão de acesso."
-      },
-      {
-        icon: "📃",
-        title: "Conciliação bancária",
-        description: "Confira lançamentos com o extrato bancário para garantir que tudo foi registrado."
-      },
-      {
-        icon: "📋",
-        title: "Fluxo de caixa projetado",
-        description: "Visualize previsões futuras da sua empresa para tomar melhores decisões."
-      }
-    ]
-  }
-];
-
 export default function RecursosPage() {
-  const [activeCategory, setActiveCategory] = useState("financial-control");
+  const features = [
+    {
+      title: "Criar Cobranças",
+      description: "Gere cobranças personalizadas em segundos com templates inteligentes. Crie cobranças únicas ou recorrentes com facilidade.",
+      icon: <FileText className="h-8 w-8" />,
+      color: "from-[#E37A37] to-[#C65A1A]",
+      benefits: ["Templates personalizáveis", "Cobranças recorrentes", "Múltiplas formas de pagamento"]
+    },
+    {
+      title: "Dashboard Completo",
+      description: "Visualize métricas em tempo real. Tenha controle total sobre seu faturamento, recebimentos e inadimplência.",
+      icon: <BarChart3 className="h-6 w-6" />,
+      color: "from-[#4A8C7A] to-[#3A6F5F]",
+      benefits: ["Métricas em tempo real", "Relatórios detalhados", "Análise de performance"]
+    },
+    {
+      title: "Automação de Cobranças",
+      description: "Envio automático de cobranças e lembretes para seus clientes. Nunca mais perca um pagamento.",
+      icon: <Zap className="h-6 w-6" />,
+      color: "from-[#006279] to-[#004A5C]",
+      benefits: ["Lembretes automáticos", "Cobranças recorrentes", "Notificações inteligentes"]
+    },
+    {
+      title: "Gateway de Pagamento",
+      description: "Aceite Pix, cartão (em breve) e boleto em uma única integração. Simplifique seus recebimentos.",
+      icon: <CreditCard className="h-8 w-8" />,
+      color: "from-[#4A8C7A] to-[#3A6F5F]",
+      benefits: ["Pix instantâneo", "Cartão de crédito (em breve)", "Boleto bancário"]
+    },
+    {
+      title: "Gestão de Clientes",
+      description: "Centralize todos os dados dos seus clientes. Histórico completo de transações e informações.",
+      icon: <Users className="h-6 w-6" />,
+      color: "from-[#006279] to-[#004A5C]",
+      benefits: ["Cadastro centralizado", "Histórico completo", "Segmentação avançada"]
+    },
+    {
+      title: "Notificações WhatsApp",
+      description: "Notificações automáticas via WhatsApp para seus clientes. Aumente a taxa de conversão.",
+      icon: <MessageSquare className="h-6 w-6" />,
+      color: "from-[#E37A37] to-[#C65A1A]",
+      benefits: ["WhatsApp Business API", "Mensagens automáticas", "Alta taxa de entrega"]
+    },
+    {
+      title: "Checkout Personalizado",
+      description: "Páginas de pagamento otimizadas para conversão. Design responsivo e experiência fluida.",
+      icon: <ShoppingCart className="h-8 w-8" />,
+      color: "from-[#006279] to-[#004A5C]",
+      benefits: ["Design responsivo", "Otimizado para conversão", "Personalização completa"]
+    },
+    {
+      title: "APIs para Desenvolvedores",
+      description: "Integração completa via API REST. Conecte com qualquer sistema ou aplicação.",
+      icon: <Code2 className="h-6 w-6" />,
+      color: "from-[#4A8C7A] to-[#3A6F5F]",
+      benefits: ["API REST completa", "Documentação detalhada", "SDKs disponíveis"]
+    },
+    {
+      title: "Integre em Qualquer Tecnologia",
+      description: "Conecte com sistemas ERP, CRM, e-commerce e qualquer plataforma via API.",
+      icon: <Webhook className="h-8 w-8" />,
+      color: "from-[#E37A37] to-[#C65A1A]",
+      benefits: ["Webhooks em tempo real", "Integrações nativas", "Flexibilidade total"]
+    },
+    {
+      title: "Segurança de Nível Bancário",
+      description: "Proteção de dados com criptografia avançada e conformidade com regulamentações.",
+      icon: <Shield className="h-6 w-6" />,
+      color: "from-[#4A8C7A] to-[#3A6F5F]",
+      benefits: ["Criptografia AES-256", "Nenhuma burocracia", "LGPD compliance"]
+    },
+    {
+      title: "Relatórios Avançados",
+      description: "Relatórios detalhados e análises para tomar decisões estratégicas.",
+      icon: <TrendingUp className="h-6 w-6" />,
+      color: "from-[#006279] to-[#004A5C]",
+      benefits: ["Relatórios customizáveis", "Exportação de dados", "Análises preditivas"]
+    },
+    {
+      title: "App Mobile",
+      description: "Gerencie seus negócios de qualquer lugar com nosso aplicativo mobile.",
+      icon: <Smartphone className="h-6 w-6" />,
+      color: "from-[#E37A37] to-[#C65A1A]",
+      benefits: ["iOS e Android", "Notificações push", "Funcionalidades completas"]
+    }
+  ];
 
   return (
     <div className="min-h-screen">
-      <Header />
-      <main>
-        {/* Hero Section */}
-        <section className="pt-32 pb-16 bg-[#E85A27] text-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              className="text-center max-w-3xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h1 className="text-3xl md:text-5xl font-bold mb-6">
-                Recursos para Gestão de Pagamentos
-              </h1>
-              <p className="text-lg mb-8">
-                Tudo que você precisa para gerenciar suas cobranças e receber pagamentos de forma eficiente
-              </p>
-            </motion.div>
-          </div>
-        </section>
+      {/* Hero Section */}
+      <section className="pt-32 pb-16 bg-gradient-to-br from-[#E37A37] to-[#C65A1A] relative overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-10 z-0" />
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white">
+              Todos os Recursos
+            </h1>
+            <p className="text-xl sm:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              Descubra todas as ferramentas que fazem da Debita.aí a escolha certa para sua gestão financeira.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
-        {/* Features Grid */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              className="text-center mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#252E54]">
-                Recursos Principais
-              </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Conheça as funcionalidades que tornam nossa plataforma única
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <CreditCard className="h-6 w-6 text-[#E85A27]" />
-                    Cartão de Crédito
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Aceite pagamentos com cartão de crédito em até 12x, com taxas competitivas 
-                    e processamento seguro.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Zap className="h-6 w-6 text-[#E85A27]" />
-                    PIX
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Receba pagamentos instantâneos via PIX, com geração automática de QR Code 
-                    e links de pagamento.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Barcode className="h-6 w-6 text-[#E85A27]" />
-                    Boleto Bancário
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Gere boletos bancários com vencimento personalizado e acompanhe o status 
-                    de pagamento em tempo real.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <LinkIcon className="h-6 w-6 text-[#E85A27]" />
-                    Links de Pagamento
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Crie links personalizados para cobrança, compartilhe via WhatsApp, 
-                    email ou redes sociais.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <FileCheck className="h-6 w-6 text-[#E85A27]" />
-                    Cobranças Recorrentes
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Configure cobranças automáticas recorrentes e gerencie assinaturas 
-                    de forma simples.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Bell className="h-6 w-6 text-[#E85A27]" />
-                    Notificações
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Envie notificações automáticas de vencimento, confirmação de pagamento 
-                    e atualizações de status.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BarChart2 className="h-6 w-6 text-[#E85A27]" />
-                    Relatórios Avançados
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Acesse relatórios detalhados de vendas, recebimentos, inadimplência 
-                    e métricas financeiras.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Settings className="h-6 w-6 text-[#E85A27]" />
-                    Integrações
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Integre com sistemas de gestão, e-commerce, ERPs e outras ferramentas 
-                    do seu negócio.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Lock className="h-6 w-6 text-[#E85A27]" />
-                    Segurança
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Proteção contra fraudes, criptografia de dados e conformidade com 
-                    as normas de segurança.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-16 bg-[#252E54] text-white">
-          <div className="container mx-auto px-4 text-center">
-            <motion.h2
-              className="text-3xl md:text-4xl font-bold mb-6"
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              Comece a receber pagamentos hoje
-            </motion.h2>
-            <motion.p
-              className="text-lg mb-8 max-w-3xl mx-auto"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              Junte-se a milhares de empresas que já confiam em nossa plataforma
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.4,
-                type: "spring",
-                stiffness: 100
-              }}
-              viewport={{ once: true }}
-            >
-              <Button
-                asChild
-                className="bg-[#E85A27] text-white hover:bg-[#E85A27]/90 px-6 py-6 text-base"
+      {/* Features Grid */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 hover:shadow-xl transition-shadow duration-200"
               >
-                <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform">
-                  Entre na lista de espera
-                </Link>
-              </Button>
-            </motion.div>
+                {/* Icon */}
+                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} text-white shadow-lg mb-6`}>
+                  {feature.icon}
+                </div>
+
+                {/* Content */}
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  {feature.title}
+                </h3>
+                
+                <p className="text-gray-600 leading-relaxed mb-6">
+                  {feature.description}
+                </p>
+
+                {/* Benefits */}
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-gray-800 mb-3">Principais benefícios:</h4>
+                  <ul className="space-y-2">
+                    {feature.benefits.map((benefit, benefitIndex) => (
+                      <li key={benefitIndex} className="flex items-center gap-3 text-sm text-gray-600">
+                        <CheckCircle2 className="h-4 w-4 text-[#4A8C7A] flex-shrink-0" />
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-[#E37A37] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-10 z-0" />
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-white">
+              Pronto para começar?
+            </h2>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8 leading-relaxed">
+              Junte-se a milhares de empresas que já simplificaram sua gestão financeira com a Debita.aí.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/em-breve">
+                <button className="bg-white text-[#E37A37] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                  Começar agora
+                </button>
+              </Link>
+              <button className="border-2 border-white/50 text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+                Falar com especialista
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      
       <Footer />
     </div>
   );

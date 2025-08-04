@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { setupScrollReveal } from "@/lib/utils";
 import { CreditCard, Zap, BarChart3, Users, TrendingUp } from "lucide-react";
+import Link from "next/link";
 // import { Button } from "@debita-ai/ragekit";
 import PeaceGuy from "../../../public/illustrations/peace-guy.svg";
 import Boleto from "../../../public/illustrations/boleto.svg";
@@ -183,7 +184,7 @@ export default function Features() {
                   <CreditCard className="h-4 w-4 text-[#E37A37]" />
                 </div>
                 <span className="text-gray-700 text-base leading-relaxed relative z-10">
-                  <strong>Gateway de Pagamento Completo:</strong> Receba de seus clientes via Pix, Cartão de Crédito e Boleto de forma simples e segura.
+                  <strong>Gateway de Pagamento Completo:</strong> Receba de seus clientes via Pix, Cartão de Crédito (em breve) e Boleto de forma simples e segura.
                 </span>
               </motion.div>
 
@@ -291,9 +292,11 @@ export default function Features() {
                 size="normal"
                 label="Conhecer recursos"
               /> */}
-              <button className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white font-semibold">
-                Ver todos os recursos
-              </button>
+              <Link href="/recursos">
+                <button className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white font-semibold">
+                  Ver todos os recursos
+                </button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>

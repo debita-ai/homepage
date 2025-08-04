@@ -529,7 +529,7 @@ export default function SignUpPage() {
 
       {/* Chat Icon */}
       <motion.a
-        href="https://wa.me/551152414928"
+        href="https://wa.me/5589994588003"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-[#E27936] text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
@@ -566,7 +566,7 @@ export default function SignUpPage() {
             <div className="flex items-center gap-4 lg:gap-6 text-xs text-[#006178]/70">
               <a href="#" className="hover:text-[#4A8C7A] transition-colors duration-200 font-medium">Ajuda</a>
               <a href="#" className="hover:text-[#4A8C7A] transition-colors duration-200 font-medium">Privacidade</a>
-              <a href="https://wa.me/551152414928" className="hover:text-[#4A8C7A] transition-colors duration-200 font-medium">WhatsApp</a>
+              <a href="https://wa.me/5589994588003" className="hover:text-[#4A8C7A] transition-colors duration-200 font-medium">WhatsApp</a>
             </div>
           </div>
 

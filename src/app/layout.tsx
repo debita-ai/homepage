@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Libre_Baskerville } from 'next/font/google'
 import HeaderWrapper from "@/components/layout/HeaderWrapper";
 import ScrollProgressBar from "@/components/layout/ScrollProgressBar";
+import { metadata as siteMetadata } from './metadata';
 
 
 const baskerville = Libre_Baskerville({
@@ -11,6 +12,8 @@ const baskerville = Libre_Baskerville({
   variable: '--font-baskerville',
   weight: ['400', '700']
 })
+
+export const metadata: Metadata = siteMetadata;
 
 export default function RootLayout({
   children,

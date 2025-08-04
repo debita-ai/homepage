@@ -285,7 +285,7 @@ export default function ParallaxHeroDesktop() {
               className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-6 px-8 text-lg shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white"
               asChild
             >
-              <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd7QnQVzcl5bToJTuyVbe_UrKQ3SDlqXKYFEfIM3zj-S8kp4Q/viewform" className="flex items-center justify-center gap-2">
+              <Link href="/em-breve" className="flex items-center justify-center gap-2">
                 <span>Comece agora</span>
                 <ArrowRight className="h-5 w-5" />
               </Link>

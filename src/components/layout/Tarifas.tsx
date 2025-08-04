@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { 
   CreditCard, 
   QrCode,
@@ -85,7 +86,7 @@ export default function Tarifas() {
     },
     {
       icon: <CreditCard className="h-8 w-8" />,
-      title: "Cartão de Crédito",
+      title: "Cartão de Crédito (em breve)",
       price: "Em breve",
       description: "Aguarde novidades",
       color: "from-[#006279] to-[#004A5C]",
@@ -330,10 +331,12 @@ export default function Tarifas() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <button className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-6 px-8 text-lg shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white gap-2 mx-auto">
-            <span>Criar conta agora</span>
-            <ArrowRight className="h-5 w-5" />
-          </button>
+          <Link href="/em-breve">
+            <button className="mkt-button-main flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-6 px-8 text-lg shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white gap-2 mx-auto">
+              <span>Criar conta agora</span>
+              <ArrowRight className="h-5 w-5" />
+            </button>
+          </Link>
           
           <p className="font-['Satoshi',sans-serif] text-gray-600 text-sm mt-4 font-medium">
             💡 Aproveite as taxas especiais criando sua conta agora mesmo!

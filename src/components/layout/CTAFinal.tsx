@@ -39,7 +39,7 @@ export default function CTAFinal() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <Link 
-              href="/cadastro" 
+              href="/em-breve" 
               className="inline-flex items-center gap-3 bg-white hover:bg-gray-100 text-[#E37A37] px-8 py-6 rounded-lg text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 group"
             >
               <span>Criar minha conta gratuitamente</span>

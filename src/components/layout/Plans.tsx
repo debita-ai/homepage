@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { 
   CheckCircle2, 
   X, 
@@ -33,7 +34,7 @@ export default function Plans() {
         "APIs básicas"
       ],
       notIncluded: [
-        "Cartão de crédito",
+        "Cartão de crédito (em breve)",
         "Suporte prioritário",
         "Webhook avançado"
       ]
@@ -47,7 +48,7 @@ export default function Plans() {
       highlight: true,
       features: [
         "Tudo do plano Grátis",
-        "Cartão de crédito",
+        "Cartão de crédito (em breve)",
         "Suporte prioritário",
         "Webhook avançado",
         "Relatórios personalizados",
@@ -153,16 +154,30 @@ export default function Plans() {
                 ))}
               </div>
 
-              <button
-                className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 ${
-                  plan.highlight
-                    ? 'bg-white text-[#E37A37] hover:bg-gray-50 hover:shadow-lg'
-                    : 'bg-[#E37A37] text-white hover:bg-[#C65A1A] hover:shadow-lg'
-                } ${plan.name === 'Premium' ? 'opacity-60 cursor-not-allowed' : 'hover:scale-105'}`}
-                disabled={plan.name === 'Premium'}
-              >
-                {plan.name === 'Premium' ? 'Em breve' : 'Começar agora'}
-              </button>
+              {plan.name === 'Premium' ? (
+                <button
+                  className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 ${
+                    plan.highlight
+                      ? 'bg-white text-[#E37A37] hover:bg-gray-50 hover:shadow-lg'
+                      : 'bg-[#E37A37] text-white hover:bg-[#C65A1A] hover:shadow-lg'
+                  } opacity-60 cursor-not-allowed`}
+                  disabled
+                >
+                  Em breve
+                </button>
+              ) : (
+                <Link href="/em-breve">
+                  <button
+                    className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 ${
+                      plan.highlight
+                        ? 'bg-white text-[#E37A37] hover:bg-gray-50 hover:shadow-lg'
+                        : 'bg-[#E37A37] text-white hover:bg-[#C65A1A] hover:shadow-lg'
+                    } hover:scale-105`}
+                  >
+                    Começar agora
+                  </button>
+                </Link>
+              )}
             </motion.div>
           ))}
         </div>
@@ -200,7 +215,7 @@ export default function Plans() {
                 <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3">
                   <CreditCard className="h-6 w-6 text-gray-400" />
                 </div>
-                <h4 className="font-semibold text-gray-800 mb-1">Cartão</h4>
+                <h4 className="font-semibold text-gray-800 mb-1">Cartão (em breve)</h4>
                 <p className="text-2xl font-bold text-gray-400">Em breve</p>
                 <p className="text-sm text-gray-600">aguarde novidades</p>
               </div>

@@ -26,10 +26,18 @@ export default function Home() {
     <div className="min-h-screen">
       <main>
         <ParallaxHero />
-        <Features />
-        <BentoGrid />
-        <Tarifas />
-        <SimpleFaq />
+        <div id="recursos">
+          <Features />
+        </div>
+        <div id="funcionalidades">
+          <BentoGrid />
+        </div>
+        <div id="tarifas">
+          <Tarifas />
+        </div>
+        <div id="faq">
+          <SimpleFaq />
+        </div>
         <CTAFinal />
       </main>
       <Footer />

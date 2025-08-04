@@ -7,51 +7,63 @@ import { ChevronDown } from "lucide-react";
 const faqs = [
   {
     question: "A plataforma é segura?",
-    answer: "Sim. Usamos criptografia de ponta e seguimos as melhores práticas de segurança do mercado financeiro para proteger seus dados e os de seus clientes. Somos regulamentados pelo Banco Central."
+    answer: "Sim! Utilizamos criptografia de ponta, certificações de segurança e seguimos as melhores práticas de proteção de dados conforme a LGPD. Trabalhamos apenas com IPs licenciadas pelo Banco Central."
   },
   {
     question: "Em quanto tempo o dinheiro fica disponível para saque?",
-    answer: "Pagamentos via Pix ficam disponíveis em segundos. Boletos em até 1 dia útil após o pagamento. Cartão de crédito em D+30, com opção de antecipação."
+    answer: "PIX: Recebimento instantâneo\nBoleto: D+1 (um dia útil após o pagamento)\nOs valores são processados por nossas IPs parceiras e disponibilizados conforme cada meio de pagamento."
   },
   {
-    question: "Preciso ter CNPJ para usar a Debita.ai?",
-    answer: "Não! Você pode se cadastrar tanto com seu CPF quanto com seu CNPJ, de forma rápida e sem burocracia."
+    question: "Preciso ter CNPJ para usar a debita.ai?",
+    answer: "Sim, nossa plataforma é voltada para empresas (PJ). É necessário CNPJ ativo para cadastro e integração com nossos parceiros de pagamento."
   },
   {
-    question: "Qual o limite de transações por mês?",
-    answer: "No plano gratuito, você pode processar transações ilimitadas. Aplicamos apenas as taxas sobre o valor recebido, sem limites de volume ou quantidade."
+    question: "Quais meios de pagamento vocês oferecem?",
+    answer: "Atualmente oferecemos PIX e Boleto Bancário. Estamos constantemente expandindo nosso portfólio de soluções de pagamento."
   },
   {
-    question: "Como funciona a antecipação de recebíveis?",
-    answer: "Você pode antecipar seus recebíveis de cartão de crédito com taxas competitivas. O valor antecipado fica disponível em até 1 dia útil na sua conta."
+    question: "Como funciona a gestão de cobranças na plataforma?",
+    answer: "Você pode criar, enviar e acompanhar cobranças automaticamente via PIX e boleto. A plataforma gerencia lembretes, vencimentos e status de pagamento em tempo real."
   },
   {
-    question: "Posso integrar com meu sistema atual?",
-    answer: "Sim! Oferecemos APIs completas para desenvolvedores, webhooks e integrações com os principais ERPs e sistemas de e-commerce do mercado."
+    question: "Posso integrar no meu sistema ou software atual?",
+    answer: "Sim! Oferecemos integração com os principais sistemas de gestão e vendas do mercado. Nossa equipe técnica auxilia na implementação e documentação completa."
   },
   {
-    question: "Há taxa para saques?",
-    answer: "Sim, cobramos uma taxa única de R$ 0,80 por saque para qualquer conta bancária. Não há limite mínimo para saque."
+    question: "Há taxa para usar a plataforma?",
+    answer: "Cobramos uma taxa de intermediação sobre transações processadas. Como não somos IP, repassamos as melhores condições de mercado de nossos parceiros licenciados."
   },
   {
     question: "Como funciona o suporte técnico?",
-    answer: "Oferecemos suporte via WhatsApp, email e chat no horário comercial. No plano premium, você terá suporte prioritário com atendimento diferenciado."
+    answer: "Oferecemos suporte via chat, email (suporte@debita.ai) e documentação completa durante horário comercial."
   },
   {
-    question: "Posso cancelar a qualquer momento sem multa?",
-    answer: "Sim! Não há contrato de fidelidade, taxa de cancelamento ou multa. Você pode deixar de usar nossos serviços quando quiser."
+    question: "Posso cancelar a qualquer momento?",
+    answer: "Sim, sem multa ou fidelidade. Seus dados podem ser exportados conforme nossa política de portabilidade."
   },
   {
-    question: "Vocês emitem nota fiscal das transações?",
-    answer: "Sim, emitimos nota fiscal de todas as taxas cobradas. As transações dos seus clientes não geram NF para você, apenas para seus compradores."
+    question: "Como funciona a Debita.aí?",
+    answer: "Somos uma plataforma de gestão de cobranças que facilita sua vida. Trabalhamos com parceiros licenciados pelo Banco Central para processar seus pagamentos com total segurança."
   },
   {
-    question: "Como funciona a conciliação bancária?",
-    answer: "Nossa plataforma faz a conciliação automática das suas vendas. Você visualiza em tempo real o que foi vendido, recebido e quando o dinheiro estará disponível."
+    question: "Como acompanho meus recebimentos e vendas?",
+    answer: "A plataforma oferece relatórios detalhados de todas as vendas e pagamentos recebidos, facilitando o controle financeiro da sua empresa com dados em tempo real."
   },
   {
-    question: "O que acontece se eu exceder os limites do plano gratuito?",
-    answer: "O plano gratuito não tem limites de transações. Cobramos apenas as taxas sobre o valor processado. Planos premium oferecerão recursos adicionais no futuro."
+    question: "Os dados dos meus clientes ficam seguros?",
+    answer: "Sim! Não armazenamos dados bancários sensíveis. Todas as informações de pagamento são processadas de forma segura por nossos parceiros licenciados, seguindo os mais altos padrões de segurança."
+  },
+  {
+    question: "Posso usar para cobrar clientes pessoa física?",
+    answer: "Sim! Você pode cobrar tanto PF quanto PJ através de PIX (instantâneo) e boleto bancário (D+1), com total flexibilidade na gestão."
+  },
+  {
+    question: "Por que escolher a Debita.aí ao invés de outras soluções?",
+    answer: "Oferecemos gestão completa de cobranças, automação, relatórios avançados e a flexibilidade de trabalhar com múltiplos parceiros através de uma única plataforma, sem toda a burocracia."
+  },
+  {
+    question: "Como sei que vou receber meu dinheiro?",
+    answer: "Trabalhamos exclusivamente com empresas licenciadas e supervisionadas pelo Banco Central do Brasil, garantindo máxima segurança e confiabilidade em todos os pagamentos."
   }
 ];
 
@@ -117,7 +129,7 @@ export default function SimpleFaq() {
                   className="overflow-hidden"
                 >
                   <div className="px-6 pb-6">
-                    <p className="font-['Satoshi',sans-serif] text-gray-600 leading-relaxed font-medium">
+                    <p className="font-['Satoshi',sans-serif] text-gray-600 leading-relaxed font-medium whitespace-pre-line">
                       {faq.answer}
                     </p>
                   </div>

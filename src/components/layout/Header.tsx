@@ -33,10 +33,10 @@ export default function Header() {
                 <div className="w-px h-6 bg-gray-300/50"></div>
 
                 {/* Links de navegação */}
-                <NavLink href="#solucoes">Soluções</NavLink>
                 <NavLink href="#recursos">Recursos</NavLink>
-                <NavLink href="#planos">Planos</NavLink>
+                <NavLink href="#funcionalidades">Funcionalidades</NavLink>
                 <NavLink href="#tarifas">Tarifas</NavLink>
+                <NavLink href="#faq">FAQ</NavLink>
               </div>
             </div>
           </nav>
@@ -46,14 +46,14 @@ export default function Header() {
             <button
               className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-3 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#FFF3E7] hover:bg-[#F5E6D3] text-[#E37A37] hover:text-[#E37A37] gap-2"
               onClick={() => {
-                window.location.href = process.env.NEXT_PUBLIC_APP_URL || "";
+                window.location.href = process.env.NEXT_PUBLIC_APP_URL || "https://app.debita.ai";
               }}
             >
               <User className="h-4 w-4" />
               Entrar na conta
             </button>
 
-            <Link href="/cadastro" prefetch className="inline-block">
+            <Link href="/em-breve" prefetch className="inline-block">
               <button className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-fit py-3 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 border-2 border-[#FAECDF] hover:border-[#F5E6D3] bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white gap-2">
                 <ArrowRight className="h-4 w-4" />
                 Comece agora
@@ -157,17 +157,17 @@ export default function Header() {
                 {/* Menu Content */}
                 <div className="flex-1 overflow-y-auto p-6">
                   <nav className="space-y-2 mb-8">
-                    <MobileNavLink href="#solucoes" onClick={() => setIsOpen(false)}>
-                      Soluções
-                    </MobileNavLink>
                     <MobileNavLink href="#recursos" onClick={() => setIsOpen(false)}>
                       Recursos
                     </MobileNavLink>
-                    <MobileNavLink href="#planos" onClick={() => setIsOpen(false)}>
-                      Planos
+                    <MobileNavLink href="#funcionalidades" onClick={() => setIsOpen(false)}>
+                      Funcionalidades
                     </MobileNavLink>
                     <MobileNavLink href="#tarifas" onClick={() => setIsOpen(false)}>
                       Tarifas
+                    </MobileNavLink>
+                    <MobileNavLink href="#faq" onClick={() => setIsOpen(false)}>
+                      FAQ
                     </MobileNavLink>
                   </nav>
 
@@ -176,14 +176,14 @@ export default function Header() {
                     <button
                       className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-full py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 bg-[#FFF3E7] hover:bg-[#F5E6D3] text-[#E37A37] hover:text-[#E37A37] gap-2"
                       onClick={() => {
-                        window.location.href = process.env.NEXT_PUBLIC_APP_URL || "";
+                        window.location.href = process.env.NEXT_PUBLIC_APP_URL || "https://app.debita.ai";
                       }}
                     >
                       <User className="h-4 w-4" />
                       Entrar na conta
                     </button>
 
-                    <Link href="/cadastro" prefetch className="block">
+                    <Link href="/em-breve" prefetch className="block">
                       <button className="flex items-center transition-colors group justify-center cursor-pointer hover:shadow-none disabled:shadow-none focus:shadow-none rounded-lg w-full py-4 px-6 text-base shadow-button-enabled focus:ring-yellow-400 focus:ring-2 focus:outline-none disabled:bg-gray-800 disabled:text-gray-400 border-2 border-[#FAECDF] hover:border-[#F5E6D3] bg-[#E37A37] hover:bg-[#C65A1A] text-white hover:text-white gap-2">
                         <ArrowRight className="h-4 w-4" />
                         Entrar na lista de espera
@@ -207,7 +207,7 @@ export default function Header() {
   );
 }
 
-// Desktop nav link component
+// Desktop nav link component with smooth scroll for anchors and normal links for pages
 function NavLink({
   href,
   children
@@ -215,10 +215,45 @@ function NavLink({
   href: string;
   children: React.ReactNode;
 }) {
+  const isAnchor = href.startsWith('#');
+  
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isAnchor) {
+      e.preventDefault();
+      const targetId = href.replace('#', '');
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+    // For non-anchor links, let the default behavior (navigation) happen
+  };
+
+  if (isAnchor) {
+    return (
+      <a
+        href={href}
+        onClick={handleClick}
+        className="relative px-3 py-2 text-[#E27936] hover:text-[#d24a1e] transition-all duration-200 group cursor-pointer"
+      >
+        {children}
+        <motion.span
+          className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-[#E27936] rounded-full"
+          initial={{ width: 0, x: "-50%" }}
+          whileHover={{ width: "80%", x: "-50%" }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        />
+      </a>
+    );
+  }
+
   return (
     <Link
       href={href}
-      className="relative px-3 py-2 text-[#E27936] hover:text-[#d24a1e] transition-all duration-200 font-medium group"
+      className="relative px-3 py-2 text-[#E27936] hover:text-[#d24a1e] transition-all duration-200 group"
     >
       {children}
       <motion.span
@@ -231,7 +266,7 @@ function NavLink({
   );
 }
 
-// Mobile nav link component
+// Mobile nav link component with smooth scroll for anchors and normal links for pages
 function MobileNavLink({
   href,
   onClick,
@@ -241,11 +276,44 @@ function MobileNavLink({
   onClick: () => void;
   children: React.ReactNode;
 }) {
+  const isAnchor = href.startsWith('#');
+  
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isAnchor) {
+      e.preventDefault();
+      onClick(); // Close mobile menu
+      const targetId = href.replace('#', '');
+      const element = document.getElementById(targetId);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }, 300); // Wait for menu close animation
+      }
+    } else {
+      onClick(); // Close mobile menu for page navigation
+    }
+  };
+
+  if (isAnchor) {
+    return (
+      <a
+        href={href}
+        onClick={handleClick}
+        className="block px-4 py-4 rounded-xl hover:bg-[#E27936]/5 active:bg-[#E27936]/10 transition-all duration-200 text-gray-700 hover:text-[#E27936] cursor-pointer"
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
     <Link
       href={href}
-      onClick={onClick}
-      className="block px-4 py-4 rounded-xl hover:bg-[#E27936]/5 active:bg-[#E27936]/10 transition-all duration-200 text-gray-700 hover:text-[#E27936] font-medium"
+      onClick={handleClick}
+      className="block px-4 py-4 rounded-xl hover:bg-[#E27936]/5 active:bg-[#E27936]/10 transition-all duration-200 text-gray-700 hover:text-[#E27936]"
     >
       {children}
     </Link>

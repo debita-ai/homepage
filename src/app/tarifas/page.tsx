@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import Link from "next/link";
 
 export default function Tarifas() {
   const fadeIn = {
@@ -97,15 +98,17 @@ export default function Tarifas() {
                 ))}
               </ul>
 
-              <button
-                className={`w-full py-3 px-6 rounded-lg font-medium transition-all ${
-                  index === 1
-                    ? "bg-[#E85A27] text-white hover:bg-[#D84A1F]"
-                    : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                }`}
-              >
-                Começar Agora
-              </button>
+              <Link href="/em-breve">
+                <button
+                  className={`w-full py-3 px-6 rounded-lg font-medium transition-all ${
+                    index === 1
+                      ? "bg-[#E85A27] text-white hover:bg-[#D84A1F]"
+                      : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                  }`}
+                >
+                  Começar Agora
+                </button>
+              </Link>
             </motion.div>
           ))}
         </div>
