@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Shield, Users, FileText, Settings } from "iconoir-react";
+import { Phone, Mail, MapPin, Shield } from "iconoir-react";
 import { Instagram, Linkedin, Globe, Play } from "lucide-react";
 import DebitaLogo from "../../../public/logo-white.svg";
 import ABFintechsLogo from "../../../public/abfintechs.png";
