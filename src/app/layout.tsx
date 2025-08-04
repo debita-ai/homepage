@@ -1,20 +1,18 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
+import { Libre_Baskerville } from 'next/font/google'
 import HeaderWrapper from "@/components/layout/HeaderWrapper";
 import ScrollProgressBar from "@/components/layout/ScrollProgressBar";
+import { metadata as siteMetadata } from './metadata';
 
-const inter = Inter({
+
+const baskerville = Libre_Baskerville({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter'
+  variable: '--font-baskerville',
+  weight: ['400', '700']
 })
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-jakarta'
-})
 
 export const metadata: Metadata = {
   title: 'Debita.aí - Plataforma de Cobranças e Gestão Financeira',
@@ -63,22 +61,11 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="pt-BR" className={`${baskerville.variable}`} suppressHydrationWarning>
       <head>
-        {/* JSON-LD para BreadcrumbList */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-        />
-        {/* JSON-LD para SearchBox no SERP */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
+        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,301,400,401,500,501,700,701,900,901,1,2&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
-        {/* <ScrollProgressBar /> */}
-        {/* Remover o scroll progress bar */}
+      <body className="min-h-screen font-satoshi antialiased" suppressHydrationWarning>
         <HeaderWrapper />
         <div className="min-h-screen bg-gray-50">
           {children}

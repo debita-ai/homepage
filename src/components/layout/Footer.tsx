@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Shield } from "iconoir-react";
-import { Instagram, Linkedin, Globe } from "lucide-react";
-import DebitaLogo from "../../../public/logo.svg";
+import { Phone, Mail, MapPin, Shield, } from "iconoir-react";
+import { Instagram, Linkedin, Globe, Play } from "lucide-react";
+import DebitaLogo from "../../../public/logo-white.svg";
 import ABFintechsLogo from "../../../public/abfintechs.png";
 
 export default function Footer() {
@@ -35,244 +34,393 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gradient-to-b from-[#1a1f3a] to-[#0f1323] text-white relative overflow-hidden">
-      {/* Giant Background Text */}
-      <div className="absolute bottom-28 left-0 right-4 sm:right-16 md:right-28 flex justify-center pointer-events-none">
-        <div className="text-[8rem] xs:text-[10rem] sm:text-[12rem] md:text-[16rem] lg:text-[20rem] xl:text-[25rem] 2xl:text-[30rem] font-bold text-white/[0.02] select-none whitespace-nowrap transform translate-y-1/2">
-          Debita.aí
-        </div>
-      </div>
+    <footer className="bg-[#E37A37] text-white relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 z-0" />
       
       {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#E85A27]/10 to-transparent rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#00809d]/10 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-white/10 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#C65A1A]/20 to-transparent rounded-full blur-3xl"></div>
 
-      <div className="container mx-auto px-4 relative">
-        {/* Main Footer Content */}
-        <div className="pt-16 pb-12">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
-            {/* Company Info */}
-            <div className="lg:col-span-1">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-              >
-                <Link href="/" className="inline-block mb-6">
-                  <Image src={DebitaLogo} width={180} alt="Logo Debita.aí" />
-                </Link>
-                <p className="text-gray-300 leading-relaxed mb-6 text-sm">
-                  Plataforma completa de gestão financeira e cobranças digitais. 
-                  Simplifique seus processos financeiros com segurança e eficiência.
-                </p>
-                
-                {/* Security Badges */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10">
-                    <Shield className="h-4 w-4 text-green-400" />
-                    <span className="text-xs font-medium">Ambiente seguro e criptografado</span>
-                  </div>
-                  {/* <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10">
-                    <Shield className="h-4 w-4 text-green-400" />
-                    <span className="text-xs font-medium">SSL 256-bit</span>
-                  </div>
-                  <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10">
-                    <Lock className="h-4 w-4 text-blue-400" />
-                    <span className="text-xs font-medium">PCI DSS</span>
-                  </div> */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Main Footer Content - Mobile First Design */}
+        <div className="pt-8 pb-6">
+          {/* Mobile: Company Info Section */}
+          <div className="block sm:hidden">
+            <motion.div
+              className="text-center mb-8"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <Link href="/" className="inline-block mb-4">
+                <Image src={DebitaLogo} width={80} alt="Logo Debita.aí" />
+              </Link>
+              <p className="text-white/80 text-sm leading-relaxed mb-6 px-4">
+                Plataforma completa de gestão financeira e cobranças digitais.
+              </p>
+              
+              {/* Social Media - Mobile */}
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <a href="https://www.instagram.com/debita.ai/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="https://www.linkedin.com/company/debitaai/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+                <a href="https://www.youtube.com/@debitaai" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <Play className="h-5 w-5" />
+                </a>
+              </div>
+
+              {/* Security Badges - Mobile */}
+              <div className="flex justify-center flex-wrap gap-3 mb-6">
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20">
+                  <Shield className="h-4 w-4 text-white" />
+                  <span className="text-xs font-medium text-white">Ambiente seguro</span>
                 </div>
-
-                {/* ABFintechs Logo */}
-                <div>
-                  <Image 
-                    src={ABFintechsLogo} 
-                    alt="ABFintechs - Associação Brasileira de Fintechs" 
-                    className="object-contain"
-                  />
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20">
+                  <Shield className="h-4 w-4 text-white" />
+                  <span className="text-xs font-medium text-white">SSL EV Protegido</span>
                 </div>
-              </motion.div>
-            </div>
+              </div>
 
-            {/* Navigation */}
-            <div>
-              <motion.h4
-                className="font-semibold mb-6 text-lg text-white"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                Navegação
-              </motion.h4>
-              <motion.ul
-                className="space-y-3"
-                variants={listMotion}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <motion.li variants={itemMotion}>
-                  <Link href="#recursos" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
-                    Recursos
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemMotion}>
-                  <Link href="#calculadora" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
-                    Planos
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemMotion}>
-                  <Link href="#tarifas" className="text-gray-300 hover:text-[#E85A27] transition-colors text-sm">
-                    Tarifas
-                  </Link>
-                </motion.li>
-              </motion.ul>
-            </div>
+              {/* ABFintechs Logo - Mobile */}
+              <div className="flex justify-center">
+                <Image 
+                  src={ABFintechsLogo} 
+                  alt="ABFintechs - Associação Brasileira de Fintechs" 
+                  width={90}
+                  className="object-contain"
+                />
+              </div>
+            </motion.div>
 
-            {/* Support & Contact */}
-            <div>
-              <motion.h4
-                className="font-semibold mb-6 text-lg text-white"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                Suporte
-              </motion.h4>
-              <motion.div
-                className="space-y-4"
-                variants={listMotion}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <motion.div variants={itemMotion} className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
-                  <div className="flex items-start gap-3">
-                    <Phone className="h-5 w-5 text-[#E85A27] mt-0.5" />
-                    <div>
-                      <p className="text-xs text-gray-400 mb-1">Atendimento</p>
-                      <a href="https://wa.me/551152414928" className="text-white hover:text-[#E85A27] transition-colors font-medium text-sm">
-                        +55 11 5241-4928
-                      </a>
-                      <p className="text-xs text-gray-400 mt-1">Seg-Sex: 9h às 18h</p>
-                    </div>
-                  </div>
-                </motion.div>
+            {/* Mobile Links Grid */}
+            <div className="grid grid-cols-2 gap-8 mb-8">
+              {/* Left Column - Mobile */}
+              <div>
+                <h4 className="font-semibold mb-4 text-white text-base">Empresa</h4>
+                <ul className="space-y-3">
+                  <li>
+                    <Link href="/sobre-nos" className="text-white/80 hover:text-white transition-colors text-sm block py-1">
+                      Sobre nós
+                    </Link>
+                  </li>
+                </ul>
 
-                <motion.div variants={itemMotion} className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
-                  <div className="flex items-start gap-3">
-                    <Mail className="h-5 w-5 text-[#E85A27] mt-0.5" />
-                    <div>
-                      <p className="text-xs text-gray-400 mb-1">Email</p>
-                      <a href="mailto:suporte@debita.ai" className="text-white hover:text-[#E85A27] transition-colors font-medium text-sm">
-                        suporte@debita.ai
-                      </a>
-                    </div>
-                  </div>
-                </motion.div>
+                <h4 className="font-semibold mb-4 mt-6 text-white text-base">Legal</h4>
+                <ul className="space-y-3">
+                  <li>
+                    <Link href="/legal/termos-de-uso" className="text-white/80 hover:text-white transition-colors text-sm block py-1">
+                      Termos de Uso
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/legal/termos-de-conta" className="text-white/80 hover:text-white transition-colors text-sm block py-1">
+                      Termos de Conta
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/privacidade" className="text-white/80 hover:text-white transition-colors text-sm block py-1">
+                      Política de Privacidade
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/denuncia" className="text-white/80 hover:text-white transition-colors text-sm block py-1">
+                      Canal de Denúncias
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-                <motion.div variants={itemMotion} className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-[#E85A27] mt-0.5" />
-                    <div>
-                      <p className="text-xs text-gray-400 mb-1">Endereço</p>
-                      <p className="text-white text-sm">Uruçuí, PI</p>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
+              {/* Right Column - Mobile */}
+              <div>
+                <h4 className="font-semibold mb-4 text-white text-base">Suporte</h4>
+                <ul className="space-y-3">
+                  <li>
+                    <Link href="/ajuda" className="text-white/80 hover:text-white transition-colors text-sm block py-1">
+                      Central de ajuda
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/contato" className="text-white/80 hover:text-white transition-colors text-sm block py-1">
+                      Contato
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/status" className="text-white/80 hover:text-white transition-colors text-sm block py-1">
+                      Status do sistema
+                    </Link>
+                  </li>
+                  <li>
+                    <a href="https://wa.me/5589994588003" className="text-white/80 hover:text-white transition-colors text-sm block py-1">
+                      WhatsApp
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
-          {/* Social Media & Links */}
-          <motion.div
-            className="flex flex-col md:flex-row justify-between items-center gap-6 py-8 border-t border-white/10"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center gap-6">
-              <motion.a
-                href="https://instagram.com/debita.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Instagram className="h-5 w-5 text-gray-300" />
-              </motion.a>
-              <motion.a
-                href="https://linkedin.com/company/debitaai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Linkedin className="h-5 w-5 text-gray-300" />
-              </motion.a>
-              <motion.a
-                href="https://debita.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Globe className="h-5 w-5 text-gray-300" />
-              </motion.a>
-            </div>
+          {/* Desktop: Original Layout */}
+          <div className="hidden sm:block">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 mb-12 lg:mb-16">
+              {/* Company Info */}
+              <div className="col-span-2">
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <Link href="/" className="inline-block mb-6">
+                    <Image src={DebitaLogo} width={80} alt="Logo Debita.aí" />
+                  </Link>
+                  <p className="text-white/80 leading-relaxed mb-6 text-sm max-w-sm">
+                    Plataforma completa de gestão financeira e cobranças digitais. 
+                    Simplifique seus processos financeiros com segurança e eficiência.
+                  </p>
+                  
+                  {/* Security Badges */}
+                  <div className="flex items-center flex-wrap gap-3 mb-6">
+                    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20">
+                      <Shield className="h-4 w-4 text-white flex-shrink-0" />
+                      <span className="text-xs font-medium text-white">Ambiente seguro</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20">
+                      <Shield className="h-4 w-4 text-white flex-shrink-0" />
+                      <span className="text-xs font-medium text-white">SSL EV Protegido</span>
+                    </div>
+                  </div>
 
-            {/* <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <Link href="/termos" className="hover:text-white transition-colors">
-                Termos de Uso
-              </Link>
-              <Link href="/privacidade" className="hover:text-white transition-colors">
-                Política de Privacidade
-              </Link>
-              <Link href="/cookies" className="hover:text-white transition-colors">
-                Cookies
-              </Link>
-              <Link href="/regulamentacao" className="hover:text-white transition-colors">
-                Regulamentação
-              </Link>
-            </div> */}
-          </motion.div>
-        </div>
+                  {/* Social Media */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <a href="https://www.instagram.com/debita.ai/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                      <Instagram className="h-4 w-4" />
+                    </a>
+                    <a href="https://www.linkedin.com/company/debitaai/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                      <Linkedin className="h-4 w-4" />
+                    </a>
+                    <a href="https://www.youtube.com/@debitaai" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                      <Play className="h-4 w-4" />
+                    </a>
+                  </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-white/10 py-8">
-          <motion.div
-            className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <div className="space-y-2">
-              <p className="text-sm text-gray-300">
-                <strong>© 2025 Debita.aí</strong> - Todos os direitos reservados
-              </p>
-              <p className="text-xs text-gray-400">
-                DEBITA.AI GESTAO FINANCEIRA E MEIOS DE PAGAMENTO LTDA
-              </p>
-              <p className="text-xs text-gray-400">
-                CNPJ: 46.379.233/0001-48
-              </p>
-            </div>
-
-            {/* <div className="text-right space-y-2">
-              <div className="flex items-center gap-2 justify-end">
-                <Shield className="h-4 w-4 text-green-400" />
-                <span className="text-xs text-gray-400">Ambiente seguro e criptografado</span>
+                  {/* ABFintechs Logo */}
+                  <div>
+                    <Image 
+                      src={ABFintechsLogo} 
+                      alt="ABFintechs - Associação Brasileira de Fintechs" 
+                      width={100}
+                      className="object-contain"
+                    />
+                  </div>
+                </motion.div>
               </div>
-            </div> */}
+
+              {/* Empresa */}
+              <div>
+                <motion.h4
+                  className="font-semibold mb-6 text-lg text-white"
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  Empresa
+                </motion.h4>
+                <motion.ul
+                  className="space-y-3"
+                  variants={listMotion}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <motion.li variants={itemMotion}>
+                    <Link href="/sobre-nos" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed">
+                      Sobre nós
+                    </Link>
+                  </motion.li>
+                </motion.ul>
+              </div>
+
+              {/* Suporte */}
+              <div>
+                <motion.h4
+                  className="font-semibold mb-6 text-lg text-white"
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  Suporte
+                </motion.h4>
+                <motion.ul
+                  className="space-y-3"
+                  variants={listMotion}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <motion.li variants={itemMotion}>
+                    <Link href="/ajuda" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed">
+                      Central de ajuda
+                    </Link>
+                  </motion.li>
+                  <motion.li variants={itemMotion}>
+                    <Link href="/contato" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed">
+                      Contato
+                    </Link>
+                  </motion.li>
+                  <motion.li variants={itemMotion}>
+                    <Link href="/status" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed">
+                      Status do sistema
+                    </Link>
+                  </motion.li>
+                  <motion.li variants={itemMotion}>
+                    <a href="https://wa.me/5589994588003" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed">
+                      WhatsApp
+                    </a>
+                  </motion.li>
+                </motion.ul>
+              </div>
+
+              {/* Legal */}
+              <div>
+                <motion.h4
+                  className="font-semibold mb-6 text-lg text-white"
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  Legal
+                </motion.h4>
+                <motion.ul
+                  className="space-y-3"
+                  variants={listMotion}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <motion.li variants={itemMotion}>
+                    <Link href="/legal/termos-de-uso" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed">
+                      Termos de Uso
+                    </Link>
+                  </motion.li>
+                  <motion.li variants={itemMotion}>
+                    <Link href="/legal/termos-de-conta" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed">
+                      Termos de Conta
+                    </Link>
+                  </motion.li>
+                  <motion.li variants={itemMotion}>
+                    <Link href="/privacidade" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed">
+                      Política de Privacidade
+                    </Link>
+                  </motion.li>
+                  <motion.li variants={itemMotion}>
+                    <Link href="/denuncia" className="text-white/80 hover:text-white transition-colors text-sm leading-relaxed">
+                      Canal de Denúncias
+                    </Link>
+                  </motion.li>
+                </motion.ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Info - Mobile First */}
+          <motion.div
+            className="border-t border-white/20 pt-6 mb-6"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            {/* Mobile Contact Info */}
+            <div className="block sm:hidden space-y-4">
+              <div className="bg-white/5 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <Phone className="h-5 w-5 text-white mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-white font-medium text-sm">Atendimento</p>
+                    <p className="text-white/80 text-sm">+55 89 99458-8003</p>
+                    <p className="text-white/60 text-xs">Seg-Sex: 9h às 18h</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white/5 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <Mail className="h-5 w-5 text-white mt-1 flex-shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-white font-medium text-sm mb-1">Suporte Técnico</p>
+                    <p className="text-white/80 text-sm break-all mb-2">suporte@debita.ai</p>
+                    <p className="text-white font-medium text-sm mb-1">Ouvidoria</p>
+                    <p className="text-white/80 text-sm break-all">ouvidoria@debita.ai</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white/5 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <MapPin className="h-5 w-5 text-white mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-white font-medium text-sm">Endereço</p>
+                    <p className="text-white/80 text-sm">Uruçuí, PI - 64860-000</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Contact Info */}
+            <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-white mt-1 flex-shrink-0" />
+                <div>
+                  <p className="text-white font-medium text-sm">Atendimento</p>
+                  <p className="text-white/80 text-sm">+55 89 99458-8003</p>
+                  <p className="text-white/60 text-xs">Seg-Sex: 9h às 18h</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <Mail className="h-5 w-5 text-white mt-1 flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-white font-medium text-sm mb-1">Suporte Técnico</p>
+                  <p className="text-white/80 text-sm break-all mb-2">suporte@debita.ai</p>
+                  <p className="text-white font-medium text-sm mb-1">Ouvidoria</p>
+                  <p className="text-white/80 text-sm break-all">ouvidoria@debita.ai</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 sm:col-span-2 lg:col-span-1">
+                <MapPin className="h-5 w-5 text-white mt-1 flex-shrink-0" />
+                <div>
+                  <p className="text-white font-medium text-sm">Endereço</p>
+                  <p className="text-white/80 text-sm">Uruçuí, PI - 64860-000</p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
+
+        {/* Bottom Bar */}
+        <motion.div
+          className="border-t border-white/20 py-4 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-xs text-white/80 leading-relaxed px-4">
+            © 2025 DEBITA.AI GESTAO FINANCEIRA E MEIOS DE PAGAMENTO LTDA.<br className="sm:hidden" /> Todos os direitos reservados.
+          </p>
+          <p className="text-xs text-white/60 mt-2">
+            CNPJ: 46.379.233/0001-48
+          </p>
+        </motion.div>
       </div>
     </footer>
   );

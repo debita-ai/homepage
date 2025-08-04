@@ -101,7 +101,7 @@ export default function ParaVocePage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600">
-                    Aceite pagamentos via PIX, cartão de crédito, boleto e transferência bancária. 
+                    Aceite pagamentos via PIX, cartão de crédito (em breve), boleto e transferência bancária. 
                     Tudo em uma única plataforma.
                   </p>
                 </CardContent>
