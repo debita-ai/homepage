@@ -4,7 +4,7 @@ import { ContactInquiry } from '../../../components/email-templates/ContactInqui
 import { AdminNotification } from '../../../components/email-templates/AdminNotification';
 import { z } from 'zod';
 
-const resend = new Resend("re_123");
+const resend = new Resend("re_bSochSxg_4FRgUvxKM786GCDLkHr8BK2F");
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),

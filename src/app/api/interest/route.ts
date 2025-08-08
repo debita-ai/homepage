@@ -4,7 +4,7 @@ import { InterestNotification } from '../../../components/email-templates/Intere
 import { AdminNotification } from '../../../components/email-templates/AdminNotification';
 import { z } from 'zod';
 
-const resend = new Resend("re_123");
+const resend = new Resend("re_bSochSxg_4FRgUvxKM786GCDLkHr8BK2F");
 
 const interestSchema = z.object({
   name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     // Send confirmation email to user
     const userEmailResult = await resend.emails.send({
-      from: 'Debita.aí <noreply@debita.ai>',
+      from: 'Debita.aí <suporte@debita.ai>',
       to: [email],
       subject: 'Bem-vindo à lista de espera da Debita.aí!',
       react: InterestNotification({ name, email }),
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
     // Send notification to admin team
     const adminEmailResult = await resend.emails.send({
-      from: 'Sistema Debita.aí <sistema@debita.ai>',
+      from: 'Sistema Debita.aí <suporte@debita.ai>',
       to: ['suporte@debita.ai'],
       subject: `📧 Nova inscrição na lista de espera - ${name}`,
       react: AdminNotification({
