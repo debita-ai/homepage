@@ -200,7 +200,7 @@ export default function Plans() {
                   <Smartphone className="h-6 w-6 text-[#E37A37]" />
                 </div>
                 <h4 className="font-semibold text-gray-800 mb-1">Pix</h4>
-                <p className="text-2xl font-bold text-[#E37A37]">0,80%</p>
+                <p className="text-2xl font-bold text-[#E37A37]">R$0,60</p>
                 <p className="text-sm text-gray-600">por transação</p>
               </div>
               <div className="text-center">

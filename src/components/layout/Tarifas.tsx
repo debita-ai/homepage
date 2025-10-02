@@ -52,7 +52,7 @@ export default function Tarifas() {
   const calculateFee = () => {
     const value = getNumericValue();
     if (selectedType === "pix") {
-      return 0.80; // R$ 0,80 fixo
+      return 0.60; // R$ 0,60 fixo
     } else if (selectedType === "boleto") {
       return 2.80; // R$ 2,80 fixo
     }
