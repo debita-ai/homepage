@@ -71,7 +71,7 @@ export default function Tarifas() {
     {
       icon: <QrCode className="h-8 w-8" />,
       title: "Pix",
-      price: "R$ 0,80",
+      price: "R$ 0,60",
       description: "por transação recebida",
       color: "from-[#E37A37] to-[#C65A1A]",
       size: "lg:col-span-1"
@@ -258,7 +258,7 @@ export default function Tarifas() {
                       </div>
                       <div className="text-left">
                         <span className="font-['Satoshi',sans-serif] text-base font-semibold block">Pix</span>
-                        <span className="font-['Satoshi',sans-serif] text-sm text-gray-500">R$ 0,80 por transação</span>
+                        <span className="font-['Satoshi',sans-serif] text-sm text-gray-500">R$ 0,60 por transação</span>
                       </div>
                     </button>
                     <button
